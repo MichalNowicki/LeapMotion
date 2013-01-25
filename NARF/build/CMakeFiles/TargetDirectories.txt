@@ -1,0 +1,1 @@
+/home/smi/Desktop/KinectMoj/NARF/build/CMakeFiles/kinect.dir

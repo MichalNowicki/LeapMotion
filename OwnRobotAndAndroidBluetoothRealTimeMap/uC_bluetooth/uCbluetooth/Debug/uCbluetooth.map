@@ -1,0 +1,444 @@
+Archive member included because of file (symbol)
+
+d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_exit.o)
+                              d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr4/crtm8.o (exit)
+d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_copy_data.o)
+                              uCbluetooth.o (__do_copy_data)
+d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_clear_bss.o)
+                              I2c/I2C.o (__do_clear_bss)
+
+Allocating common symbols
+Common symbol       size              file
+
+dane_indeks         0x1               I2c/I2C.o
+dane                0x6               I2c/I2C.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00002000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr4/crtm8.o
+LOAD I2c/I2C.o
+LOAD LCD/HD44780.o
+LOAD uCbluetooth.o
+LOAD USART/USART.o
+LOAD d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a
+LOAD d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr4\libc.a
+LOAD d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000      0x3fe
+ *(.vectors)
+ .vectors       0x00000000       0x26 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr4/crtm8.o
+                0x00000000                __vector_default
+                0x00000000                __vectors
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+                0x00000026                . = ALIGN (0x2)
+                0x00000026                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x00000026        0x0 linker stubs
+ *(.trampolines*)
+                0x00000026                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x00000026                __ctors_start = .
+ *(.ctors)
+                0x00000026                __ctors_end = .
+                0x00000026                __dtors_start = .
+ *(.dtors)
+                0x00000026                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x00000026        0x0 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr4/crtm8.o
+                0x00000026                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x00000026        0xc d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr4/crtm8.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000032       0x16 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_copy_data.o)
+                0x00000032                __do_copy_data
+ .init4         0x00000048       0x10 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_clear_bss.o)
+                0x00000048                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x00000058        0x4 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr4/crtm8.o
+ *(.init9)
+ *(.text)
+ .text          0x0000005c        0x2 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr4/crtm8.o
+                0x0000005c                __vector_12
+                0x0000005c                __bad_interrupt
+                0x0000005c                __vector_6
+                0x0000005c                __vector_3
+                0x0000005c                __vector_13
+                0x0000005c                __vector_17
+                0x0000005c                __vector_7
+                0x0000005c                __vector_5
+                0x0000005c                __vector_4
+                0x0000005c                __vector_9
+                0x0000005c                __vector_2
+                0x0000005c                __vector_15
+                0x0000005c                __vector_8
+                0x0000005c                __vector_14
+                0x0000005c                __vector_10
+                0x0000005c                __vector_16
+                0x0000005c                __vector_18
+ .text          0x0000005e      0x10a I2c/I2C.o
+                0x0000005e                I2C_init
+                0x00000078                I2C_read
+                0x000000f6                I2C_write
+                0x00000120                __vector_1
+ .text          0x00000168      0x19c LCD/HD44780.o
+                0x00000168                _LCD_OutNibble
+                0x00000198                _LCD_InNibble
+                0x000001ae                _LCD_Read
+                0x000001d2                LCD_ReadStatus
+                0x000001d8                _LCD_Write
+                0x00000202                LCD_WriteCommand
+                0x00000208                LCD_WriteData
+                0x0000020e                LCD_WriteText
+                0x0000022a                LCD_GoTo
+                0x0000023c                LCD_Clear
+                0x0000024e                LCD_Home
+                0x00000260                LCD_Initalize
+ .text          0x00000304       0x48 uCbluetooth.o
+                0x00000304                init
+                0x0000030c                main
+ .text          0x0000034c       0xae USART/USART.o
+                0x0000034c                USART_init
+                0x0000036e                USART_transmit
+                0x00000376                USART_receive
+                0x0000037c                USART_SendInt
+                0x00000384                USART_send
+                0x000003a0                __vector_11
+ .text          0x000003fa        0x0 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_exit.o)
+ .text          0x000003fa        0x0 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_copy_data.o)
+ .text          0x000003fa        0x0 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_clear_bss.o)
+                0x000003fa                . = ALIGN (0x2)
+ *(.text.*)
+ .text.libgcc   0x000003fa        0x0 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_exit.o)
+ .text.libgcc   0x000003fa        0x0 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_copy_data.o)
+ .text.libgcc   0x000003fa        0x0 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_clear_bss.o)
+                0x000003fa                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x000003fa        0x0 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_exit.o)
+                0x000003fa                _exit
+                0x000003fa                exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x000003fa        0x4 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_exit.o)
+ *(.fini0)
+                0x000003fe                _etext = .
+
+.data           0x00800060        0x6 load address 0x000003fe
+                0x00800060                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800060        0x0 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr4/crtm8.o
+ .data          0x00800060        0x0 I2c/I2C.o
+ .data          0x00800060        0x0 LCD/HD44780.o
+ .data          0x00800060        0x6 uCbluetooth.o
+ .data          0x00800066        0x0 USART/USART.o
+ .data          0x00800066        0x0 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_exit.o)
+ .data          0x00800066        0x0 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_copy_data.o)
+ .data          0x00800066        0x0 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_clear_bss.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x00800066                . = ALIGN (0x2)
+                0x00800066                _edata = .
+                0x00800066                PROVIDE (__data_end, .)
+
+.bss            0x00800066        0x7
+                0x00800066                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x00800066        0x0 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr4/crtm8.o
+ .bss           0x00800066        0x0 I2c/I2C.o
+ .bss           0x00800066        0x0 LCD/HD44780.o
+ .bss           0x00800066        0x0 uCbluetooth.o
+ .bss           0x00800066        0x0 USART/USART.o
+ .bss           0x00800066        0x0 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_exit.o)
+ .bss           0x00800066        0x0 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_copy_data.o)
+ .bss           0x00800066        0x0 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_clear_bss.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x00800066        0x7 I2c/I2C.o
+                0x00800066                dane_indeks
+                0x00800067                dane
+                0x0080006d                PROVIDE (__bss_end, .)
+                0x000003fe                __data_load_start = LOADADDR (.data)
+                0x00000404                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x0080006d        0x0
+                0x0080006d                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x0080006d                PROVIDE (__noinit_end, .)
+                0x0080006d                _end = .
+                0x0080006d                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab           0x00000000      0x6cc
+ *(.stab)
+ .stab          0x00000000      0x6cc d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr4/crtm8.o
+
+.stabstr        0x00000000       0x85
+ *(.stabstr)
+ .stabstr       0x00000000       0x85 d:/programowanieavr/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr4/crtm8.o
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000       0x80
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x20 I2c/I2C.o
+ .debug_aranges
+                0x00000020       0x20 LCD/HD44780.o
+ .debug_aranges
+                0x00000040       0x20 uCbluetooth.o
+ .debug_aranges
+                0x00000060       0x20 USART/USART.o
+
+.debug_pubnames
+                0x00000000      0x222
+ *(.debug_pubnames)
+ .debug_pubnames
+                0x00000000       0x62 I2c/I2C.o
+ .debug_pubnames
+                0x00000062       0xf3 LCD/HD44780.o
+ .debug_pubnames
+                0x00000155       0x3d uCbluetooth.o
+ .debug_pubnames
+                0x00000192       0x90 USART/USART.o
+
+.debug_info     0x00000000      0xa82
+ *(.debug_info)
+ .debug_info    0x00000000      0x139 I2c/I2C.o
+ .debug_info    0x00000139      0x570 LCD/HD44780.o
+ .debug_info    0x000006a9      0x21c uCbluetooth.o
+ .debug_info    0x000008c5      0x1bd USART/USART.o
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev   0x00000000      0x4d6
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000       0xb9 I2c/I2C.o
+ .debug_abbrev  0x000000b9      0x1a7 LCD/HD44780.o
+ .debug_abbrev  0x00000260      0x147 uCbluetooth.o
+ .debug_abbrev  0x000003a7      0x12f USART/USART.o
+
+.debug_line     0x00000000      0xb68
+ *(.debug_line)
+ .debug_line    0x00000000      0x25e I2c/I2C.o
+ .debug_line    0x0000025e      0x538 LCD/HD44780.o
+ .debug_line    0x00000796      0x1e2 uCbluetooth.o
+ .debug_line    0x00000978      0x1f0 USART/USART.o
+
+.debug_frame    0x00000000      0x1c0
+ *(.debug_frame)
+ .debug_frame   0x00000000       0x50 I2c/I2C.o
+ .debug_frame   0x00000050       0xd0 LCD/HD44780.o
+ .debug_frame   0x00000120       0x30 uCbluetooth.o
+ .debug_frame   0x00000150       0x70 USART/USART.o
+
+.debug_str      0x00000000      0x29b
+ *(.debug_str)
+ .debug_str     0x00000000       0xcc I2c/I2C.o
+                                0x105 (size before relaxing)
+ .debug_str     0x000000cc      0x13d LCD/HD44780.o
+                                0x209 (size before relaxing)
+ .debug_str     0x00000209       0x18 uCbluetooth.o
+                                0x147 (size before relaxing)
+ .debug_str     0x00000221       0x7a USART/USART.o
+                                0x153 (size before relaxing)
+
+.debug_loc      0x00000000      0x1a4
+ *(.debug_loc)
+ .debug_loc     0x00000000       0x3e I2c/I2C.o
+ .debug_loc     0x0000003e      0x120 LCD/HD44780.o
+ .debug_loc     0x0000015e       0x46 USART/USART.o
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(uCbluetooth.elf elf32-avr)
+LOAD linker stubs
+
+.debug_pubtypes
+                0x00000000       0xa0
+ .debug_pubtypes
+                0x00000000       0x1e I2c/I2C.o
+ .debug_pubtypes
+                0x0000001e       0x38 LCD/HD44780.o
+ .debug_pubtypes
+                0x00000056       0x2c uCbluetooth.o
+ .debug_pubtypes
+                0x00000082       0x1e USART/USART.o

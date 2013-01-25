@@ -1,0 +1,2997 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"stm32f10x_usart.c"
+  23              	.Ltext0:
+  24              		.file 1 "../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c"
+ 19575              		.align	2
+ 19576              		.global	USART_DeInit
+ 19577              		.thumb
+ 19578              		.thumb_func
+ 19580              	USART_DeInit:
+ 19581              	.LFB29:
+   1:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+   2:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   ******************************************************************************
+   3:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @file    stm32f10x_usart.c
+   4:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @author  MCD Application Team
+   5:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @version V3.5.0
+   6:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @date    11-March-2011
+   7:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief   This file provides all the USART firmware functions.
+   8:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   ******************************************************************************
+   9:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @attention
+  10:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *
+  11:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  12:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  13:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+  14:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  15:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  16:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  17:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *
+  18:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  19:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   ******************************************************************************
+  20:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+  21:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  22:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /* Includes ------------------------------------------------------------------*/
+  23:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #include "stm32f10x_usart.h"
+  24:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #include "stm32f10x_rcc.h"
+  25:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  26:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /** @addtogroup STM32F10x_StdPeriph_Driver
+  27:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @{
+  28:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+  29:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  30:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /** @defgroup USART 
+  31:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief USART driver modules
+  32:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @{
+  33:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+  34:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  35:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /** @defgroup USART_Private_TypesDefinitions
+  36:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @{
+  37:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+  38:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  39:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+  40:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @}
+  41:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+  42:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  43:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /** @defgroup USART_Private_Defines
+  44:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @{
+  45:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+  46:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  47:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR1_UE_Set                ((uint16_t)0x2000)  /*!< USART Enable Mask */
+  48:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR1_UE_Reset              ((uint16_t)0xDFFF)  /*!< USART Disable Mask */
+  49:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  50:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR1_WAKE_Mask             ((uint16_t)0xF7FF)  /*!< USART WakeUp Method Mask */
+  51:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  52:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR1_RWU_Set               ((uint16_t)0x0002)  /*!< USART mute mode Enable Mask */
+  53:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR1_RWU_Reset             ((uint16_t)0xFFFD)  /*!< USART mute mode Enable Mask */
+  54:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR1_SBK_Set               ((uint16_t)0x0001)  /*!< USART Break Character send Mask */
+  55:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR1_CLEAR_Mask            ((uint16_t)0xE9F3)  /*!< USART CR1 Mask */
+  56:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR2_Address_Mask          ((uint16_t)0xFFF0)  /*!< USART address Mask */
+  57:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  58:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR2_LINEN_Set              ((uint16_t)0x4000)  /*!< USART LIN Enable Mask */
+  59:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR2_LINEN_Reset            ((uint16_t)0xBFFF)  /*!< USART LIN Disable Mask */
+  60:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  61:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR2_LBDL_Mask             ((uint16_t)0xFFDF)  /*!< USART LIN Break detection Mask */
+  62:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR2_STOP_CLEAR_Mask       ((uint16_t)0xCFFF)  /*!< USART CR2 STOP Bits Mask */
+  63:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR2_CLOCK_CLEAR_Mask      ((uint16_t)0xF0FF)  /*!< USART CR2 Clock Mask */
+  64:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  65:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR3_SCEN_Set              ((uint16_t)0x0020)  /*!< USART SC Enable Mask */
+  66:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR3_SCEN_Reset            ((uint16_t)0xFFDF)  /*!< USART SC Disable Mask */
+  67:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  68:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR3_NACK_Set              ((uint16_t)0x0010)  /*!< USART SC NACK Enable Mask */
+  69:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR3_NACK_Reset            ((uint16_t)0xFFEF)  /*!< USART SC NACK Disable Mask */
+  70:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  71:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR3_HDSEL_Set             ((uint16_t)0x0008)  /*!< USART Half-Duplex Enable Mask */
+  72:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR3_HDSEL_Reset           ((uint16_t)0xFFF7)  /*!< USART Half-Duplex Disable Mask */
+  73:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  74:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR3_IRLP_Mask             ((uint16_t)0xFFFB)  /*!< USART IrDA LowPower mode Mask */
+  75:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR3_CLEAR_Mask            ((uint16_t)0xFCFF)  /*!< USART CR3 Mask */
+  76:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  77:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR3_IREN_Set              ((uint16_t)0x0002)  /*!< USART IrDA Enable Mask */
+  78:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR3_IREN_Reset            ((uint16_t)0xFFFD)  /*!< USART IrDA Disable Mask */
+  79:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define GTPR_LSB_Mask             ((uint16_t)0x00FF)  /*!< Guard Time Register LSB Mask */
+  80:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define GTPR_MSB_Mask             ((uint16_t)0xFF00)  /*!< Guard Time Register MSB Mask */
+  81:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define IT_Mask                   ((uint16_t)0x001F)  /*!< USART Interrupt Mask */
+  82:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  83:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /* USART OverSampling-8 Mask */
+  84:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR1_OVER8_Set             ((u16)0x8000)  /* USART OVER8 mode Enable Mask */
+  85:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR1_OVER8_Reset           ((u16)0x7FFF)  /* USART OVER8 mode Disable Mask */
+  86:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  87:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /* USART One Bit Sampling Mask */
+  88:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR3_ONEBITE_Set           ((u16)0x0800)  /* USART ONEBITE mode Enable Mask */
+  89:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** #define CR3_ONEBITE_Reset         ((u16)0xF7FF)  /* USART ONEBITE mode Disable Mask */
+  90:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  91:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+  92:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @}
+  93:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+  94:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  95:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /** @defgroup USART_Private_Macros
+  96:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @{
+  97:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+  98:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+  99:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 100:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @}
+ 101:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 102:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 103:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /** @defgroup USART_Private_Variables
+ 104:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @{
+ 105:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 106:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 107:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 108:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @}
+ 109:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 110:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 111:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /** @defgroup USART_Private_FunctionPrototypes
+ 112:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @{
+ 113:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 114:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 115:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 116:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @}
+ 117:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 118:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 119:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /** @defgroup USART_Private_Functions
+ 120:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @{
+ 121:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 122:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 123:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 124:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Deinitializes the USARTx peripheral registers to their default reset values.
+ 125:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 126:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values: 
+ 127:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *      USART1, USART2, USART3, UART4 or UART5.
+ 128:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 129:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 130:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_DeInit(USART_TypeDef* USARTx)
+ 131:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 19582              		.loc 1 131 0
+ 19583              		.cfi_startproc
+ 19584              		@ args = 0, pretend = 0, frame = 8
+ 19585              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19586 0000 80B5     		push	{r7, lr}
+ 19587              	.LCFI0:
+ 19588              		.cfi_def_cfa_offset 8
+ 19589 0002 82B0     		sub	sp, sp, #8
+ 19590              	.LCFI1:
+ 19591              		.cfi_def_cfa_offset 16
+ 19592 0004 00AF     		add	r7, sp, #0
+ 19593              		.cfi_offset 14, -4
+ 19594              		.cfi_offset 7, -8
+ 19595              	.LCFI2:
+ 19596              		.cfi_def_cfa_register 7
+ 19597 0006 7860     		str	r0, [r7, #4]
+ 132:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 133:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 134:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 135:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (USARTx == USART1)
+ 19598              		.loc 1 135 0
+ 19599 0008 7A68     		ldr	r2, [r7, #4]
+ 19600 000a 2B4B     		ldr	r3, .L7
+ 19601 000c 9A42     		cmp	r2, r3
+ 19602 000e 0CD1     		bne	.L2
+ 136:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 137:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     RCC_APB2PeriphResetCmd(RCC_APB2Periph_USART1, ENABLE);
+ 19603              		.loc 1 137 0
+ 19604 0010 4FF48040 		mov	r0, #16384
+ 19605 0014 4FF00101 		mov	r1, #1
+ 19606 0018 FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+ 138:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     RCC_APB2PeriphResetCmd(RCC_APB2Periph_USART1, DISABLE);
+ 19607              		.loc 1 138 0
+ 19608 001c 4FF48040 		mov	r0, #16384
+ 19609 0020 4FF00001 		mov	r1, #0
+ 19610 0024 FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+ 19611 0028 42E0     		b	.L1
+ 19612              	.L2:
+ 139:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 140:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else if (USARTx == USART2)
+ 19613              		.loc 1 140 0
+ 19614 002a 7A68     		ldr	r2, [r7, #4]
+ 19615 002c 234B     		ldr	r3, .L7+4
+ 19616 002e 9A42     		cmp	r2, r3
+ 19617 0030 0CD1     		bne	.L4
+ 141:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 142:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     RCC_APB1PeriphResetCmd(RCC_APB1Periph_USART2, ENABLE);
+ 19618              		.loc 1 142 0
+ 19619 0032 4FF40030 		mov	r0, #131072
+ 19620 0036 4FF00101 		mov	r1, #1
+ 19621 003a FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 143:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     RCC_APB1PeriphResetCmd(RCC_APB1Periph_USART2, DISABLE);
+ 19622              		.loc 1 143 0
+ 19623 003e 4FF40030 		mov	r0, #131072
+ 19624 0042 4FF00001 		mov	r1, #0
+ 19625 0046 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 19626 004a 31E0     		b	.L1
+ 19627              	.L4:
+ 144:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 145:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else if (USARTx == USART3)
+ 19628              		.loc 1 145 0
+ 19629 004c 7A68     		ldr	r2, [r7, #4]
+ 19630 004e 1C4B     		ldr	r3, .L7+8
+ 19631 0050 9A42     		cmp	r2, r3
+ 19632 0052 0CD1     		bne	.L5
+ 146:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 147:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     RCC_APB1PeriphResetCmd(RCC_APB1Periph_USART3, ENABLE);
+ 19633              		.loc 1 147 0
+ 19634 0054 4FF48020 		mov	r0, #262144
+ 19635 0058 4FF00101 		mov	r1, #1
+ 19636 005c FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 148:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     RCC_APB1PeriphResetCmd(RCC_APB1Periph_USART3, DISABLE);
+ 19637              		.loc 1 148 0
+ 19638 0060 4FF48020 		mov	r0, #262144
+ 19639 0064 4FF00001 		mov	r1, #0
+ 19640 0068 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 19641 006c 20E0     		b	.L1
+ 19642              	.L5:
+ 149:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }    
+ 150:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else if (USARTx == UART4)
+ 19643              		.loc 1 150 0
+ 19644 006e 7A68     		ldr	r2, [r7, #4]
+ 19645 0070 144B     		ldr	r3, .L7+12
+ 19646 0072 9A42     		cmp	r2, r3
+ 19647 0074 0CD1     		bne	.L6
+ 151:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 152:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     RCC_APB1PeriphResetCmd(RCC_APB1Periph_UART4, ENABLE);
+ 19648              		.loc 1 152 0
+ 19649 0076 4FF40020 		mov	r0, #524288
+ 19650 007a 4FF00101 		mov	r1, #1
+ 19651 007e FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 153:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     RCC_APB1PeriphResetCmd(RCC_APB1Periph_UART4, DISABLE);
+ 19652              		.loc 1 153 0
+ 19653 0082 4FF40020 		mov	r0, #524288
+ 19654 0086 4FF00001 		mov	r1, #0
+ 19655 008a FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 19656 008e 0FE0     		b	.L1
+ 19657              	.L6:
+ 154:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }    
+ 155:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else
+ 156:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 157:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     if (USARTx == UART5)
+ 19658              		.loc 1 157 0
+ 19659 0090 7A68     		ldr	r2, [r7, #4]
+ 19660 0092 0D4B     		ldr	r3, .L7+16
+ 19661 0094 9A42     		cmp	r2, r3
+ 19662 0096 0BD1     		bne	.L1
+ 158:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     { 
+ 159:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****       RCC_APB1PeriphResetCmd(RCC_APB1Periph_UART5, ENABLE);
+ 19663              		.loc 1 159 0
+ 19664 0098 4FF48010 		mov	r0, #1048576
+ 19665 009c 4FF00101 		mov	r1, #1
+ 19666 00a0 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 160:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****       RCC_APB1PeriphResetCmd(RCC_APB1Periph_UART5, DISABLE);
+ 19667              		.loc 1 160 0
+ 19668 00a4 4FF48010 		mov	r0, #1048576
+ 19669 00a8 4FF00001 		mov	r1, #0
+ 19670 00ac FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 19671              	.L1:
+ 161:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     }
+ 162:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 163:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 19672              		.loc 1 163 0
+ 19673 00b0 07F10807 		add	r7, r7, #8
+ 19674 00b4 BD46     		mov	sp, r7
+ 19675 00b6 80BD     		pop	{r7, pc}
+ 19676              	.L8:
+ 19677              		.align	2
+ 19678              	.L7:
+ 19679 00b8 00380140 		.word	1073821696
+ 19680 00bc 00440040 		.word	1073759232
+ 19681 00c0 00480040 		.word	1073760256
+ 19682 00c4 004C0040 		.word	1073761280
+ 19683 00c8 00500040 		.word	1073762304
+ 19684              		.cfi_endproc
+ 19685              	.LFE29:
+ 19687              		.section	.text.USART_Init,"ax",%progbits
+ 19688              		.align	2
+ 19689              		.global	USART_Init
+ 19690              		.thumb
+ 19691              		.thumb_func
+ 19693              	USART_Init:
+ 19694              	.LFB30:
+ 164:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 165:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 166:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Initializes the USARTx peripheral according to the specified
+ 167:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *         parameters in the USART_InitStruct .
+ 168:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 169:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 170:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 171:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USART_InitStruct: pointer to a USART_InitTypeDef structure
+ 172:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *         that contains the configuration information for the specified USART 
+ 173:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *         peripheral.
+ 174:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 175:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 176:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_Init(USART_TypeDef* USARTx, USART_InitTypeDef* USART_InitStruct)
+ 177:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 19695              		.loc 1 177 0
+ 19696              		.cfi_startproc
+ 19697              		@ args = 0, pretend = 0, frame = 48
+ 19698              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19699 0000 80B5     		push	{r7, lr}
+ 19700              	.LCFI3:
+ 19701              		.cfi_def_cfa_offset 8
+ 19702 0002 8CB0     		sub	sp, sp, #48
+ 19703              	.LCFI4:
+ 19704              		.cfi_def_cfa_offset 56
+ 19705 0004 00AF     		add	r7, sp, #0
+ 19706              		.cfi_offset 14, -4
+ 19707              		.cfi_offset 7, -8
+ 19708              	.LCFI5:
+ 19709              		.cfi_def_cfa_register 7
+ 19710 0006 7860     		str	r0, [r7, #4]
+ 19711 0008 3960     		str	r1, [r7, #0]
+ 178:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   uint32_t tmpreg = 0x00, apbclock = 0x00;
+ 19712              		.loc 1 178 0
+ 19713 000a 4FF00003 		mov	r3, #0
+ 19714 000e FB62     		str	r3, [r7, #44]
+ 19715 0010 4FF00003 		mov	r3, #0
+ 19716 0014 BB62     		str	r3, [r7, #40]
+ 179:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   uint32_t integerdivider = 0x00;
+ 19717              		.loc 1 179 0
+ 19718 0016 4FF00003 		mov	r3, #0
+ 19719 001a 7B62     		str	r3, [r7, #36]
+ 180:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   uint32_t fractionaldivider = 0x00;
+ 19720              		.loc 1 180 0
+ 19721 001c 4FF00003 		mov	r3, #0
+ 19722 0020 3B62     		str	r3, [r7, #32]
+ 181:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   uint32_t usartxbase = 0;
+ 19723              		.loc 1 181 0
+ 19724 0022 4FF00003 		mov	r3, #0
+ 19725 0026 FB61     		str	r3, [r7, #28]
+ 182:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   RCC_ClocksTypeDef RCC_ClocksStatus;
+ 183:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 184:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 185:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_BAUDRATE(USART_InitStruct->USART_BaudRate));  
+ 186:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_WORD_LENGTH(USART_InitStruct->USART_WordLength));
+ 187:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_STOPBITS(USART_InitStruct->USART_StopBits));
+ 188:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_PARITY(USART_InitStruct->USART_Parity));
+ 189:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_MODE(USART_InitStruct->USART_Mode));
+ 190:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_HARDWARE_FLOW_CONTROL(USART_InitStruct->USART_HardwareFlowControl));
+ 191:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* The hardware flow control is available only for USART1, USART2 and USART3 */
+ 192:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (USART_InitStruct->USART_HardwareFlowControl != USART_HardwareFlowControl_None)
+ 193:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 194:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     assert_param(IS_USART_123_PERIPH(USARTx));
+ 195:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 196:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 197:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   usartxbase = (uint32_t)USARTx;
+ 19726              		.loc 1 197 0
+ 19727 0028 7B68     		ldr	r3, [r7, #4]
+ 19728 002a FB61     		str	r3, [r7, #28]
+ 198:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 199:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /*---------------------------- USART CR2 Configuration -----------------------*/
+ 200:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   tmpreg = USARTx->CR2;
+ 19729              		.loc 1 200 0
+ 19730 002c 7B68     		ldr	r3, [r7, #4]
+ 19731 002e 1B8A     		ldrh	r3, [r3, #16]	@ movhi
+ 19732 0030 9BB2     		uxth	r3, r3
+ 19733 0032 FB62     		str	r3, [r7, #44]
+ 201:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Clear STOP[13:12] bits */
+ 202:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   tmpreg &= CR2_STOP_CLEAR_Mask;
+ 19734              		.loc 1 202 0
+ 19735 0034 FA6A     		ldr	r2, [r7, #44]
+ 19736 0036 4CF6FF73 		movw	r3, #53247
+ 19737 003a 02EA0303 		and	r3, r2, r3
+ 19738 003e FB62     		str	r3, [r7, #44]
+ 203:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Configure the USART Stop Bits, Clock, CPOL, CPHA and LastBit ------------*/
+ 204:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Set STOP[13:12] bits according to USART_StopBits value */
+ 205:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   tmpreg |= (uint32_t)USART_InitStruct->USART_StopBits;
+ 19739              		.loc 1 205 0
+ 19740 0040 3B68     		ldr	r3, [r7, #0]
+ 19741 0042 DB88     		ldrh	r3, [r3, #6]
+ 19742 0044 FA6A     		ldr	r2, [r7, #44]
+ 19743 0046 42EA0303 		orr	r3, r2, r3
+ 19744 004a FB62     		str	r3, [r7, #44]
+ 206:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 207:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Write to USART CR2 */
+ 208:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->CR2 = (uint16_t)tmpreg;
+ 19745              		.loc 1 208 0
+ 19746 004c FB6A     		ldr	r3, [r7, #44]
+ 19747 004e 9AB2     		uxth	r2, r3
+ 19748 0050 7B68     		ldr	r3, [r7, #4]
+ 19749 0052 1A82     		strh	r2, [r3, #16]	@ movhi
+ 209:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 210:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /*---------------------------- USART CR1 Configuration -----------------------*/
+ 211:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   tmpreg = USARTx->CR1;
+ 19750              		.loc 1 211 0
+ 19751 0054 7B68     		ldr	r3, [r7, #4]
+ 19752 0056 9B89     		ldrh	r3, [r3, #12]	@ movhi
+ 19753 0058 9BB2     		uxth	r3, r3
+ 19754 005a FB62     		str	r3, [r7, #44]
+ 212:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Clear M, PCE, PS, TE and RE bits */
+ 213:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   tmpreg &= CR1_CLEAR_Mask;
+ 19755              		.loc 1 213 0
+ 19756 005c FA6A     		ldr	r2, [r7, #44]
+ 19757 005e 4EF6F313 		movw	r3, #59891
+ 19758 0062 02EA0303 		and	r3, r2, r3
+ 19759 0066 FB62     		str	r3, [r7, #44]
+ 214:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Configure the USART Word Length, Parity and mode ----------------------- */
+ 215:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Set the M bits according to USART_WordLength value */
+ 216:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Set PCE and PS bits according to USART_Parity value */
+ 217:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Set TE and RE bits according to USART_Mode value */
+ 218:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   tmpreg |= (uint32_t)USART_InitStruct->USART_WordLength | USART_InitStruct->USART_Parity |
+ 19760              		.loc 1 218 0
+ 19761 0068 3B68     		ldr	r3, [r7, #0]
+ 19762 006a 9A88     		ldrh	r2, [r3, #4]
+ 19763 006c 3B68     		ldr	r3, [r7, #0]
+ 19764 006e 1B89     		ldrh	r3, [r3, #8]
+ 19765 0070 42EA0303 		orr	r3, r2, r3
+ 19766 0074 9AB2     		uxth	r2, r3
+ 219:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****             USART_InitStruct->USART_Mode;
+ 19767              		.loc 1 219 0
+ 19768 0076 3B68     		ldr	r3, [r7, #0]
+ 19769 0078 5B89     		ldrh	r3, [r3, #10]
+ 218:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   tmpreg |= (uint32_t)USART_InitStruct->USART_WordLength | USART_InitStruct->USART_Parity |
+ 19770              		.loc 1 218 0
+ 19771 007a 42EA0303 		orr	r3, r2, r3
+ 19772 007e 9BB2     		uxth	r3, r3
+ 19773 0080 FA6A     		ldr	r2, [r7, #44]
+ 19774 0082 42EA0303 		orr	r3, r2, r3
+ 19775 0086 FB62     		str	r3, [r7, #44]
+ 220:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Write to USART CR1 */
+ 221:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->CR1 = (uint16_t)tmpreg;
+ 19776              		.loc 1 221 0
+ 19777 0088 FB6A     		ldr	r3, [r7, #44]
+ 19778 008a 9AB2     		uxth	r2, r3
+ 19779 008c 7B68     		ldr	r3, [r7, #4]
+ 19780 008e 9A81     		strh	r2, [r3, #12]	@ movhi
+ 222:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 223:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /*---------------------------- USART CR3 Configuration -----------------------*/  
+ 224:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   tmpreg = USARTx->CR3;
+ 19781              		.loc 1 224 0
+ 19782 0090 7B68     		ldr	r3, [r7, #4]
+ 19783 0092 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 19784 0094 9BB2     		uxth	r3, r3
+ 19785 0096 FB62     		str	r3, [r7, #44]
+ 225:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Clear CTSE and RTSE bits */
+ 226:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   tmpreg &= CR3_CLEAR_Mask;
+ 19786              		.loc 1 226 0
+ 19787 0098 FA6A     		ldr	r2, [r7, #44]
+ 19788 009a 4FF6FF43 		movw	r3, #64767
+ 19789 009e 02EA0303 		and	r3, r2, r3
+ 19790 00a2 FB62     		str	r3, [r7, #44]
+ 227:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Configure the USART HFC -------------------------------------------------*/
+ 228:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Set CTSE and RTSE bits according to USART_HardwareFlowControl value */
+ 229:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   tmpreg |= USART_InitStruct->USART_HardwareFlowControl;
+ 19791              		.loc 1 229 0
+ 19792 00a4 3B68     		ldr	r3, [r7, #0]
+ 19793 00a6 9B89     		ldrh	r3, [r3, #12]
+ 19794 00a8 FA6A     		ldr	r2, [r7, #44]
+ 19795 00aa 42EA0303 		orr	r3, r2, r3
+ 19796 00ae FB62     		str	r3, [r7, #44]
+ 230:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Write to USART CR3 */
+ 231:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->CR3 = (uint16_t)tmpreg;
+ 19797              		.loc 1 231 0
+ 19798 00b0 FB6A     		ldr	r3, [r7, #44]
+ 19799 00b2 9AB2     		uxth	r2, r3
+ 19800 00b4 7B68     		ldr	r3, [r7, #4]
+ 19801 00b6 9A82     		strh	r2, [r3, #20]	@ movhi
+ 232:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 233:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /*---------------------------- USART BRR Configuration -----------------------*/
+ 234:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Configure the USART Baud Rate -------------------------------------------*/
+ 235:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   RCC_GetClocksFreq(&RCC_ClocksStatus);
+ 19802              		.loc 1 235 0
+ 19803 00b8 07F10803 		add	r3, r7, #8
+ 19804 00bc 1846     		mov	r0, r3
+ 19805 00be FFF7FEFF 		bl	RCC_GetClocksFreq
+ 236:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (usartxbase == USART1_BASE)
+ 19806              		.loc 1 236 0
+ 19807 00c2 FA69     		ldr	r2, [r7, #28]
+ 19808 00c4 384B     		ldr	r3, .L16
+ 19809 00c6 9A42     		cmp	r2, r3
+ 19810 00c8 02D1     		bne	.L10
+ 237:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 238:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     apbclock = RCC_ClocksStatus.PCLK2_Frequency;
+ 19811              		.loc 1 238 0
+ 19812 00ca 7B69     		ldr	r3, [r7, #20]
+ 19813 00cc BB62     		str	r3, [r7, #40]
+ 19814 00ce 01E0     		b	.L11
+ 19815              	.L10:
+ 239:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 240:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else
+ 241:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 242:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     apbclock = RCC_ClocksStatus.PCLK1_Frequency;
+ 19816              		.loc 1 242 0
+ 19817 00d0 3B69     		ldr	r3, [r7, #16]
+ 19818 00d2 BB62     		str	r3, [r7, #40]
+ 19819              	.L11:
+ 243:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 244:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 245:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Determine the integer part */
+ 246:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if ((USARTx->CR1 & CR1_OVER8_Set) != 0)
+ 19820              		.loc 1 246 0
+ 19821 00d4 7B68     		ldr	r3, [r7, #4]
+ 19822 00d6 9B89     		ldrh	r3, [r3, #12]	@ movhi
+ 19823 00d8 9BB2     		uxth	r3, r3
+ 19824 00da 9BB2     		uxth	r3, r3
+ 19825 00dc 1BB2     		sxth	r3, r3
+ 19826 00de 002B     		cmp	r3, #0
+ 19827 00e0 0FDA     		bge	.L12
+ 247:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 248:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Integer part computing in case Oversampling mode is 8 Samples */
+ 249:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     integerdivider = ((25 * apbclock) / (2 * (USART_InitStruct->USART_BaudRate)));    
+ 19828              		.loc 1 249 0
+ 19829 00e2 BA6A     		ldr	r2, [r7, #40]
+ 19830 00e4 1346     		mov	r3, r2
+ 19831 00e6 4FEA8303 		lsl	r3, r3, #2
+ 19832 00ea 9B18     		adds	r3, r3, r2
+ 19833 00ec 4FEA8302 		lsl	r2, r3, #2
+ 19834 00f0 9A18     		adds	r2, r3, r2
+ 19835 00f2 3B68     		ldr	r3, [r7, #0]
+ 19836 00f4 1B68     		ldr	r3, [r3, #0]
+ 19837 00f6 4FEA4303 		lsl	r3, r3, #1
+ 19838 00fa B2FBF3F3 		udiv	r3, r2, r3
+ 19839 00fe 7B62     		str	r3, [r7, #36]
+ 19840 0100 0EE0     		b	.L13
+ 19841              	.L12:
+ 250:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 251:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else /* if ((USARTx->CR1 & CR1_OVER8_Set) == 0) */
+ 252:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 253:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Integer part computing in case Oversampling mode is 16 Samples */
+ 254:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     integerdivider = ((25 * apbclock) / (4 * (USART_InitStruct->USART_BaudRate)));    
+ 19842              		.loc 1 254 0
+ 19843 0102 BA6A     		ldr	r2, [r7, #40]
+ 19844 0104 1346     		mov	r3, r2
+ 19845 0106 4FEA8303 		lsl	r3, r3, #2
+ 19846 010a 9B18     		adds	r3, r3, r2
+ 19847 010c 4FEA8302 		lsl	r2, r3, #2
+ 19848 0110 9A18     		adds	r2, r3, r2
+ 19849 0112 3B68     		ldr	r3, [r7, #0]
+ 19850 0114 1B68     		ldr	r3, [r3, #0]
+ 19851 0116 4FEA8303 		lsl	r3, r3, #2
+ 19852 011a B2FBF3F3 		udiv	r3, r2, r3
+ 19853 011e 7B62     		str	r3, [r7, #36]
+ 19854              	.L13:
+ 255:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 256:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   tmpreg = (integerdivider / 100) << 4;
+ 19855              		.loc 1 256 0
+ 19856 0120 7A6A     		ldr	r2, [r7, #36]
+ 19857 0122 224B     		ldr	r3, .L16+4
+ 19858 0124 A3FB0213 		umull	r1, r3, r3, r2
+ 19859 0128 4FEA5313 		lsr	r3, r3, #5
+ 19860 012c 4FEA0313 		lsl	r3, r3, #4
+ 19861 0130 FB62     		str	r3, [r7, #44]
+ 257:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 258:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Determine the fractional part */
+ 259:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   fractionaldivider = integerdivider - (100 * (tmpreg >> 4));
+ 19862              		.loc 1 259 0
+ 19863 0132 FB6A     		ldr	r3, [r7, #44]
+ 19864 0134 4FEA1313 		lsr	r3, r3, #4
+ 19865 0138 4FF06402 		mov	r2, #100
+ 19866 013c 02FB03F3 		mul	r3, r2, r3
+ 19867 0140 7A6A     		ldr	r2, [r7, #36]
+ 19868 0142 D31A     		subs	r3, r2, r3
+ 19869 0144 3B62     		str	r3, [r7, #32]
+ 260:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 261:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Implement the fractional part in the register */
+ 262:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if ((USARTx->CR1 & CR1_OVER8_Set) != 0)
+ 19870              		.loc 1 262 0
+ 19871 0146 7B68     		ldr	r3, [r7, #4]
+ 19872 0148 9B89     		ldrh	r3, [r3, #12]	@ movhi
+ 19873 014a 9BB2     		uxth	r3, r3
+ 19874 014c 9BB2     		uxth	r3, r3
+ 19875 014e 1BB2     		sxth	r3, r3
+ 19876 0150 002B     		cmp	r3, #0
+ 19877 0152 10DA     		bge	.L14
+ 263:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 264:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     tmpreg |= ((((fractionaldivider * 8) + 50) / 100)) & ((uint8_t)0x07);
+ 19878              		.loc 1 264 0
+ 19879 0154 3B6A     		ldr	r3, [r7, #32]
+ 19880 0156 4FEAC303 		lsl	r3, r3, #3
+ 19881 015a 03F13202 		add	r2, r3, #50
+ 19882 015e 134B     		ldr	r3, .L16+4
+ 19883 0160 A3FB0213 		umull	r1, r3, r3, r2
+ 19884 0164 4FEA5313 		lsr	r3, r3, #5
+ 19885 0168 03F00703 		and	r3, r3, #7
+ 19886 016c FA6A     		ldr	r2, [r7, #44]
+ 19887 016e 42EA0303 		orr	r3, r2, r3
+ 19888 0172 FB62     		str	r3, [r7, #44]
+ 19889 0174 0FE0     		b	.L15
+ 19890              	.L14:
+ 265:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 266:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else /* if ((USARTx->CR1 & CR1_OVER8_Set) == 0) */
+ 267:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 268:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     tmpreg |= ((((fractionaldivider * 16) + 50) / 100)) & ((uint8_t)0x0F);
+ 19891              		.loc 1 268 0
+ 19892 0176 3B6A     		ldr	r3, [r7, #32]
+ 19893 0178 4FEA0313 		lsl	r3, r3, #4
+ 19894 017c 03F13202 		add	r2, r3, #50
+ 19895 0180 0A4B     		ldr	r3, .L16+4
+ 19896 0182 A3FB0213 		umull	r1, r3, r3, r2
+ 19897 0186 4FEA5313 		lsr	r3, r3, #5
+ 19898 018a 03F00F03 		and	r3, r3, #15
+ 19899 018e FA6A     		ldr	r2, [r7, #44]
+ 19900 0190 42EA0303 		orr	r3, r2, r3
+ 19901 0194 FB62     		str	r3, [r7, #44]
+ 19902              	.L15:
+ 269:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 270:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 271:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Write to USART BRR */
+ 272:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->BRR = (uint16_t)tmpreg;
+ 19903              		.loc 1 272 0
+ 19904 0196 FB6A     		ldr	r3, [r7, #44]
+ 19905 0198 9AB2     		uxth	r2, r3
+ 19906 019a 7B68     		ldr	r3, [r7, #4]
+ 19907 019c 1A81     		strh	r2, [r3, #8]	@ movhi
+ 273:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 19908              		.loc 1 273 0
+ 19909 019e 07F13007 		add	r7, r7, #48
+ 19910 01a2 BD46     		mov	sp, r7
+ 19911 01a4 80BD     		pop	{r7, pc}
+ 19912              	.L17:
+ 19913 01a6 00BF     		.align	2
+ 19914              	.L16:
+ 19915 01a8 00380140 		.word	1073821696
+ 19916 01ac 1F85EB51 		.word	1374389535
+ 19917              		.cfi_endproc
+ 19918              	.LFE30:
+ 19920              		.section	.text.USART_StructInit,"ax",%progbits
+ 19921              		.align	2
+ 19922              		.global	USART_StructInit
+ 19923              		.thumb
+ 19924              		.thumb_func
+ 19926              	USART_StructInit:
+ 19927              	.LFB31:
+ 274:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 275:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 276:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Fills each USART_InitStruct member with its default value.
+ 277:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USART_InitStruct: pointer to a USART_InitTypeDef structure
+ 278:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *         which will be initialized.
+ 279:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 280:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 281:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_StructInit(USART_InitTypeDef* USART_InitStruct)
+ 282:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 19928              		.loc 1 282 0
+ 19929              		.cfi_startproc
+ 19930              		@ args = 0, pretend = 0, frame = 8
+ 19931              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19932              		@ link register save eliminated.
+ 19933 0000 80B4     		push	{r7}
+ 19934              	.LCFI6:
+ 19935              		.cfi_def_cfa_offset 4
+ 19936 0002 83B0     		sub	sp, sp, #12
+ 19937              	.LCFI7:
+ 19938              		.cfi_def_cfa_offset 16
+ 19939 0004 00AF     		add	r7, sp, #0
+ 19940              		.cfi_offset 7, -4
+ 19941              	.LCFI8:
+ 19942              		.cfi_def_cfa_register 7
+ 19943 0006 7860     		str	r0, [r7, #4]
+ 283:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* USART_InitStruct members default value */
+ 284:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USART_InitStruct->USART_BaudRate = 9600;
+ 19944              		.loc 1 284 0
+ 19945 0008 7B68     		ldr	r3, [r7, #4]
+ 19946 000a 4FF41652 		mov	r2, #9600
+ 19947 000e 1A60     		str	r2, [r3, #0]
+ 285:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USART_InitStruct->USART_WordLength = USART_WordLength_8b;
+ 19948              		.loc 1 285 0
+ 19949 0010 7B68     		ldr	r3, [r7, #4]
+ 19950 0012 4FF00002 		mov	r2, #0
+ 19951 0016 9A80     		strh	r2, [r3, #4]	@ movhi
+ 286:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USART_InitStruct->USART_StopBits = USART_StopBits_1;
+ 19952              		.loc 1 286 0
+ 19953 0018 7B68     		ldr	r3, [r7, #4]
+ 19954 001a 4FF00002 		mov	r2, #0
+ 19955 001e DA80     		strh	r2, [r3, #6]	@ movhi
+ 287:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USART_InitStruct->USART_Parity = USART_Parity_No ;
+ 19956              		.loc 1 287 0
+ 19957 0020 7B68     		ldr	r3, [r7, #4]
+ 19958 0022 4FF00002 		mov	r2, #0
+ 19959 0026 1A81     		strh	r2, [r3, #8]	@ movhi
+ 288:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USART_InitStruct->USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+ 19960              		.loc 1 288 0
+ 19961 0028 7B68     		ldr	r3, [r7, #4]
+ 19962 002a 4FF00C02 		mov	r2, #12
+ 19963 002e 5A81     		strh	r2, [r3, #10]	@ movhi
+ 289:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USART_InitStruct->USART_HardwareFlowControl = USART_HardwareFlowControl_None;  
+ 19964              		.loc 1 289 0
+ 19965 0030 7B68     		ldr	r3, [r7, #4]
+ 19966 0032 4FF00002 		mov	r2, #0
+ 19967 0036 9A81     		strh	r2, [r3, #12]	@ movhi
+ 290:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 19968              		.loc 1 290 0
+ 19969 0038 07F10C07 		add	r7, r7, #12
+ 19970 003c BD46     		mov	sp, r7
+ 19971 003e 80BC     		pop	{r7}
+ 19972 0040 7047     		bx	lr
+ 19973              		.cfi_endproc
+ 19974              	.LFE31:
+ 19976 0042 00BF     		.section	.text.USART_ClockInit,"ax",%progbits
+ 19977              		.align	2
+ 19978              		.global	USART_ClockInit
+ 19979              		.thumb
+ 19980              		.thumb_func
+ 19982              	USART_ClockInit:
+ 19983              	.LFB32:
+ 291:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 292:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 293:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Initializes the USARTx peripheral Clock according to the 
+ 294:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *          specified parameters in the USART_ClockInitStruct .
+ 295:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: where x can be 1, 2, 3 to select the USART peripheral.
+ 296:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USART_ClockInitStruct: pointer to a USART_ClockInitTypeDef
+ 297:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *         structure that contains the configuration information for the specified 
+ 298:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *         USART peripheral.  
+ 299:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @note The Smart Card and Synchronous modes are not available for UART4 and UART5.
+ 300:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 301:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 302:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_ClockInit(USART_TypeDef* USARTx, USART_ClockInitTypeDef* USART_ClockInitStruct)
+ 303:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 19984              		.loc 1 303 0
+ 19985              		.cfi_startproc
+ 19986              		@ args = 0, pretend = 0, frame = 16
+ 19987              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19988              		@ link register save eliminated.
+ 19989 0000 80B4     		push	{r7}
+ 19990              	.LCFI9:
+ 19991              		.cfi_def_cfa_offset 4
+ 19992 0002 85B0     		sub	sp, sp, #20
+ 19993              	.LCFI10:
+ 19994              		.cfi_def_cfa_offset 24
+ 19995 0004 00AF     		add	r7, sp, #0
+ 19996              		.cfi_offset 7, -4
+ 19997              	.LCFI11:
+ 19998              		.cfi_def_cfa_register 7
+ 19999 0006 7860     		str	r0, [r7, #4]
+ 20000 0008 3960     		str	r1, [r7, #0]
+ 304:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   uint32_t tmpreg = 0x00;
+ 20001              		.loc 1 304 0
+ 20002 000a 4FF00003 		mov	r3, #0
+ 20003 000e FB60     		str	r3, [r7, #12]
+ 305:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 306:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_123_PERIPH(USARTx));
+ 307:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_CLOCK(USART_ClockInitStruct->USART_Clock));
+ 308:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_CPOL(USART_ClockInitStruct->USART_CPOL));
+ 309:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_CPHA(USART_ClockInitStruct->USART_CPHA));
+ 310:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_LASTBIT(USART_ClockInitStruct->USART_LastBit));
+ 311:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 312:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /*---------------------------- USART CR2 Configuration -----------------------*/
+ 313:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   tmpreg = USARTx->CR2;
+ 20004              		.loc 1 313 0
+ 20005 0010 7B68     		ldr	r3, [r7, #4]
+ 20006 0012 1B8A     		ldrh	r3, [r3, #16]	@ movhi
+ 20007 0014 9BB2     		uxth	r3, r3
+ 20008 0016 FB60     		str	r3, [r7, #12]
+ 314:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Clear CLKEN, CPOL, CPHA and LBCL bits */
+ 315:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   tmpreg &= CR2_CLOCK_CLEAR_Mask;
+ 20009              		.loc 1 315 0
+ 20010 0018 FA68     		ldr	r2, [r7, #12]
+ 20011 001a 4FF2FF03 		movw	r3, #61695
+ 20012 001e 02EA0303 		and	r3, r2, r3
+ 20013 0022 FB60     		str	r3, [r7, #12]
+ 316:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Configure the USART Clock, CPOL, CPHA and LastBit ------------*/
+ 317:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Set CLKEN bit according to USART_Clock value */
+ 318:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Set CPOL bit according to USART_CPOL value */
+ 319:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Set CPHA bit according to USART_CPHA value */
+ 320:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Set LBCL bit according to USART_LastBit value */
+ 321:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   tmpreg |= (uint32_t)USART_ClockInitStruct->USART_Clock | USART_ClockInitStruct->USART_CPOL | 
+ 20014              		.loc 1 321 0
+ 20015 0024 3B68     		ldr	r3, [r7, #0]
+ 20016 0026 1A88     		ldrh	r2, [r3, #0]
+ 20017 0028 3B68     		ldr	r3, [r7, #0]
+ 20018 002a 5B88     		ldrh	r3, [r3, #2]
+ 322:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****                  USART_ClockInitStruct->USART_CPHA | USART_ClockInitStruct->USART_LastBit;
+ 20019              		.loc 1 322 0
+ 20020 002c 42EA0303 		orr	r3, r2, r3
+ 20021 0030 9AB2     		uxth	r2, r3
+ 20022 0032 3B68     		ldr	r3, [r7, #0]
+ 20023 0034 9B88     		ldrh	r3, [r3, #4]
+ 20024 0036 42EA0303 		orr	r3, r2, r3
+ 20025 003a 9AB2     		uxth	r2, r3
+ 20026 003c 3B68     		ldr	r3, [r7, #0]
+ 20027 003e DB88     		ldrh	r3, [r3, #6]
+ 20028 0040 42EA0303 		orr	r3, r2, r3
+ 20029 0044 9BB2     		uxth	r3, r3
+ 321:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   tmpreg |= (uint32_t)USART_ClockInitStruct->USART_Clock | USART_ClockInitStruct->USART_CPOL | 
+ 20030              		.loc 1 321 0
+ 20031 0046 FA68     		ldr	r2, [r7, #12]
+ 20032 0048 42EA0303 		orr	r3, r2, r3
+ 20033 004c FB60     		str	r3, [r7, #12]
+ 323:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Write to USART CR2 */
+ 324:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->CR2 = (uint16_t)tmpreg;
+ 20034              		.loc 1 324 0
+ 20035 004e FB68     		ldr	r3, [r7, #12]
+ 20036 0050 9AB2     		uxth	r2, r3
+ 20037 0052 7B68     		ldr	r3, [r7, #4]
+ 20038 0054 1A82     		strh	r2, [r3, #16]	@ movhi
+ 325:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20039              		.loc 1 325 0
+ 20040 0056 07F11407 		add	r7, r7, #20
+ 20041 005a BD46     		mov	sp, r7
+ 20042 005c 80BC     		pop	{r7}
+ 20043 005e 7047     		bx	lr
+ 20044              		.cfi_endproc
+ 20045              	.LFE32:
+ 20047              		.section	.text.USART_ClockStructInit,"ax",%progbits
+ 20048              		.align	2
+ 20049              		.global	USART_ClockStructInit
+ 20050              		.thumb
+ 20051              		.thumb_func
+ 20053              	USART_ClockStructInit:
+ 20054              	.LFB33:
+ 326:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 327:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 328:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Fills each USART_ClockInitStruct member with its default value.
+ 329:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USART_ClockInitStruct: pointer to a USART_ClockInitTypeDef
+ 330:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *         structure which will be initialized.
+ 331:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 332:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 333:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_ClockStructInit(USART_ClockInitTypeDef* USART_ClockInitStruct)
+ 334:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 20055              		.loc 1 334 0
+ 20056              		.cfi_startproc
+ 20057              		@ args = 0, pretend = 0, frame = 8
+ 20058              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20059              		@ link register save eliminated.
+ 20060 0000 80B4     		push	{r7}
+ 20061              	.LCFI12:
+ 20062              		.cfi_def_cfa_offset 4
+ 20063 0002 83B0     		sub	sp, sp, #12
+ 20064              	.LCFI13:
+ 20065              		.cfi_def_cfa_offset 16
+ 20066 0004 00AF     		add	r7, sp, #0
+ 20067              		.cfi_offset 7, -4
+ 20068              	.LCFI14:
+ 20069              		.cfi_def_cfa_register 7
+ 20070 0006 7860     		str	r0, [r7, #4]
+ 335:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* USART_ClockInitStruct members default value */
+ 336:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USART_ClockInitStruct->USART_Clock = USART_Clock_Disable;
+ 20071              		.loc 1 336 0
+ 20072 0008 7B68     		ldr	r3, [r7, #4]
+ 20073 000a 4FF00002 		mov	r2, #0
+ 20074 000e 1A80     		strh	r2, [r3, #0]	@ movhi
+ 337:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USART_ClockInitStruct->USART_CPOL = USART_CPOL_Low;
+ 20075              		.loc 1 337 0
+ 20076 0010 7B68     		ldr	r3, [r7, #4]
+ 20077 0012 4FF00002 		mov	r2, #0
+ 20078 0016 5A80     		strh	r2, [r3, #2]	@ movhi
+ 338:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USART_ClockInitStruct->USART_CPHA = USART_CPHA_1Edge;
+ 20079              		.loc 1 338 0
+ 20080 0018 7B68     		ldr	r3, [r7, #4]
+ 20081 001a 4FF00002 		mov	r2, #0
+ 20082 001e 9A80     		strh	r2, [r3, #4]	@ movhi
+ 339:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USART_ClockInitStruct->USART_LastBit = USART_LastBit_Disable;
+ 20083              		.loc 1 339 0
+ 20084 0020 7B68     		ldr	r3, [r7, #4]
+ 20085 0022 4FF00002 		mov	r2, #0
+ 20086 0026 DA80     		strh	r2, [r3, #6]	@ movhi
+ 340:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20087              		.loc 1 340 0
+ 20088 0028 07F10C07 		add	r7, r7, #12
+ 20089 002c BD46     		mov	sp, r7
+ 20090 002e 80BC     		pop	{r7}
+ 20091 0030 7047     		bx	lr
+ 20092              		.cfi_endproc
+ 20093              	.LFE33:
+ 20095 0032 00BF     		.section	.text.USART_Cmd,"ax",%progbits
+ 20096              		.align	2
+ 20097              		.global	USART_Cmd
+ 20098              		.thumb
+ 20099              		.thumb_func
+ 20101              	USART_Cmd:
+ 20102              	.LFB34:
+ 341:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 342:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 343:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Enables or disables the specified USART peripheral.
+ 344:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 345:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *         This parameter can be one of the following values:
+ 346:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *           USART1, USART2, USART3, UART4 or UART5.
+ 347:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  NewState: new state of the USARTx peripheral.
+ 348:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *         This parameter can be: ENABLE or DISABLE.
+ 349:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 350:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 351:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_Cmd(USART_TypeDef* USARTx, FunctionalState NewState)
+ 352:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 20103              		.loc 1 352 0
+ 20104              		.cfi_startproc
+ 20105              		@ args = 0, pretend = 0, frame = 8
+ 20106              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20107              		@ link register save eliminated.
+ 20108 0000 80B4     		push	{r7}
+ 20109              	.LCFI15:
+ 20110              		.cfi_def_cfa_offset 4
+ 20111 0002 83B0     		sub	sp, sp, #12
+ 20112              	.LCFI16:
+ 20113              		.cfi_def_cfa_offset 16
+ 20114 0004 00AF     		add	r7, sp, #0
+ 20115              		.cfi_offset 7, -4
+ 20116              	.LCFI17:
+ 20117              		.cfi_def_cfa_register 7
+ 20118 0006 7860     		str	r0, [r7, #4]
+ 20119 0008 0B46     		mov	r3, r1
+ 20120 000a FB70     		strb	r3, [r7, #3]
+ 353:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 354:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 355:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 356:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 357:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (NewState != DISABLE)
+ 20121              		.loc 1 357 0
+ 20122 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 20123 000e 002B     		cmp	r3, #0
+ 20124 0010 08D0     		beq	.L22
+ 358:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 359:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Enable the selected USART by setting the UE bit in the CR1 register */
+ 360:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR1 |= CR1_UE_Set;
+ 20125              		.loc 1 360 0
+ 20126 0012 7B68     		ldr	r3, [r7, #4]
+ 20127 0014 9B89     		ldrh	r3, [r3, #12]	@ movhi
+ 20128 0016 9BB2     		uxth	r3, r3
+ 20129 0018 43F40053 		orr	r3, r3, #8192
+ 20130 001c 9AB2     		uxth	r2, r3
+ 20131 001e 7B68     		ldr	r3, [r7, #4]
+ 20132 0020 9A81     		strh	r2, [r3, #12]	@ movhi
+ 20133 0022 07E0     		b	.L21
+ 20134              	.L22:
+ 361:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 362:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else
+ 363:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 364:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Disable the selected USART by clearing the UE bit in the CR1 register */
+ 365:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR1 &= CR1_UE_Reset;
+ 20135              		.loc 1 365 0
+ 20136 0024 7B68     		ldr	r3, [r7, #4]
+ 20137 0026 9B89     		ldrh	r3, [r3, #12]	@ movhi
+ 20138 0028 9BB2     		uxth	r3, r3
+ 20139 002a 23F40053 		bic	r3, r3, #8192
+ 20140 002e 9AB2     		uxth	r2, r3
+ 20141 0030 7B68     		ldr	r3, [r7, #4]
+ 20142 0032 9A81     		strh	r2, [r3, #12]	@ movhi
+ 20143              	.L21:
+ 366:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 367:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20144              		.loc 1 367 0
+ 20145 0034 07F10C07 		add	r7, r7, #12
+ 20146 0038 BD46     		mov	sp, r7
+ 20147 003a 80BC     		pop	{r7}
+ 20148 003c 7047     		bx	lr
+ 20149              		.cfi_endproc
+ 20150              	.LFE34:
+ 20152 003e 00BF     		.section	.text.USART_ITConfig,"ax",%progbits
+ 20153              		.align	2
+ 20154              		.global	USART_ITConfig
+ 20155              		.thumb
+ 20156              		.thumb_func
+ 20158              	USART_ITConfig:
+ 20159              	.LFB35:
+ 368:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 369:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 370:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Enables or disables the specified USART interrupts.
+ 371:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 372:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 373:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 374:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USART_IT: specifies the USART interrupt sources to be enabled or disabled.
+ 375:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 376:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_CTS:  CTS change interrupt (not available for UART4 and UART5)
+ 377:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_LBD:  LIN Break detection interrupt
+ 378:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_TXE:  Transmit Data Register empty interrupt
+ 379:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_TC:   Transmission complete interrupt
+ 380:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_RXNE: Receive Data register not empty interrupt
+ 381:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_IDLE: Idle line detection interrupt
+ 382:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_PE:   Parity Error interrupt
+ 383:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_ERR:  Error interrupt(Frame error, noise error, overrun error)
+ 384:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  NewState: new state of the specified USARTx interrupts.
+ 385:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 386:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 387:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 388:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_ITConfig(USART_TypeDef* USARTx, uint16_t USART_IT, FunctionalState NewState)
+ 389:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 20160              		.loc 1 389 0
+ 20161              		.cfi_startproc
+ 20162              		@ args = 0, pretend = 0, frame = 24
+ 20163              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20164              		@ link register save eliminated.
+ 20165 0000 80B4     		push	{r7}
+ 20166              	.LCFI18:
+ 20167              		.cfi_def_cfa_offset 4
+ 20168 0002 87B0     		sub	sp, sp, #28
+ 20169              	.LCFI19:
+ 20170              		.cfi_def_cfa_offset 32
+ 20171 0004 00AF     		add	r7, sp, #0
+ 20172              		.cfi_offset 7, -4
+ 20173              	.LCFI20:
+ 20174              		.cfi_def_cfa_register 7
+ 20175 0006 7860     		str	r0, [r7, #4]
+ 20176 0008 1346     		mov	r3, r2
+ 20177 000a 0A46     		mov	r2, r1	@ movhi
+ 20178 000c 7A80     		strh	r2, [r7, #2]	@ movhi
+ 20179 000e 7B70     		strb	r3, [r7, #1]
+ 390:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   uint32_t usartreg = 0x00, itpos = 0x00, itmask = 0x00;
+ 20180              		.loc 1 390 0
+ 20181 0010 4FF00003 		mov	r3, #0
+ 20182 0014 3B61     		str	r3, [r7, #16]
+ 20183 0016 4FF00003 		mov	r3, #0
+ 20184 001a FB60     		str	r3, [r7, #12]
+ 20185 001c 4FF00003 		mov	r3, #0
+ 20186 0020 BB60     		str	r3, [r7, #8]
+ 391:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   uint32_t usartxbase = 0x00;
+ 20187              		.loc 1 391 0
+ 20188 0022 4FF00003 		mov	r3, #0
+ 20189 0026 7B61     		str	r3, [r7, #20]
+ 392:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 393:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 394:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_CONFIG_IT(USART_IT));
+ 395:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 396:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* The CTS interrupt is not available for UART4 and UART5 */
+ 397:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (USART_IT == USART_IT_CTS)
+ 398:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 399:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     assert_param(IS_USART_123_PERIPH(USARTx));
+ 400:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }   
+ 401:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 402:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   usartxbase = (uint32_t)USARTx;
+ 20190              		.loc 1 402 0
+ 20191 0028 7B68     		ldr	r3, [r7, #4]
+ 20192 002a 7B61     		str	r3, [r7, #20]
+ 403:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 404:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Get the USART register index */
+ 405:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   usartreg = (((uint8_t)USART_IT) >> 0x05);
+ 20193              		.loc 1 405 0
+ 20194 002c 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 20195 002e DBB2     		uxtb	r3, r3
+ 20196 0030 4FEA5313 		lsr	r3, r3, #5
+ 20197 0034 DBB2     		uxtb	r3, r3
+ 20198 0036 3B61     		str	r3, [r7, #16]
+ 406:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 407:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Get the interrupt position */
+ 408:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   itpos = USART_IT & IT_Mask;
+ 20199              		.loc 1 408 0
+ 20200 0038 7B88     		ldrh	r3, [r7, #2]
+ 20201 003a 03F01F03 		and	r3, r3, #31
+ 20202 003e FB60     		str	r3, [r7, #12]
+ 409:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   itmask = (((uint32_t)0x01) << itpos);
+ 20203              		.loc 1 409 0
+ 20204 0040 FB68     		ldr	r3, [r7, #12]
+ 20205 0042 4FF00102 		mov	r2, #1
+ 20206 0046 02FA03F3 		lsl	r3, r2, r3
+ 20207 004a BB60     		str	r3, [r7, #8]
+ 410:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     
+ 411:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (usartreg == 0x01) /* The IT is in CR1 register */
+ 20208              		.loc 1 411 0
+ 20209 004c 3B69     		ldr	r3, [r7, #16]
+ 20210 004e 012B     		cmp	r3, #1
+ 20211 0050 04D1     		bne	.L25
+ 412:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 413:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     usartxbase += 0x0C;
+ 20212              		.loc 1 413 0
+ 20213 0052 7B69     		ldr	r3, [r7, #20]
+ 20214 0054 03F10C03 		add	r3, r3, #12
+ 20215 0058 7B61     		str	r3, [r7, #20]
+ 20216 005a 0BE0     		b	.L26
+ 20217              	.L25:
+ 414:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 415:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else if (usartreg == 0x02) /* The IT is in CR2 register */
+ 20218              		.loc 1 415 0
+ 20219 005c 3B69     		ldr	r3, [r7, #16]
+ 20220 005e 022B     		cmp	r3, #2
+ 20221 0060 04D1     		bne	.L27
+ 416:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 417:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     usartxbase += 0x10;
+ 20222              		.loc 1 417 0
+ 20223 0062 7B69     		ldr	r3, [r7, #20]
+ 20224 0064 03F11003 		add	r3, r3, #16
+ 20225 0068 7B61     		str	r3, [r7, #20]
+ 20226 006a 03E0     		b	.L26
+ 20227              	.L27:
+ 418:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 419:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else /* The IT is in CR3 register */
+ 420:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 421:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     usartxbase += 0x14; 
+ 20228              		.loc 1 421 0
+ 20229 006c 7B69     		ldr	r3, [r7, #20]
+ 20230 006e 03F11403 		add	r3, r3, #20
+ 20231 0072 7B61     		str	r3, [r7, #20]
+ 20232              	.L26:
+ 422:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 423:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (NewState != DISABLE)
+ 20233              		.loc 1 423 0
+ 20234 0074 7B78     		ldrb	r3, [r7, #1]	@ zero_extendqisi2
+ 20235 0076 002B     		cmp	r3, #0
+ 20236 0078 07D0     		beq	.L28
+ 424:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 425:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     *(__IO uint32_t*)usartxbase  |= itmask;
+ 20237              		.loc 1 425 0
+ 20238 007a 7B69     		ldr	r3, [r7, #20]
+ 20239 007c 7A69     		ldr	r2, [r7, #20]
+ 20240 007e 1168     		ldr	r1, [r2, #0]
+ 20241 0080 BA68     		ldr	r2, [r7, #8]
+ 20242 0082 41EA0202 		orr	r2, r1, r2
+ 20243 0086 1A60     		str	r2, [r3, #0]
+ 20244 0088 08E0     		b	.L24
+ 20245              	.L28:
+ 426:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 427:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else
+ 428:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 429:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     *(__IO uint32_t*)usartxbase &= ~itmask;
+ 20246              		.loc 1 429 0
+ 20247 008a 7B69     		ldr	r3, [r7, #20]
+ 20248 008c 7A69     		ldr	r2, [r7, #20]
+ 20249 008e 1168     		ldr	r1, [r2, #0]
+ 20250 0090 BA68     		ldr	r2, [r7, #8]
+ 20251 0092 6FEA0202 		mvn	r2, r2
+ 20252 0096 01EA0202 		and	r2, r1, r2
+ 20253 009a 1A60     		str	r2, [r3, #0]
+ 20254              	.L24:
+ 430:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 431:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20255              		.loc 1 431 0
+ 20256 009c 07F11C07 		add	r7, r7, #28
+ 20257 00a0 BD46     		mov	sp, r7
+ 20258 00a2 80BC     		pop	{r7}
+ 20259 00a4 7047     		bx	lr
+ 20260              		.cfi_endproc
+ 20261              	.LFE35:
+ 20263 00a6 00BF     		.section	.text.USART_DMACmd,"ax",%progbits
+ 20264              		.align	2
+ 20265              		.global	USART_DMACmd
+ 20266              		.thumb
+ 20267              		.thumb_func
+ 20269              	USART_DMACmd:
+ 20270              	.LFB36:
+ 432:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 433:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 434:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Enables or disables the USART’s DMA interface.
+ 435:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 436:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 437:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 438:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USART_DMAReq: specifies the DMA request.
+ 439:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be any combination of the following values:
+ 440:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_DMAReq_Tx: USART DMA transmit request
+ 441:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_DMAReq_Rx: USART DMA receive request
+ 442:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  NewState: new state of the DMA Request sources.
+ 443:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 444:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @note The DMA mode is not available for UART5 except in the STM32
+ 445:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *       High density value line devices(STM32F10X_HD_VL).  
+ 446:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 447:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 448:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_DMACmd(USART_TypeDef* USARTx, uint16_t USART_DMAReq, FunctionalState NewState)
+ 449:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 20271              		.loc 1 449 0
+ 20272              		.cfi_startproc
+ 20273              		@ args = 0, pretend = 0, frame = 8
+ 20274              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20275              		@ link register save eliminated.
+ 20276 0000 80B4     		push	{r7}
+ 20277              	.LCFI21:
+ 20278              		.cfi_def_cfa_offset 4
+ 20279 0002 83B0     		sub	sp, sp, #12
+ 20280              	.LCFI22:
+ 20281              		.cfi_def_cfa_offset 16
+ 20282 0004 00AF     		add	r7, sp, #0
+ 20283              		.cfi_offset 7, -4
+ 20284              	.LCFI23:
+ 20285              		.cfi_def_cfa_register 7
+ 20286 0006 7860     		str	r0, [r7, #4]
+ 20287 0008 1346     		mov	r3, r2
+ 20288 000a 0A46     		mov	r2, r1	@ movhi
+ 20289 000c 7A80     		strh	r2, [r7, #2]	@ movhi
+ 20290 000e 7B70     		strb	r3, [r7, #1]
+ 450:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 451:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 452:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_DMAREQ(USART_DMAReq));  
+ 453:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState)); 
+ 454:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (NewState != DISABLE)
+ 20291              		.loc 1 454 0
+ 20292 0010 7B78     		ldrb	r3, [r7, #1]	@ zero_extendqisi2
+ 20293 0012 002B     		cmp	r3, #0
+ 20294 0014 09D0     		beq	.L31
+ 455:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 456:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Enable the DMA transfer for selected requests by setting the DMAT and/or
+ 457:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****        DMAR bits in the USART CR3 register */
+ 458:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR3 |= USART_DMAReq;
+ 20295              		.loc 1 458 0
+ 20296 0016 7B68     		ldr	r3, [r7, #4]
+ 20297 0018 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 20298 001a 9AB2     		uxth	r2, r3
+ 20299 001c 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 20300 001e 42EA0303 		orr	r3, r2, r3
+ 20301 0022 9AB2     		uxth	r2, r3
+ 20302 0024 7B68     		ldr	r3, [r7, #4]
+ 20303 0026 9A82     		strh	r2, [r3, #20]	@ movhi
+ 20304 0028 0BE0     		b	.L30
+ 20305              	.L31:
+ 459:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 460:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else
+ 461:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 462:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Disable the DMA transfer for selected requests by clearing the DMAT and/or
+ 463:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****        DMAR bits in the USART CR3 register */
+ 464:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR3 &= (uint16_t)~USART_DMAReq;
+ 20306              		.loc 1 464 0
+ 20307 002a 7B68     		ldr	r3, [r7, #4]
+ 20308 002c 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 20309 002e 9AB2     		uxth	r2, r3
+ 20310 0030 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 20311 0032 6FEA0303 		mvn	r3, r3
+ 20312 0036 9BB2     		uxth	r3, r3
+ 20313 0038 02EA0303 		and	r3, r2, r3
+ 20314 003c 9AB2     		uxth	r2, r3
+ 20315 003e 7B68     		ldr	r3, [r7, #4]
+ 20316 0040 9A82     		strh	r2, [r3, #20]	@ movhi
+ 20317              	.L30:
+ 465:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 466:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20318              		.loc 1 466 0
+ 20319 0042 07F10C07 		add	r7, r7, #12
+ 20320 0046 BD46     		mov	sp, r7
+ 20321 0048 80BC     		pop	{r7}
+ 20322 004a 7047     		bx	lr
+ 20323              		.cfi_endproc
+ 20324              	.LFE36:
+ 20326              		.section	.text.USART_SetAddress,"ax",%progbits
+ 20327              		.align	2
+ 20328              		.global	USART_SetAddress
+ 20329              		.thumb
+ 20330              		.thumb_func
+ 20332              	USART_SetAddress:
+ 20333              	.LFB37:
+ 467:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 468:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 469:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Sets the address of the USART node.
+ 470:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 471:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 472:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 473:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USART_Address: Indicates the address of the USART node.
+ 474:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 475:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 476:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_SetAddress(USART_TypeDef* USARTx, uint8_t USART_Address)
+ 477:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 20334              		.loc 1 477 0
+ 20335              		.cfi_startproc
+ 20336              		@ args = 0, pretend = 0, frame = 8
+ 20337              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20338              		@ link register save eliminated.
+ 20339 0000 80B4     		push	{r7}
+ 20340              	.LCFI24:
+ 20341              		.cfi_def_cfa_offset 4
+ 20342 0002 83B0     		sub	sp, sp, #12
+ 20343              	.LCFI25:
+ 20344              		.cfi_def_cfa_offset 16
+ 20345 0004 00AF     		add	r7, sp, #0
+ 20346              		.cfi_offset 7, -4
+ 20347              	.LCFI26:
+ 20348              		.cfi_def_cfa_register 7
+ 20349 0006 7860     		str	r0, [r7, #4]
+ 20350 0008 0B46     		mov	r3, r1
+ 20351 000a FB70     		strb	r3, [r7, #3]
+ 478:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 479:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 480:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ADDRESS(USART_Address)); 
+ 481:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     
+ 482:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Clear the USART address */
+ 483:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->CR2 &= CR2_Address_Mask;
+ 20352              		.loc 1 483 0
+ 20353 000c 7B68     		ldr	r3, [r7, #4]
+ 20354 000e 1B8A     		ldrh	r3, [r3, #16]	@ movhi
+ 20355 0010 9BB2     		uxth	r3, r3
+ 20356 0012 23F00F03 		bic	r3, r3, #15
+ 20357 0016 9AB2     		uxth	r2, r3
+ 20358 0018 7B68     		ldr	r3, [r7, #4]
+ 20359 001a 1A82     		strh	r2, [r3, #16]	@ movhi
+ 484:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Set the USART address node */
+ 485:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->CR2 |= USART_Address;
+ 20360              		.loc 1 485 0
+ 20361 001c 7B68     		ldr	r3, [r7, #4]
+ 20362 001e 1B8A     		ldrh	r3, [r3, #16]	@ movhi
+ 20363 0020 9AB2     		uxth	r2, r3
+ 20364 0022 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 20365 0024 9BB2     		uxth	r3, r3
+ 20366 0026 42EA0303 		orr	r3, r2, r3
+ 20367 002a 9AB2     		uxth	r2, r3
+ 20368 002c 7B68     		ldr	r3, [r7, #4]
+ 20369 002e 1A82     		strh	r2, [r3, #16]	@ movhi
+ 486:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20370              		.loc 1 486 0
+ 20371 0030 07F10C07 		add	r7, r7, #12
+ 20372 0034 BD46     		mov	sp, r7
+ 20373 0036 80BC     		pop	{r7}
+ 20374 0038 7047     		bx	lr
+ 20375              		.cfi_endproc
+ 20376              	.LFE37:
+ 20378 003a 00BF     		.section	.text.USART_WakeUpConfig,"ax",%progbits
+ 20379              		.align	2
+ 20380              		.global	USART_WakeUpConfig
+ 20381              		.thumb
+ 20382              		.thumb_func
+ 20384              	USART_WakeUpConfig:
+ 20385              	.LFB38:
+ 487:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 488:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 489:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Selects the USART WakeUp method.
+ 490:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 491:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 492:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 493:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USART_WakeUp: specifies the USART wakeup method.
+ 494:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 495:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_WakeUp_IdleLine: WakeUp by an idle line detection
+ 496:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_WakeUp_AddressMark: WakeUp by an address mark
+ 497:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 498:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 499:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_WakeUpConfig(USART_TypeDef* USARTx, uint16_t USART_WakeUp)
+ 500:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 20386              		.loc 1 500 0
+ 20387              		.cfi_startproc
+ 20388              		@ args = 0, pretend = 0, frame = 8
+ 20389              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20390              		@ link register save eliminated.
+ 20391 0000 80B4     		push	{r7}
+ 20392              	.LCFI27:
+ 20393              		.cfi_def_cfa_offset 4
+ 20394 0002 83B0     		sub	sp, sp, #12
+ 20395              	.LCFI28:
+ 20396              		.cfi_def_cfa_offset 16
+ 20397 0004 00AF     		add	r7, sp, #0
+ 20398              		.cfi_offset 7, -4
+ 20399              	.LCFI29:
+ 20400              		.cfi_def_cfa_register 7
+ 20401 0006 7860     		str	r0, [r7, #4]
+ 20402 0008 0B46     		mov	r3, r1
+ 20403 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 501:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 502:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 503:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_WAKEUP(USART_WakeUp));
+ 504:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 505:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->CR1 &= CR1_WAKE_Mask;
+ 20404              		.loc 1 505 0
+ 20405 000c 7B68     		ldr	r3, [r7, #4]
+ 20406 000e 9B89     		ldrh	r3, [r3, #12]	@ movhi
+ 20407 0010 9BB2     		uxth	r3, r3
+ 20408 0012 23F40063 		bic	r3, r3, #2048
+ 20409 0016 9AB2     		uxth	r2, r3
+ 20410 0018 7B68     		ldr	r3, [r7, #4]
+ 20411 001a 9A81     		strh	r2, [r3, #12]	@ movhi
+ 506:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->CR1 |= USART_WakeUp;
+ 20412              		.loc 1 506 0
+ 20413 001c 7B68     		ldr	r3, [r7, #4]
+ 20414 001e 9B89     		ldrh	r3, [r3, #12]	@ movhi
+ 20415 0020 9AB2     		uxth	r2, r3
+ 20416 0022 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 20417 0024 42EA0303 		orr	r3, r2, r3
+ 20418 0028 9AB2     		uxth	r2, r3
+ 20419 002a 7B68     		ldr	r3, [r7, #4]
+ 20420 002c 9A81     		strh	r2, [r3, #12]	@ movhi
+ 507:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20421              		.loc 1 507 0
+ 20422 002e 07F10C07 		add	r7, r7, #12
+ 20423 0032 BD46     		mov	sp, r7
+ 20424 0034 80BC     		pop	{r7}
+ 20425 0036 7047     		bx	lr
+ 20426              		.cfi_endproc
+ 20427              	.LFE38:
+ 20429              		.section	.text.USART_ReceiverWakeUpCmd,"ax",%progbits
+ 20430              		.align	2
+ 20431              		.global	USART_ReceiverWakeUpCmd
+ 20432              		.thumb
+ 20433              		.thumb_func
+ 20435              	USART_ReceiverWakeUpCmd:
+ 20436              	.LFB39:
+ 508:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 509:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 510:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Determines if the USART is in mute mode or not.
+ 511:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 512:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 513:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 514:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  NewState: new state of the USART mute mode.
+ 515:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 516:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 517:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 518:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_ReceiverWakeUpCmd(USART_TypeDef* USARTx, FunctionalState NewState)
+ 519:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 20437              		.loc 1 519 0
+ 20438              		.cfi_startproc
+ 20439              		@ args = 0, pretend = 0, frame = 8
+ 20440              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20441              		@ link register save eliminated.
+ 20442 0000 80B4     		push	{r7}
+ 20443              	.LCFI30:
+ 20444              		.cfi_def_cfa_offset 4
+ 20445 0002 83B0     		sub	sp, sp, #12
+ 20446              	.LCFI31:
+ 20447              		.cfi_def_cfa_offset 16
+ 20448 0004 00AF     		add	r7, sp, #0
+ 20449              		.cfi_offset 7, -4
+ 20450              	.LCFI32:
+ 20451              		.cfi_def_cfa_register 7
+ 20452 0006 7860     		str	r0, [r7, #4]
+ 20453 0008 0B46     		mov	r3, r1
+ 20454 000a FB70     		strb	r3, [r7, #3]
+ 520:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 521:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 522:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState)); 
+ 523:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 524:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (NewState != DISABLE)
+ 20455              		.loc 1 524 0
+ 20456 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 20457 000e 002B     		cmp	r3, #0
+ 20458 0010 08D0     		beq	.L36
+ 525:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 526:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Enable the USART mute mode  by setting the RWU bit in the CR1 register */
+ 527:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR1 |= CR1_RWU_Set;
+ 20459              		.loc 1 527 0
+ 20460 0012 7B68     		ldr	r3, [r7, #4]
+ 20461 0014 9B89     		ldrh	r3, [r3, #12]	@ movhi
+ 20462 0016 9BB2     		uxth	r3, r3
+ 20463 0018 43F00203 		orr	r3, r3, #2
+ 20464 001c 9AB2     		uxth	r2, r3
+ 20465 001e 7B68     		ldr	r3, [r7, #4]
+ 20466 0020 9A81     		strh	r2, [r3, #12]	@ movhi
+ 20467 0022 07E0     		b	.L35
+ 20468              	.L36:
+ 528:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 529:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else
+ 530:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 531:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Disable the USART mute mode by clearing the RWU bit in the CR1 register */
+ 532:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR1 &= CR1_RWU_Reset;
+ 20469              		.loc 1 532 0
+ 20470 0024 7B68     		ldr	r3, [r7, #4]
+ 20471 0026 9B89     		ldrh	r3, [r3, #12]	@ movhi
+ 20472 0028 9BB2     		uxth	r3, r3
+ 20473 002a 23F00203 		bic	r3, r3, #2
+ 20474 002e 9AB2     		uxth	r2, r3
+ 20475 0030 7B68     		ldr	r3, [r7, #4]
+ 20476 0032 9A81     		strh	r2, [r3, #12]	@ movhi
+ 20477              	.L35:
+ 533:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 534:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20478              		.loc 1 534 0
+ 20479 0034 07F10C07 		add	r7, r7, #12
+ 20480 0038 BD46     		mov	sp, r7
+ 20481 003a 80BC     		pop	{r7}
+ 20482 003c 7047     		bx	lr
+ 20483              		.cfi_endproc
+ 20484              	.LFE39:
+ 20486 003e 00BF     		.section	.text.USART_LINBreakDetectLengthConfig,"ax",%progbits
+ 20487              		.align	2
+ 20488              		.global	USART_LINBreakDetectLengthConfig
+ 20489              		.thumb
+ 20490              		.thumb_func
+ 20492              	USART_LINBreakDetectLengthConfig:
+ 20493              	.LFB40:
+ 535:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 536:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 537:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Sets the USART LIN Break detection length.
+ 538:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 539:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 540:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 541:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USART_LINBreakDetectLength: specifies the LIN break detection length.
+ 542:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 543:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_LINBreakDetectLength_10b: 10-bit break detection
+ 544:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_LINBreakDetectLength_11b: 11-bit break detection
+ 545:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 546:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 547:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_LINBreakDetectLengthConfig(USART_TypeDef* USARTx, uint16_t USART_LINBreakDetectLength)
+ 548:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 20494              		.loc 1 548 0
+ 20495              		.cfi_startproc
+ 20496              		@ args = 0, pretend = 0, frame = 8
+ 20497              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20498              		@ link register save eliminated.
+ 20499 0000 80B4     		push	{r7}
+ 20500              	.LCFI33:
+ 20501              		.cfi_def_cfa_offset 4
+ 20502 0002 83B0     		sub	sp, sp, #12
+ 20503              	.LCFI34:
+ 20504              		.cfi_def_cfa_offset 16
+ 20505 0004 00AF     		add	r7, sp, #0
+ 20506              		.cfi_offset 7, -4
+ 20507              	.LCFI35:
+ 20508              		.cfi_def_cfa_register 7
+ 20509 0006 7860     		str	r0, [r7, #4]
+ 20510 0008 0B46     		mov	r3, r1
+ 20511 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 549:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 550:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 551:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_LIN_BREAK_DETECT_LENGTH(USART_LINBreakDetectLength));
+ 552:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 553:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->CR2 &= CR2_LBDL_Mask;
+ 20512              		.loc 1 553 0
+ 20513 000c 7B68     		ldr	r3, [r7, #4]
+ 20514 000e 1B8A     		ldrh	r3, [r3, #16]	@ movhi
+ 20515 0010 9BB2     		uxth	r3, r3
+ 20516 0012 23F02003 		bic	r3, r3, #32
+ 20517 0016 9AB2     		uxth	r2, r3
+ 20518 0018 7B68     		ldr	r3, [r7, #4]
+ 20519 001a 1A82     		strh	r2, [r3, #16]	@ movhi
+ 554:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->CR2 |= USART_LINBreakDetectLength;  
+ 20520              		.loc 1 554 0
+ 20521 001c 7B68     		ldr	r3, [r7, #4]
+ 20522 001e 1B8A     		ldrh	r3, [r3, #16]	@ movhi
+ 20523 0020 9AB2     		uxth	r2, r3
+ 20524 0022 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 20525 0024 42EA0303 		orr	r3, r2, r3
+ 20526 0028 9AB2     		uxth	r2, r3
+ 20527 002a 7B68     		ldr	r3, [r7, #4]
+ 20528 002c 1A82     		strh	r2, [r3, #16]	@ movhi
+ 555:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20529              		.loc 1 555 0
+ 20530 002e 07F10C07 		add	r7, r7, #12
+ 20531 0032 BD46     		mov	sp, r7
+ 20532 0034 80BC     		pop	{r7}
+ 20533 0036 7047     		bx	lr
+ 20534              		.cfi_endproc
+ 20535              	.LFE40:
+ 20537              		.section	.text.USART_LINCmd,"ax",%progbits
+ 20538              		.align	2
+ 20539              		.global	USART_LINCmd
+ 20540              		.thumb
+ 20541              		.thumb_func
+ 20543              	USART_LINCmd:
+ 20544              	.LFB41:
+ 556:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 557:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 558:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Enables or disables the USART’s LIN mode.
+ 559:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 560:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 561:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 562:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  NewState: new state of the USART LIN mode.
+ 563:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 564:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 565:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 566:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_LINCmd(USART_TypeDef* USARTx, FunctionalState NewState)
+ 567:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 20545              		.loc 1 567 0
+ 20546              		.cfi_startproc
+ 20547              		@ args = 0, pretend = 0, frame = 8
+ 20548              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20549              		@ link register save eliminated.
+ 20550 0000 80B4     		push	{r7}
+ 20551              	.LCFI36:
+ 20552              		.cfi_def_cfa_offset 4
+ 20553 0002 83B0     		sub	sp, sp, #12
+ 20554              	.LCFI37:
+ 20555              		.cfi_def_cfa_offset 16
+ 20556 0004 00AF     		add	r7, sp, #0
+ 20557              		.cfi_offset 7, -4
+ 20558              	.LCFI38:
+ 20559              		.cfi_def_cfa_register 7
+ 20560 0006 7860     		str	r0, [r7, #4]
+ 20561 0008 0B46     		mov	r3, r1
+ 20562 000a FB70     		strb	r3, [r7, #3]
+ 568:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 569:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 570:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 571:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 572:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (NewState != DISABLE)
+ 20563              		.loc 1 572 0
+ 20564 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 20565 000e 002B     		cmp	r3, #0
+ 20566 0010 08D0     		beq	.L40
+ 573:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 574:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Enable the LIN mode by setting the LINEN bit in the CR2 register */
+ 575:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR2 |= CR2_LINEN_Set;
+ 20567              		.loc 1 575 0
+ 20568 0012 7B68     		ldr	r3, [r7, #4]
+ 20569 0014 1B8A     		ldrh	r3, [r3, #16]	@ movhi
+ 20570 0016 9BB2     		uxth	r3, r3
+ 20571 0018 43F48043 		orr	r3, r3, #16384
+ 20572 001c 9AB2     		uxth	r2, r3
+ 20573 001e 7B68     		ldr	r3, [r7, #4]
+ 20574 0020 1A82     		strh	r2, [r3, #16]	@ movhi
+ 20575 0022 07E0     		b	.L39
+ 20576              	.L40:
+ 576:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 577:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else
+ 578:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 579:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Disable the LIN mode by clearing the LINEN bit in the CR2 register */
+ 580:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR2 &= CR2_LINEN_Reset;
+ 20577              		.loc 1 580 0
+ 20578 0024 7B68     		ldr	r3, [r7, #4]
+ 20579 0026 1B8A     		ldrh	r3, [r3, #16]	@ movhi
+ 20580 0028 9BB2     		uxth	r3, r3
+ 20581 002a 23F48043 		bic	r3, r3, #16384
+ 20582 002e 9AB2     		uxth	r2, r3
+ 20583 0030 7B68     		ldr	r3, [r7, #4]
+ 20584 0032 1A82     		strh	r2, [r3, #16]	@ movhi
+ 20585              	.L39:
+ 581:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 582:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20586              		.loc 1 582 0
+ 20587 0034 07F10C07 		add	r7, r7, #12
+ 20588 0038 BD46     		mov	sp, r7
+ 20589 003a 80BC     		pop	{r7}
+ 20590 003c 7047     		bx	lr
+ 20591              		.cfi_endproc
+ 20592              	.LFE41:
+ 20594 003e 00BF     		.section	.text.USART_SendData,"ax",%progbits
+ 20595              		.align	2
+ 20596              		.global	USART_SendData
+ 20597              		.thumb
+ 20598              		.thumb_func
+ 20600              	USART_SendData:
+ 20601              	.LFB42:
+ 583:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 584:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 585:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Transmits single data through the USARTx peripheral.
+ 586:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 587:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 588:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 589:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  Data: the data to transmit.
+ 590:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 591:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 592:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_SendData(USART_TypeDef* USARTx, uint16_t Data)
+ 593:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 20602              		.loc 1 593 0
+ 20603              		.cfi_startproc
+ 20604              		@ args = 0, pretend = 0, frame = 8
+ 20605              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20606              		@ link register save eliminated.
+ 20607 0000 80B4     		push	{r7}
+ 20608              	.LCFI39:
+ 20609              		.cfi_def_cfa_offset 4
+ 20610 0002 83B0     		sub	sp, sp, #12
+ 20611              	.LCFI40:
+ 20612              		.cfi_def_cfa_offset 16
+ 20613 0004 00AF     		add	r7, sp, #0
+ 20614              		.cfi_offset 7, -4
+ 20615              	.LCFI41:
+ 20616              		.cfi_def_cfa_register 7
+ 20617 0006 7860     		str	r0, [r7, #4]
+ 20618 0008 0B46     		mov	r3, r1
+ 20619 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 594:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 595:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 596:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_DATA(Data)); 
+ 597:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     
+ 598:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Transmit Data */
+ 599:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->DR = (Data & (uint16_t)0x01FF);
+ 20620              		.loc 1 599 0
+ 20621 000c 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 20622 000e 4FEAC353 		lsl	r3, r3, #23
+ 20623 0012 4FEAD353 		lsr	r3, r3, #23
+ 20624 0016 9AB2     		uxth	r2, r3
+ 20625 0018 7B68     		ldr	r3, [r7, #4]
+ 20626 001a 9A80     		strh	r2, [r3, #4]	@ movhi
+ 600:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20627              		.loc 1 600 0
+ 20628 001c 07F10C07 		add	r7, r7, #12
+ 20629 0020 BD46     		mov	sp, r7
+ 20630 0022 80BC     		pop	{r7}
+ 20631 0024 7047     		bx	lr
+ 20632              		.cfi_endproc
+ 20633              	.LFE42:
+ 20635 0026 00BF     		.section	.text.USART_ReceiveData,"ax",%progbits
+ 20636              		.align	2
+ 20637              		.global	USART_ReceiveData
+ 20638              		.thumb
+ 20639              		.thumb_func
+ 20641              	USART_ReceiveData:
+ 20642              	.LFB43:
+ 601:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 602:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 603:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Returns the most recent received data by the USARTx peripheral.
+ 604:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 605:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 606:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 607:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval The received data.
+ 608:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 609:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** uint16_t USART_ReceiveData(USART_TypeDef* USARTx)
+ 610:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 20643              		.loc 1 610 0
+ 20644              		.cfi_startproc
+ 20645              		@ args = 0, pretend = 0, frame = 8
+ 20646              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20647              		@ link register save eliminated.
+ 20648 0000 80B4     		push	{r7}
+ 20649              	.LCFI42:
+ 20650              		.cfi_def_cfa_offset 4
+ 20651 0002 83B0     		sub	sp, sp, #12
+ 20652              	.LCFI43:
+ 20653              		.cfi_def_cfa_offset 16
+ 20654 0004 00AF     		add	r7, sp, #0
+ 20655              		.cfi_offset 7, -4
+ 20656              	.LCFI44:
+ 20657              		.cfi_def_cfa_register 7
+ 20658 0006 7860     		str	r0, [r7, #4]
+ 611:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 612:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 613:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 614:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Receive Data */
+ 615:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   return (uint16_t)(USARTx->DR & (uint16_t)0x01FF);
+ 20659              		.loc 1 615 0
+ 20660 0008 7B68     		ldr	r3, [r7, #4]
+ 20661 000a 9B88     		ldrh	r3, [r3, #4]	@ movhi
+ 20662 000c 9BB2     		uxth	r3, r3
+ 20663 000e 4FEAC353 		lsl	r3, r3, #23
+ 20664 0012 4FEAD353 		lsr	r3, r3, #23
+ 20665 0016 9BB2     		uxth	r3, r3
+ 616:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20666              		.loc 1 616 0
+ 20667 0018 1846     		mov	r0, r3
+ 20668 001a 07F10C07 		add	r7, r7, #12
+ 20669 001e BD46     		mov	sp, r7
+ 20670 0020 80BC     		pop	{r7}
+ 20671 0022 7047     		bx	lr
+ 20672              		.cfi_endproc
+ 20673              	.LFE43:
+ 20675              		.section	.text.USART_SendBreak,"ax",%progbits
+ 20676              		.align	2
+ 20677              		.global	USART_SendBreak
+ 20678              		.thumb
+ 20679              		.thumb_func
+ 20681              	USART_SendBreak:
+ 20682              	.LFB44:
+ 617:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 618:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 619:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Transmits break characters.
+ 620:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 621:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 622:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 623:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 624:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 625:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_SendBreak(USART_TypeDef* USARTx)
+ 626:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 20683              		.loc 1 626 0
+ 20684              		.cfi_startproc
+ 20685              		@ args = 0, pretend = 0, frame = 8
+ 20686              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20687              		@ link register save eliminated.
+ 20688 0000 80B4     		push	{r7}
+ 20689              	.LCFI45:
+ 20690              		.cfi_def_cfa_offset 4
+ 20691 0002 83B0     		sub	sp, sp, #12
+ 20692              	.LCFI46:
+ 20693              		.cfi_def_cfa_offset 16
+ 20694 0004 00AF     		add	r7, sp, #0
+ 20695              		.cfi_offset 7, -4
+ 20696              	.LCFI47:
+ 20697              		.cfi_def_cfa_register 7
+ 20698 0006 7860     		str	r0, [r7, #4]
+ 627:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 628:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 629:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 630:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Send break characters */
+ 631:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->CR1 |= CR1_SBK_Set;
+ 20699              		.loc 1 631 0
+ 20700 0008 7B68     		ldr	r3, [r7, #4]
+ 20701 000a 9B89     		ldrh	r3, [r3, #12]	@ movhi
+ 20702 000c 9BB2     		uxth	r3, r3
+ 20703 000e 43F00103 		orr	r3, r3, #1
+ 20704 0012 9AB2     		uxth	r2, r3
+ 20705 0014 7B68     		ldr	r3, [r7, #4]
+ 20706 0016 9A81     		strh	r2, [r3, #12]	@ movhi
+ 632:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20707              		.loc 1 632 0
+ 20708 0018 07F10C07 		add	r7, r7, #12
+ 20709 001c BD46     		mov	sp, r7
+ 20710 001e 80BC     		pop	{r7}
+ 20711 0020 7047     		bx	lr
+ 20712              		.cfi_endproc
+ 20713              	.LFE44:
+ 20715 0022 00BF     		.section	.text.USART_SetGuardTime,"ax",%progbits
+ 20716              		.align	2
+ 20717              		.global	USART_SetGuardTime
+ 20718              		.thumb
+ 20719              		.thumb_func
+ 20721              	USART_SetGuardTime:
+ 20722              	.LFB45:
+ 633:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 634:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 635:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Sets the specified USART guard time.
+ 636:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: where x can be 1, 2 or 3 to select the USART peripheral.
+ 637:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USART_GuardTime: specifies the guard time.
+ 638:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @note The guard time bits are not available for UART4 and UART5.   
+ 639:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 640:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 641:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_SetGuardTime(USART_TypeDef* USARTx, uint8_t USART_GuardTime)
+ 642:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {    
+ 20723              		.loc 1 642 0
+ 20724              		.cfi_startproc
+ 20725              		@ args = 0, pretend = 0, frame = 8
+ 20726              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20727              		@ link register save eliminated.
+ 20728 0000 80B4     		push	{r7}
+ 20729              	.LCFI48:
+ 20730              		.cfi_def_cfa_offset 4
+ 20731 0002 83B0     		sub	sp, sp, #12
+ 20732              	.LCFI49:
+ 20733              		.cfi_def_cfa_offset 16
+ 20734 0004 00AF     		add	r7, sp, #0
+ 20735              		.cfi_offset 7, -4
+ 20736              	.LCFI50:
+ 20737              		.cfi_def_cfa_register 7
+ 20738 0006 7860     		str	r0, [r7, #4]
+ 20739 0008 0B46     		mov	r3, r1
+ 20740 000a FB70     		strb	r3, [r7, #3]
+ 643:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 644:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_123_PERIPH(USARTx));
+ 645:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 646:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Clear the USART Guard time */
+ 647:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->GTPR &= GTPR_LSB_Mask;
+ 20741              		.loc 1 647 0
+ 20742 000c 7B68     		ldr	r3, [r7, #4]
+ 20743 000e 1B8B     		ldrh	r3, [r3, #24]	@ movhi
+ 20744 0010 9BB2     		uxth	r3, r3
+ 20745 0012 03F0FF03 		and	r3, r3, #255
+ 20746 0016 9AB2     		uxth	r2, r3
+ 20747 0018 7B68     		ldr	r3, [r7, #4]
+ 20748 001a 1A83     		strh	r2, [r3, #24]	@ movhi
+ 648:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Set the USART guard time */
+ 649:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->GTPR |= (uint16_t)((uint16_t)USART_GuardTime << 0x08);
+ 20749              		.loc 1 649 0
+ 20750 001c 7B68     		ldr	r3, [r7, #4]
+ 20751 001e 1B8B     		ldrh	r3, [r3, #24]	@ movhi
+ 20752 0020 9AB2     		uxth	r2, r3
+ 20753 0022 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 20754 0024 9BB2     		uxth	r3, r3
+ 20755 0026 4FEA0323 		lsl	r3, r3, #8
+ 20756 002a 9BB2     		uxth	r3, r3
+ 20757 002c 42EA0303 		orr	r3, r2, r3
+ 20758 0030 9AB2     		uxth	r2, r3
+ 20759 0032 7B68     		ldr	r3, [r7, #4]
+ 20760 0034 1A83     		strh	r2, [r3, #24]	@ movhi
+ 650:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20761              		.loc 1 650 0
+ 20762 0036 07F10C07 		add	r7, r7, #12
+ 20763 003a BD46     		mov	sp, r7
+ 20764 003c 80BC     		pop	{r7}
+ 20765 003e 7047     		bx	lr
+ 20766              		.cfi_endproc
+ 20767              	.LFE45:
+ 20769              		.section	.text.USART_SetPrescaler,"ax",%progbits
+ 20770              		.align	2
+ 20771              		.global	USART_SetPrescaler
+ 20772              		.thumb
+ 20773              		.thumb_func
+ 20775              	USART_SetPrescaler:
+ 20776              	.LFB46:
+ 651:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 652:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 653:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Sets the system clock prescaler.
+ 654:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 655:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 656:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 657:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USART_Prescaler: specifies the prescaler clock.  
+ 658:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @note   The function is used for IrDA mode with UART4 and UART5.
+ 659:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 660:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 661:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_SetPrescaler(USART_TypeDef* USARTx, uint8_t USART_Prescaler)
+ 662:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** { 
+ 20777              		.loc 1 662 0
+ 20778              		.cfi_startproc
+ 20779              		@ args = 0, pretend = 0, frame = 8
+ 20780              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20781              		@ link register save eliminated.
+ 20782 0000 80B4     		push	{r7}
+ 20783              	.LCFI51:
+ 20784              		.cfi_def_cfa_offset 4
+ 20785 0002 83B0     		sub	sp, sp, #12
+ 20786              	.LCFI52:
+ 20787              		.cfi_def_cfa_offset 16
+ 20788 0004 00AF     		add	r7, sp, #0
+ 20789              		.cfi_offset 7, -4
+ 20790              	.LCFI53:
+ 20791              		.cfi_def_cfa_register 7
+ 20792 0006 7860     		str	r0, [r7, #4]
+ 20793 0008 0B46     		mov	r3, r1
+ 20794 000a FB70     		strb	r3, [r7, #3]
+ 663:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 664:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 665:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 666:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Clear the USART prescaler */
+ 667:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->GTPR &= GTPR_MSB_Mask;
+ 20795              		.loc 1 667 0
+ 20796 000c 7B68     		ldr	r3, [r7, #4]
+ 20797 000e 1B8B     		ldrh	r3, [r3, #24]	@ movhi
+ 20798 0010 9BB2     		uxth	r3, r3
+ 20799 0012 23F0FF03 		bic	r3, r3, #255
+ 20800 0016 9AB2     		uxth	r2, r3
+ 20801 0018 7B68     		ldr	r3, [r7, #4]
+ 20802 001a 1A83     		strh	r2, [r3, #24]	@ movhi
+ 668:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Set the USART prescaler */
+ 669:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->GTPR |= USART_Prescaler;
+ 20803              		.loc 1 669 0
+ 20804 001c 7B68     		ldr	r3, [r7, #4]
+ 20805 001e 1B8B     		ldrh	r3, [r3, #24]	@ movhi
+ 20806 0020 9AB2     		uxth	r2, r3
+ 20807 0022 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 20808 0024 9BB2     		uxth	r3, r3
+ 20809 0026 42EA0303 		orr	r3, r2, r3
+ 20810 002a 9AB2     		uxth	r2, r3
+ 20811 002c 7B68     		ldr	r3, [r7, #4]
+ 20812 002e 1A83     		strh	r2, [r3, #24]	@ movhi
+ 670:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20813              		.loc 1 670 0
+ 20814 0030 07F10C07 		add	r7, r7, #12
+ 20815 0034 BD46     		mov	sp, r7
+ 20816 0036 80BC     		pop	{r7}
+ 20817 0038 7047     		bx	lr
+ 20818              		.cfi_endproc
+ 20819              	.LFE46:
+ 20821 003a 00BF     		.section	.text.USART_SmartCardCmd,"ax",%progbits
+ 20822              		.align	2
+ 20823              		.global	USART_SmartCardCmd
+ 20824              		.thumb
+ 20825              		.thumb_func
+ 20827              	USART_SmartCardCmd:
+ 20828              	.LFB47:
+ 671:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 672:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 673:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Enables or disables the USART’s Smart Card mode.
+ 674:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: where x can be 1, 2 or 3 to select the USART peripheral.
+ 675:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  NewState: new state of the Smart Card mode.
+ 676:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be: ENABLE or DISABLE.     
+ 677:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @note The Smart Card mode is not available for UART4 and UART5. 
+ 678:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 679:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 680:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_SmartCardCmd(USART_TypeDef* USARTx, FunctionalState NewState)
+ 681:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 20829              		.loc 1 681 0
+ 20830              		.cfi_startproc
+ 20831              		@ args = 0, pretend = 0, frame = 8
+ 20832              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20833              		@ link register save eliminated.
+ 20834 0000 80B4     		push	{r7}
+ 20835              	.LCFI54:
+ 20836              		.cfi_def_cfa_offset 4
+ 20837 0002 83B0     		sub	sp, sp, #12
+ 20838              	.LCFI55:
+ 20839              		.cfi_def_cfa_offset 16
+ 20840 0004 00AF     		add	r7, sp, #0
+ 20841              		.cfi_offset 7, -4
+ 20842              	.LCFI56:
+ 20843              		.cfi_def_cfa_register 7
+ 20844 0006 7860     		str	r0, [r7, #4]
+ 20845 0008 0B46     		mov	r3, r1
+ 20846 000a FB70     		strb	r3, [r7, #3]
+ 682:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 683:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_123_PERIPH(USARTx));
+ 684:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 685:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (NewState != DISABLE)
+ 20847              		.loc 1 685 0
+ 20848 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 20849 000e 002B     		cmp	r3, #0
+ 20850 0010 08D0     		beq	.L48
+ 686:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 687:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Enable the SC mode by setting the SCEN bit in the CR3 register */
+ 688:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR3 |= CR3_SCEN_Set;
+ 20851              		.loc 1 688 0
+ 20852 0012 7B68     		ldr	r3, [r7, #4]
+ 20853 0014 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 20854 0016 9BB2     		uxth	r3, r3
+ 20855 0018 43F02003 		orr	r3, r3, #32
+ 20856 001c 9AB2     		uxth	r2, r3
+ 20857 001e 7B68     		ldr	r3, [r7, #4]
+ 20858 0020 9A82     		strh	r2, [r3, #20]	@ movhi
+ 20859 0022 07E0     		b	.L47
+ 20860              	.L48:
+ 689:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 690:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else
+ 691:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 692:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Disable the SC mode by clearing the SCEN bit in the CR3 register */
+ 693:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR3 &= CR3_SCEN_Reset;
+ 20861              		.loc 1 693 0
+ 20862 0024 7B68     		ldr	r3, [r7, #4]
+ 20863 0026 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 20864 0028 9BB2     		uxth	r3, r3
+ 20865 002a 23F02003 		bic	r3, r3, #32
+ 20866 002e 9AB2     		uxth	r2, r3
+ 20867 0030 7B68     		ldr	r3, [r7, #4]
+ 20868 0032 9A82     		strh	r2, [r3, #20]	@ movhi
+ 20869              	.L47:
+ 694:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 695:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20870              		.loc 1 695 0
+ 20871 0034 07F10C07 		add	r7, r7, #12
+ 20872 0038 BD46     		mov	sp, r7
+ 20873 003a 80BC     		pop	{r7}
+ 20874 003c 7047     		bx	lr
+ 20875              		.cfi_endproc
+ 20876              	.LFE47:
+ 20878 003e 00BF     		.section	.text.USART_SmartCardNACKCmd,"ax",%progbits
+ 20879              		.align	2
+ 20880              		.global	USART_SmartCardNACKCmd
+ 20881              		.thumb
+ 20882              		.thumb_func
+ 20884              	USART_SmartCardNACKCmd:
+ 20885              	.LFB48:
+ 696:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 697:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 698:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Enables or disables NACK transmission.
+ 699:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: where x can be 1, 2 or 3 to select the USART peripheral. 
+ 700:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  NewState: new state of the NACK transmission.
+ 701:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be: ENABLE or DISABLE.  
+ 702:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @note The Smart Card mode is not available for UART4 and UART5.
+ 703:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 704:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 705:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_SmartCardNACKCmd(USART_TypeDef* USARTx, FunctionalState NewState)
+ 706:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 20886              		.loc 1 706 0
+ 20887              		.cfi_startproc
+ 20888              		@ args = 0, pretend = 0, frame = 8
+ 20889              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20890              		@ link register save eliminated.
+ 20891 0000 80B4     		push	{r7}
+ 20892              	.LCFI57:
+ 20893              		.cfi_def_cfa_offset 4
+ 20894 0002 83B0     		sub	sp, sp, #12
+ 20895              	.LCFI58:
+ 20896              		.cfi_def_cfa_offset 16
+ 20897 0004 00AF     		add	r7, sp, #0
+ 20898              		.cfi_offset 7, -4
+ 20899              	.LCFI59:
+ 20900              		.cfi_def_cfa_register 7
+ 20901 0006 7860     		str	r0, [r7, #4]
+ 20902 0008 0B46     		mov	r3, r1
+ 20903 000a FB70     		strb	r3, [r7, #3]
+ 707:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 708:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_123_PERIPH(USARTx));  
+ 709:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 710:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (NewState != DISABLE)
+ 20904              		.loc 1 710 0
+ 20905 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 20906 000e 002B     		cmp	r3, #0
+ 20907 0010 08D0     		beq	.L51
+ 711:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 712:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Enable the NACK transmission by setting the NACK bit in the CR3 register */
+ 713:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR3 |= CR3_NACK_Set;
+ 20908              		.loc 1 713 0
+ 20909 0012 7B68     		ldr	r3, [r7, #4]
+ 20910 0014 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 20911 0016 9BB2     		uxth	r3, r3
+ 20912 0018 43F01003 		orr	r3, r3, #16
+ 20913 001c 9AB2     		uxth	r2, r3
+ 20914 001e 7B68     		ldr	r3, [r7, #4]
+ 20915 0020 9A82     		strh	r2, [r3, #20]	@ movhi
+ 20916 0022 07E0     		b	.L50
+ 20917              	.L51:
+ 714:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 715:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else
+ 716:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 717:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Disable the NACK transmission by clearing the NACK bit in the CR3 register */
+ 718:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR3 &= CR3_NACK_Reset;
+ 20918              		.loc 1 718 0
+ 20919 0024 7B68     		ldr	r3, [r7, #4]
+ 20920 0026 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 20921 0028 9BB2     		uxth	r3, r3
+ 20922 002a 23F01003 		bic	r3, r3, #16
+ 20923 002e 9AB2     		uxth	r2, r3
+ 20924 0030 7B68     		ldr	r3, [r7, #4]
+ 20925 0032 9A82     		strh	r2, [r3, #20]	@ movhi
+ 20926              	.L50:
+ 719:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 720:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20927              		.loc 1 720 0
+ 20928 0034 07F10C07 		add	r7, r7, #12
+ 20929 0038 BD46     		mov	sp, r7
+ 20930 003a 80BC     		pop	{r7}
+ 20931 003c 7047     		bx	lr
+ 20932              		.cfi_endproc
+ 20933              	.LFE48:
+ 20935 003e 00BF     		.section	.text.USART_HalfDuplexCmd,"ax",%progbits
+ 20936              		.align	2
+ 20937              		.global	USART_HalfDuplexCmd
+ 20938              		.thumb
+ 20939              		.thumb_func
+ 20941              	USART_HalfDuplexCmd:
+ 20942              	.LFB49:
+ 721:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 722:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 723:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Enables or disables the USART’s Half Duplex communication.
+ 724:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 725:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 726:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 727:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  NewState: new state of the USART Communication.
+ 728:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 729:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 730:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 731:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_HalfDuplexCmd(USART_TypeDef* USARTx, FunctionalState NewState)
+ 732:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 20943              		.loc 1 732 0
+ 20944              		.cfi_startproc
+ 20945              		@ args = 0, pretend = 0, frame = 8
+ 20946              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20947              		@ link register save eliminated.
+ 20948 0000 80B4     		push	{r7}
+ 20949              	.LCFI60:
+ 20950              		.cfi_def_cfa_offset 4
+ 20951 0002 83B0     		sub	sp, sp, #12
+ 20952              	.LCFI61:
+ 20953              		.cfi_def_cfa_offset 16
+ 20954 0004 00AF     		add	r7, sp, #0
+ 20955              		.cfi_offset 7, -4
+ 20956              	.LCFI62:
+ 20957              		.cfi_def_cfa_register 7
+ 20958 0006 7860     		str	r0, [r7, #4]
+ 20959 0008 0B46     		mov	r3, r1
+ 20960 000a FB70     		strb	r3, [r7, #3]
+ 733:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 734:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 735:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 736:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 737:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (NewState != DISABLE)
+ 20961              		.loc 1 737 0
+ 20962 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 20963 000e 002B     		cmp	r3, #0
+ 20964 0010 08D0     		beq	.L54
+ 738:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 739:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Enable the Half-Duplex mode by setting the HDSEL bit in the CR3 register */
+ 740:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR3 |= CR3_HDSEL_Set;
+ 20965              		.loc 1 740 0
+ 20966 0012 7B68     		ldr	r3, [r7, #4]
+ 20967 0014 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 20968 0016 9BB2     		uxth	r3, r3
+ 20969 0018 43F00803 		orr	r3, r3, #8
+ 20970 001c 9AB2     		uxth	r2, r3
+ 20971 001e 7B68     		ldr	r3, [r7, #4]
+ 20972 0020 9A82     		strh	r2, [r3, #20]	@ movhi
+ 20973 0022 07E0     		b	.L53
+ 20974              	.L54:
+ 741:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 742:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else
+ 743:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 744:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Disable the Half-Duplex mode by clearing the HDSEL bit in the CR3 register */
+ 745:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR3 &= CR3_HDSEL_Reset;
+ 20975              		.loc 1 745 0
+ 20976 0024 7B68     		ldr	r3, [r7, #4]
+ 20977 0026 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 20978 0028 9BB2     		uxth	r3, r3
+ 20979 002a 23F00803 		bic	r3, r3, #8
+ 20980 002e 9AB2     		uxth	r2, r3
+ 20981 0030 7B68     		ldr	r3, [r7, #4]
+ 20982 0032 9A82     		strh	r2, [r3, #20]	@ movhi
+ 20983              	.L53:
+ 746:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 747:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 20984              		.loc 1 747 0
+ 20985 0034 07F10C07 		add	r7, r7, #12
+ 20986 0038 BD46     		mov	sp, r7
+ 20987 003a 80BC     		pop	{r7}
+ 20988 003c 7047     		bx	lr
+ 20989              		.cfi_endproc
+ 20990              	.LFE49:
+ 20992 003e 00BF     		.section	.text.USART_OverSampling8Cmd,"ax",%progbits
+ 20993              		.align	2
+ 20994              		.global	USART_OverSampling8Cmd
+ 20995              		.thumb
+ 20996              		.thumb_func
+ 20998              	USART_OverSampling8Cmd:
+ 20999              	.LFB50:
+ 748:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 749:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 750:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 751:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Enables or disables the USART's 8x oversampling mode.
+ 752:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral.
+ 753:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 754:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 755:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  NewState: new state of the USART one bit sampling method.
+ 756:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 757:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @note
+ 758:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     This function has to be called before calling USART_Init()
+ 759:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     function in order to have correct baudrate Divider value.   
+ 760:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 761:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 762:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_OverSampling8Cmd(USART_TypeDef* USARTx, FunctionalState NewState)
+ 763:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 21000              		.loc 1 763 0
+ 21001              		.cfi_startproc
+ 21002              		@ args = 0, pretend = 0, frame = 8
+ 21003              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21004              		@ link register save eliminated.
+ 21005 0000 80B4     		push	{r7}
+ 21006              	.LCFI63:
+ 21007              		.cfi_def_cfa_offset 4
+ 21008 0002 83B0     		sub	sp, sp, #12
+ 21009              	.LCFI64:
+ 21010              		.cfi_def_cfa_offset 16
+ 21011 0004 00AF     		add	r7, sp, #0
+ 21012              		.cfi_offset 7, -4
+ 21013              	.LCFI65:
+ 21014              		.cfi_def_cfa_register 7
+ 21015 0006 7860     		str	r0, [r7, #4]
+ 21016 0008 0B46     		mov	r3, r1
+ 21017 000a FB70     		strb	r3, [r7, #3]
+ 764:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 765:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 766:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 767:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 768:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (NewState != DISABLE)
+ 21018              		.loc 1 768 0
+ 21019 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 21020 000e 002B     		cmp	r3, #0
+ 21021 0010 0AD0     		beq	.L57
+ 769:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 770:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Enable the 8x Oversampling mode by setting the OVER8 bit in the CR1 register */
+ 771:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR1 |= CR1_OVER8_Set;
+ 21022              		.loc 1 771 0
+ 21023 0012 7B68     		ldr	r3, [r7, #4]
+ 21024 0014 9B89     		ldrh	r3, [r3, #12]	@ movhi
+ 21025 0016 9BB2     		uxth	r3, r3
+ 21026 0018 6FEA4343 		mvn	r3, r3, lsl #17
+ 21027 001c 6FEA5343 		mvn	r3, r3, lsr #17
+ 21028 0020 9AB2     		uxth	r2, r3
+ 21029 0022 7B68     		ldr	r3, [r7, #4]
+ 21030 0024 9A81     		strh	r2, [r3, #12]	@ movhi
+ 21031 0026 09E0     		b	.L56
+ 21032              	.L57:
+ 772:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 773:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else
+ 774:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 775:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Disable the 8x Oversampling mode by clearing the OVER8 bit in the CR1 register */
+ 776:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR1 &= CR1_OVER8_Reset;
+ 21033              		.loc 1 776 0
+ 21034 0028 7B68     		ldr	r3, [r7, #4]
+ 21035 002a 9B89     		ldrh	r3, [r3, #12]	@ movhi
+ 21036 002c 9BB2     		uxth	r3, r3
+ 21037 002e 4FEA4343 		lsl	r3, r3, #17
+ 21038 0032 4FEA5343 		lsr	r3, r3, #17
+ 21039 0036 9AB2     		uxth	r2, r3
+ 21040 0038 7B68     		ldr	r3, [r7, #4]
+ 21041 003a 9A81     		strh	r2, [r3, #12]	@ movhi
+ 21042              	.L56:
+ 777:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 778:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 21043              		.loc 1 778 0
+ 21044 003c 07F10C07 		add	r7, r7, #12
+ 21045 0040 BD46     		mov	sp, r7
+ 21046 0042 80BC     		pop	{r7}
+ 21047 0044 7047     		bx	lr
+ 21048              		.cfi_endproc
+ 21049              	.LFE50:
+ 21051 0046 00BF     		.section	.text.USART_OneBitMethodCmd,"ax",%progbits
+ 21052              		.align	2
+ 21053              		.global	USART_OneBitMethodCmd
+ 21054              		.thumb
+ 21055              		.thumb_func
+ 21057              	USART_OneBitMethodCmd:
+ 21058              	.LFB51:
+ 779:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 780:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 781:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Enables or disables the USART's one bit sampling method.
+ 782:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral.
+ 783:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 784:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 785:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  NewState: new state of the USART one bit sampling method.
+ 786:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 787:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 788:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 789:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_OneBitMethodCmd(USART_TypeDef* USARTx, FunctionalState NewState)
+ 790:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 21059              		.loc 1 790 0
+ 21060              		.cfi_startproc
+ 21061              		@ args = 0, pretend = 0, frame = 8
+ 21062              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21063              		@ link register save eliminated.
+ 21064 0000 80B4     		push	{r7}
+ 21065              	.LCFI66:
+ 21066              		.cfi_def_cfa_offset 4
+ 21067 0002 83B0     		sub	sp, sp, #12
+ 21068              	.LCFI67:
+ 21069              		.cfi_def_cfa_offset 16
+ 21070 0004 00AF     		add	r7, sp, #0
+ 21071              		.cfi_offset 7, -4
+ 21072              	.LCFI68:
+ 21073              		.cfi_def_cfa_register 7
+ 21074 0006 7860     		str	r0, [r7, #4]
+ 21075 0008 0B46     		mov	r3, r1
+ 21076 000a FB70     		strb	r3, [r7, #3]
+ 791:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 792:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 793:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 794:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 795:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (NewState != DISABLE)
+ 21077              		.loc 1 795 0
+ 21078 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 21079 000e 002B     		cmp	r3, #0
+ 21080 0010 08D0     		beq	.L60
+ 796:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 797:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Enable the one bit method by setting the ONEBITE bit in the CR3 register */
+ 798:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR3 |= CR3_ONEBITE_Set;
+ 21081              		.loc 1 798 0
+ 21082 0012 7B68     		ldr	r3, [r7, #4]
+ 21083 0014 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 21084 0016 9BB2     		uxth	r3, r3
+ 21085 0018 43F40063 		orr	r3, r3, #2048
+ 21086 001c 9AB2     		uxth	r2, r3
+ 21087 001e 7B68     		ldr	r3, [r7, #4]
+ 21088 0020 9A82     		strh	r2, [r3, #20]	@ movhi
+ 21089 0022 07E0     		b	.L59
+ 21090              	.L60:
+ 799:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 800:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else
+ 801:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 802:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Disable tthe one bit method by clearing the ONEBITE bit in the CR3 register */
+ 803:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR3 &= CR3_ONEBITE_Reset;
+ 21091              		.loc 1 803 0
+ 21092 0024 7B68     		ldr	r3, [r7, #4]
+ 21093 0026 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 21094 0028 9BB2     		uxth	r3, r3
+ 21095 002a 23F40063 		bic	r3, r3, #2048
+ 21096 002e 9AB2     		uxth	r2, r3
+ 21097 0030 7B68     		ldr	r3, [r7, #4]
+ 21098 0032 9A82     		strh	r2, [r3, #20]	@ movhi
+ 21099              	.L59:
+ 804:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 805:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 21100              		.loc 1 805 0
+ 21101 0034 07F10C07 		add	r7, r7, #12
+ 21102 0038 BD46     		mov	sp, r7
+ 21103 003a 80BC     		pop	{r7}
+ 21104 003c 7047     		bx	lr
+ 21105              		.cfi_endproc
+ 21106              	.LFE51:
+ 21108 003e 00BF     		.section	.text.USART_IrDAConfig,"ax",%progbits
+ 21109              		.align	2
+ 21110              		.global	USART_IrDAConfig
+ 21111              		.thumb
+ 21112              		.thumb_func
+ 21114              	USART_IrDAConfig:
+ 21115              	.LFB52:
+ 806:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 807:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 808:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Configures the USART's IrDA interface.
+ 809:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 810:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 811:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 812:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USART_IrDAMode: specifies the IrDA mode.
+ 813:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 814:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IrDAMode_LowPower
+ 815:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IrDAMode_Normal
+ 816:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 817:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 818:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_IrDAConfig(USART_TypeDef* USARTx, uint16_t USART_IrDAMode)
+ 819:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 21116              		.loc 1 819 0
+ 21117              		.cfi_startproc
+ 21118              		@ args = 0, pretend = 0, frame = 8
+ 21119              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21120              		@ link register save eliminated.
+ 21121 0000 80B4     		push	{r7}
+ 21122              	.LCFI69:
+ 21123              		.cfi_def_cfa_offset 4
+ 21124 0002 83B0     		sub	sp, sp, #12
+ 21125              	.LCFI70:
+ 21126              		.cfi_def_cfa_offset 16
+ 21127 0004 00AF     		add	r7, sp, #0
+ 21128              		.cfi_offset 7, -4
+ 21129              	.LCFI71:
+ 21130              		.cfi_def_cfa_register 7
+ 21131 0006 7860     		str	r0, [r7, #4]
+ 21132 0008 0B46     		mov	r3, r1
+ 21133 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 820:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 821:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 822:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_IRDA_MODE(USART_IrDAMode));
+ 823:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     
+ 824:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->CR3 &= CR3_IRLP_Mask;
+ 21134              		.loc 1 824 0
+ 21135 000c 7B68     		ldr	r3, [r7, #4]
+ 21136 000e 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 21137 0010 9BB2     		uxth	r3, r3
+ 21138 0012 23F00403 		bic	r3, r3, #4
+ 21139 0016 9AB2     		uxth	r2, r3
+ 21140 0018 7B68     		ldr	r3, [r7, #4]
+ 21141 001a 9A82     		strh	r2, [r3, #20]	@ movhi
+ 825:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->CR3 |= USART_IrDAMode;
+ 21142              		.loc 1 825 0
+ 21143 001c 7B68     		ldr	r3, [r7, #4]
+ 21144 001e 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 21145 0020 9AB2     		uxth	r2, r3
+ 21146 0022 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 21147 0024 42EA0303 		orr	r3, r2, r3
+ 21148 0028 9AB2     		uxth	r2, r3
+ 21149 002a 7B68     		ldr	r3, [r7, #4]
+ 21150 002c 9A82     		strh	r2, [r3, #20]	@ movhi
+ 826:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 21151              		.loc 1 826 0
+ 21152 002e 07F10C07 		add	r7, r7, #12
+ 21153 0032 BD46     		mov	sp, r7
+ 21154 0034 80BC     		pop	{r7}
+ 21155 0036 7047     		bx	lr
+ 21156              		.cfi_endproc
+ 21157              	.LFE52:
+ 21159              		.section	.text.USART_IrDACmd,"ax",%progbits
+ 21160              		.align	2
+ 21161              		.global	USART_IrDACmd
+ 21162              		.thumb
+ 21163              		.thumb_func
+ 21165              	USART_IrDACmd:
+ 21166              	.LFB53:
+ 827:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 828:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 829:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Enables or disables the USART's IrDA interface.
+ 830:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 831:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 832:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 833:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  NewState: new state of the IrDA mode.
+ 834:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 835:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 836:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 837:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_IrDACmd(USART_TypeDef* USARTx, FunctionalState NewState)
+ 838:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 21167              		.loc 1 838 0
+ 21168              		.cfi_startproc
+ 21169              		@ args = 0, pretend = 0, frame = 8
+ 21170              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21171              		@ link register save eliminated.
+ 21172 0000 80B4     		push	{r7}
+ 21173              	.LCFI72:
+ 21174              		.cfi_def_cfa_offset 4
+ 21175 0002 83B0     		sub	sp, sp, #12
+ 21176              	.LCFI73:
+ 21177              		.cfi_def_cfa_offset 16
+ 21178 0004 00AF     		add	r7, sp, #0
+ 21179              		.cfi_offset 7, -4
+ 21180              	.LCFI74:
+ 21181              		.cfi_def_cfa_register 7
+ 21182 0006 7860     		str	r0, [r7, #4]
+ 21183 0008 0B46     		mov	r3, r1
+ 21184 000a FB70     		strb	r3, [r7, #3]
+ 839:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 840:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 841:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 842:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     
+ 843:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (NewState != DISABLE)
+ 21185              		.loc 1 843 0
+ 21186 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 21187 000e 002B     		cmp	r3, #0
+ 21188 0010 08D0     		beq	.L64
+ 844:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 845:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Enable the IrDA mode by setting the IREN bit in the CR3 register */
+ 846:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR3 |= CR3_IREN_Set;
+ 21189              		.loc 1 846 0
+ 21190 0012 7B68     		ldr	r3, [r7, #4]
+ 21191 0014 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 21192 0016 9BB2     		uxth	r3, r3
+ 21193 0018 43F00203 		orr	r3, r3, #2
+ 21194 001c 9AB2     		uxth	r2, r3
+ 21195 001e 7B68     		ldr	r3, [r7, #4]
+ 21196 0020 9A82     		strh	r2, [r3, #20]	@ movhi
+ 21197 0022 07E0     		b	.L63
+ 21198              	.L64:
+ 847:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 848:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else
+ 849:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 850:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     /* Disable the IrDA mode by clearing the IREN bit in the CR3 register */
+ 851:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     USARTx->CR3 &= CR3_IREN_Reset;
+ 21199              		.loc 1 851 0
+ 21200 0024 7B68     		ldr	r3, [r7, #4]
+ 21201 0026 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 21202 0028 9BB2     		uxth	r3, r3
+ 21203 002a 23F00203 		bic	r3, r3, #2
+ 21204 002e 9AB2     		uxth	r2, r3
+ 21205 0030 7B68     		ldr	r3, [r7, #4]
+ 21206 0032 9A82     		strh	r2, [r3, #20]	@ movhi
+ 21207              	.L63:
+ 852:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 853:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 21208              		.loc 1 853 0
+ 21209 0034 07F10C07 		add	r7, r7, #12
+ 21210 0038 BD46     		mov	sp, r7
+ 21211 003a 80BC     		pop	{r7}
+ 21212 003c 7047     		bx	lr
+ 21213              		.cfi_endproc
+ 21214              	.LFE53:
+ 21216 003e 00BF     		.section	.text.USART_GetFlagStatus,"ax",%progbits
+ 21217              		.align	2
+ 21218              		.global	USART_GetFlagStatus
+ 21219              		.thumb
+ 21220              		.thumb_func
+ 21222              	USART_GetFlagStatus:
+ 21223              	.LFB54:
+ 854:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 855:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 856:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Checks whether the specified USART flag is set or not.
+ 857:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 858:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 859:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 860:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USART_FLAG: specifies the flag to check.
+ 861:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 862:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_FLAG_CTS:  CTS Change flag (not available for UART4 and UART5)
+ 863:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_FLAG_LBD:  LIN Break detection flag
+ 864:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_FLAG_TXE:  Transmit data register empty flag
+ 865:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_FLAG_TC:   Transmission Complete flag
+ 866:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_FLAG_RXNE: Receive data register not empty flag
+ 867:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_FLAG_IDLE: Idle Line detection flag
+ 868:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_FLAG_ORE:  OverRun Error flag
+ 869:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_FLAG_NE:   Noise Error flag
+ 870:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_FLAG_FE:   Framing Error flag
+ 871:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_FLAG_PE:   Parity Error flag
+ 872:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval The new state of USART_FLAG (SET or RESET).
+ 873:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 874:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** FlagStatus USART_GetFlagStatus(USART_TypeDef* USARTx, uint16_t USART_FLAG)
+ 875:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 21224              		.loc 1 875 0
+ 21225              		.cfi_startproc
+ 21226              		@ args = 0, pretend = 0, frame = 16
+ 21227              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21228              		@ link register save eliminated.
+ 21229 0000 80B4     		push	{r7}
+ 21230              	.LCFI75:
+ 21231              		.cfi_def_cfa_offset 4
+ 21232 0002 85B0     		sub	sp, sp, #20
+ 21233              	.LCFI76:
+ 21234              		.cfi_def_cfa_offset 24
+ 21235 0004 00AF     		add	r7, sp, #0
+ 21236              		.cfi_offset 7, -4
+ 21237              	.LCFI77:
+ 21238              		.cfi_def_cfa_register 7
+ 21239 0006 7860     		str	r0, [r7, #4]
+ 21240 0008 0B46     		mov	r3, r1
+ 21241 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 876:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   FlagStatus bitstatus = RESET;
+ 21242              		.loc 1 876 0
+ 21243 000c 4FF00003 		mov	r3, #0
+ 21244 0010 FB73     		strb	r3, [r7, #15]
+ 877:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 878:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 879:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_FLAG(USART_FLAG));
+ 880:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* The CTS flag is not available for UART4 and UART5 */
+ 881:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (USART_FLAG == USART_FLAG_CTS)
+ 882:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 883:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     assert_param(IS_USART_123_PERIPH(USARTx));
+ 884:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }  
+ 885:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 886:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if ((USARTx->SR & USART_FLAG) != (uint16_t)RESET)
+ 21245              		.loc 1 886 0
+ 21246 0012 7B68     		ldr	r3, [r7, #4]
+ 21247 0014 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 21248 0016 9AB2     		uxth	r2, r3
+ 21249 0018 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 21250 001a 02EA0303 		and	r3, r2, r3
+ 21251 001e 9BB2     		uxth	r3, r3
+ 21252 0020 002B     		cmp	r3, #0
+ 21253 0022 03D0     		beq	.L67
+ 887:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 888:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     bitstatus = SET;
+ 21254              		.loc 1 888 0
+ 21255 0024 4FF00103 		mov	r3, #1
+ 21256 0028 FB73     		strb	r3, [r7, #15]
+ 21257 002a 02E0     		b	.L68
+ 21258              	.L67:
+ 889:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 890:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else
+ 891:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 892:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     bitstatus = RESET;
+ 21259              		.loc 1 892 0
+ 21260 002c 4FF00003 		mov	r3, #0
+ 21261 0030 FB73     		strb	r3, [r7, #15]
+ 21262              	.L68:
+ 893:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 894:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   return bitstatus;
+ 21263              		.loc 1 894 0
+ 21264 0032 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 895:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 21265              		.loc 1 895 0
+ 21266 0034 1846     		mov	r0, r3
+ 21267 0036 07F11407 		add	r7, r7, #20
+ 21268 003a BD46     		mov	sp, r7
+ 21269 003c 80BC     		pop	{r7}
+ 21270 003e 7047     		bx	lr
+ 21271              		.cfi_endproc
+ 21272              	.LFE54:
+ 21274              		.section	.text.USART_ClearFlag,"ax",%progbits
+ 21275              		.align	2
+ 21276              		.global	USART_ClearFlag
+ 21277              		.thumb
+ 21278              		.thumb_func
+ 21280              	USART_ClearFlag:
+ 21281              	.LFB55:
+ 896:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 897:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 898:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Clears the USARTx's pending flags.
+ 899:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 900:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 901:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 902:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USART_FLAG: specifies the flag to clear.
+ 903:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be any combination of the following values:
+ 904:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_FLAG_CTS:  CTS Change flag (not available for UART4 and UART5).
+ 905:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_FLAG_LBD:  LIN Break detection flag.
+ 906:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_FLAG_TC:   Transmission Complete flag.
+ 907:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_FLAG_RXNE: Receive data register not empty flag.
+ 908:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   
+ 909:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @note
+ 910:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   - PE (Parity error), FE (Framing error), NE (Noise error), ORE (OverRun 
+ 911:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     error) and IDLE (Idle line detected) flags are cleared by software 
+ 912:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     sequence: a read operation to USART_SR register (USART_GetFlagStatus()) 
+ 913:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     followed by a read operation to USART_DR register (USART_ReceiveData()).
+ 914:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   - RXNE flag can be also cleared by a read to the USART_DR register 
+ 915:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     (USART_ReceiveData()).
+ 916:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   - TC flag can be also cleared by software sequence: a read operation to 
+ 917:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     USART_SR register (USART_GetFlagStatus()) followed by a write operation
+ 918:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     to USART_DR register (USART_SendData()).
+ 919:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   - TXE flag is cleared only by a write to the USART_DR register 
+ 920:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     (USART_SendData()).
+ 921:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+ 922:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 923:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_ClearFlag(USART_TypeDef* USARTx, uint16_t USART_FLAG)
+ 924:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 21282              		.loc 1 924 0
+ 21283              		.cfi_startproc
+ 21284              		@ args = 0, pretend = 0, frame = 8
+ 21285              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21286              		@ link register save eliminated.
+ 21287 0000 80B4     		push	{r7}
+ 21288              	.LCFI78:
+ 21289              		.cfi_def_cfa_offset 4
+ 21290 0002 83B0     		sub	sp, sp, #12
+ 21291              	.LCFI79:
+ 21292              		.cfi_def_cfa_offset 16
+ 21293 0004 00AF     		add	r7, sp, #0
+ 21294              		.cfi_offset 7, -4
+ 21295              	.LCFI80:
+ 21296              		.cfi_def_cfa_register 7
+ 21297 0006 7860     		str	r0, [r7, #4]
+ 21298 0008 0B46     		mov	r3, r1
+ 21299 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 925:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 926:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 927:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_CLEAR_FLAG(USART_FLAG));
+ 928:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* The CTS flag is not available for UART4 and UART5 */
+ 929:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if ((USART_FLAG & USART_FLAG_CTS) == USART_FLAG_CTS)
+ 930:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 931:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     assert_param(IS_USART_123_PERIPH(USARTx));
+ 932:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   } 
+ 933:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****    
+ 934:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->SR = (uint16_t)~USART_FLAG;
+ 21300              		.loc 1 934 0
+ 21301 000c 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 21302 000e 6FEA0303 		mvn	r3, r3
+ 21303 0012 9AB2     		uxth	r2, r3
+ 21304 0014 7B68     		ldr	r3, [r7, #4]
+ 21305 0016 1A80     		strh	r2, [r3, #0]	@ movhi
+ 935:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 21306              		.loc 1 935 0
+ 21307 0018 07F10C07 		add	r7, r7, #12
+ 21308 001c BD46     		mov	sp, r7
+ 21309 001e 80BC     		pop	{r7}
+ 21310 0020 7047     		bx	lr
+ 21311              		.cfi_endproc
+ 21312              	.LFE55:
+ 21314 0022 00BF     		.section	.text.USART_GetITStatus,"ax",%progbits
+ 21315              		.align	2
+ 21316              		.global	USART_GetITStatus
+ 21317              		.thumb
+ 21318              		.thumb_func
+ 21320              	USART_GetITStatus:
+ 21321              	.LFB56:
+ 936:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+ 937:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+ 938:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Checks whether the specified USART interrupt has occurred or not.
+ 939:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+ 940:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 941:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+ 942:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USART_IT: specifies the USART interrupt source to check.
+ 943:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+ 944:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_CTS:  CTS change interrupt (not available for UART4 and UART5)
+ 945:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_LBD:  LIN Break detection interrupt
+ 946:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_TXE:  Tansmit Data Register empty interrupt
+ 947:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_TC:   Transmission complete interrupt
+ 948:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_RXNE: Receive Data register not empty interrupt
+ 949:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_IDLE: Idle line detection interrupt
+ 950:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_ORE:  OverRun Error interrupt
+ 951:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_NE:   Noise Error interrupt
+ 952:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_FE:   Framing Error interrupt
+ 953:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_PE:   Parity Error interrupt
+ 954:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval The new state of USART_IT (SET or RESET).
+ 955:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+ 956:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** ITStatus USART_GetITStatus(USART_TypeDef* USARTx, uint16_t USART_IT)
+ 957:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 21322              		.loc 1 957 0
+ 21323              		.cfi_startproc
+ 21324              		@ args = 0, pretend = 0, frame = 24
+ 21325              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21326              		@ link register save eliminated.
+ 21327 0000 80B4     		push	{r7}
+ 21328              	.LCFI81:
+ 21329              		.cfi_def_cfa_offset 4
+ 21330 0002 87B0     		sub	sp, sp, #28
+ 21331              	.LCFI82:
+ 21332              		.cfi_def_cfa_offset 32
+ 21333 0004 00AF     		add	r7, sp, #0
+ 21334              		.cfi_offset 7, -4
+ 21335              	.LCFI83:
+ 21336              		.cfi_def_cfa_register 7
+ 21337 0006 7860     		str	r0, [r7, #4]
+ 21338 0008 0B46     		mov	r3, r1
+ 21339 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 958:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   uint32_t bitpos = 0x00, itmask = 0x00, usartreg = 0x00;
+ 21340              		.loc 1 958 0
+ 21341 000c 4FF00003 		mov	r3, #0
+ 21342 0010 FB60     		str	r3, [r7, #12]
+ 21343 0012 4FF00003 		mov	r3, #0
+ 21344 0016 7B61     		str	r3, [r7, #20]
+ 21345 0018 4FF00003 		mov	r3, #0
+ 21346 001c BB60     		str	r3, [r7, #8]
+ 959:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   ITStatus bitstatus = RESET;
+ 21347              		.loc 1 959 0
+ 21348 001e 4FF00003 		mov	r3, #0
+ 21349 0022 FB74     		strb	r3, [r7, #19]
+ 960:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+ 961:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+ 962:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_GET_IT(USART_IT));
+ 963:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* The CTS interrupt is not available for UART4 and UART5 */ 
+ 964:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (USART_IT == USART_IT_CTS)
+ 965:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 966:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     assert_param(IS_USART_123_PERIPH(USARTx));
+ 967:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }   
+ 968:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 969:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Get the USART register index */
+ 970:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   usartreg = (((uint8_t)USART_IT) >> 0x05);
+ 21350              		.loc 1 970 0
+ 21351 0024 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 21352 0026 DBB2     		uxtb	r3, r3
+ 21353 0028 4FEA5313 		lsr	r3, r3, #5
+ 21354 002c DBB2     		uxtb	r3, r3
+ 21355 002e BB60     		str	r3, [r7, #8]
+ 971:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Get the interrupt position */
+ 972:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   itmask = USART_IT & IT_Mask;
+ 21356              		.loc 1 972 0
+ 21357 0030 7B88     		ldrh	r3, [r7, #2]
+ 21358 0032 03F01F03 		and	r3, r3, #31
+ 21359 0036 7B61     		str	r3, [r7, #20]
+ 973:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   itmask = (uint32_t)0x01 << itmask;
+ 21360              		.loc 1 973 0
+ 21361 0038 7B69     		ldr	r3, [r7, #20]
+ 21362 003a 4FF00102 		mov	r2, #1
+ 21363 003e 02FA03F3 		lsl	r3, r2, r3
+ 21364 0042 7B61     		str	r3, [r7, #20]
+ 974:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 975:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (usartreg == 0x01) /* The IT  is in CR1 register */
+ 21365              		.loc 1 975 0
+ 21366 0044 BB68     		ldr	r3, [r7, #8]
+ 21367 0046 012B     		cmp	r3, #1
+ 21368 0048 07D1     		bne	.L71
+ 976:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 977:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     itmask &= USARTx->CR1;
+ 21369              		.loc 1 977 0
+ 21370 004a 7B68     		ldr	r3, [r7, #4]
+ 21371 004c 9B89     		ldrh	r3, [r3, #12]	@ movhi
+ 21372 004e 9BB2     		uxth	r3, r3
+ 21373 0050 7A69     		ldr	r2, [r7, #20]
+ 21374 0052 02EA0303 		and	r3, r2, r3
+ 21375 0056 7B61     		str	r3, [r7, #20]
+ 21376 0058 11E0     		b	.L72
+ 21377              	.L71:
+ 978:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 979:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else if (usartreg == 0x02) /* The IT  is in CR2 register */
+ 21378              		.loc 1 979 0
+ 21379 005a BB68     		ldr	r3, [r7, #8]
+ 21380 005c 022B     		cmp	r3, #2
+ 21381 005e 07D1     		bne	.L73
+ 980:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 981:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     itmask &= USARTx->CR2;
+ 21382              		.loc 1 981 0
+ 21383 0060 7B68     		ldr	r3, [r7, #4]
+ 21384 0062 1B8A     		ldrh	r3, [r3, #16]	@ movhi
+ 21385 0064 9BB2     		uxth	r3, r3
+ 21386 0066 7A69     		ldr	r2, [r7, #20]
+ 21387 0068 02EA0303 		and	r3, r2, r3
+ 21388 006c 7B61     		str	r3, [r7, #20]
+ 21389 006e 06E0     		b	.L72
+ 21390              	.L73:
+ 982:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 983:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else /* The IT  is in CR3 register */
+ 984:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 985:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     itmask &= USARTx->CR3;
+ 21391              		.loc 1 985 0
+ 21392 0070 7B68     		ldr	r3, [r7, #4]
+ 21393 0072 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 21394 0074 9BB2     		uxth	r3, r3
+ 21395 0076 7A69     		ldr	r2, [r7, #20]
+ 21396 0078 02EA0303 		and	r3, r2, r3
+ 21397 007c 7B61     		str	r3, [r7, #20]
+ 21398              	.L72:
+ 986:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 987:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+ 988:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   bitpos = USART_IT >> 0x08;
+ 21399              		.loc 1 988 0
+ 21400 007e 7B88     		ldrh	r3, [r7, #2]
+ 21401 0080 4FEA1323 		lsr	r3, r3, #8
+ 21402 0084 9BB2     		uxth	r3, r3
+ 21403 0086 FB60     		str	r3, [r7, #12]
+ 989:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   bitpos = (uint32_t)0x01 << bitpos;
+ 21404              		.loc 1 989 0
+ 21405 0088 FB68     		ldr	r3, [r7, #12]
+ 21406 008a 4FF00102 		mov	r2, #1
+ 21407 008e 02FA03F3 		lsl	r3, r2, r3
+ 21408 0092 FB60     		str	r3, [r7, #12]
+ 990:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   bitpos &= USARTx->SR;
+ 21409              		.loc 1 990 0
+ 21410 0094 7B68     		ldr	r3, [r7, #4]
+ 21411 0096 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 21412 0098 9BB2     		uxth	r3, r3
+ 21413 009a FA68     		ldr	r2, [r7, #12]
+ 21414 009c 02EA0303 		and	r3, r2, r3
+ 21415 00a0 FB60     		str	r3, [r7, #12]
+ 991:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if ((itmask != (uint16_t)RESET)&&(bitpos != (uint16_t)RESET))
+ 21416              		.loc 1 991 0
+ 21417 00a2 7B69     		ldr	r3, [r7, #20]
+ 21418 00a4 002B     		cmp	r3, #0
+ 21419 00a6 06D0     		beq	.L74
+ 21420              		.loc 1 991 0 is_stmt 0 discriminator 1
+ 21421 00a8 FB68     		ldr	r3, [r7, #12]
+ 21422 00aa 002B     		cmp	r3, #0
+ 21423 00ac 03D0     		beq	.L74
+ 992:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 993:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     bitstatus = SET;
+ 21424              		.loc 1 993 0 is_stmt 1
+ 21425 00ae 4FF00103 		mov	r3, #1
+ 21426 00b2 FB74     		strb	r3, [r7, #19]
+ 21427 00b4 02E0     		b	.L75
+ 21428              	.L74:
+ 994:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 995:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   else
+ 996:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+ 997:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     bitstatus = RESET;
+ 21429              		.loc 1 997 0
+ 21430 00b6 4FF00003 		mov	r3, #0
+ 21431 00ba FB74     		strb	r3, [r7, #19]
+ 21432              	.L75:
+ 998:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }
+ 999:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+1000:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   return bitstatus;  
+ 21433              		.loc 1 1000 0
+ 21434 00bc FB7C     		ldrb	r3, [r7, #19]	@ zero_extendqisi2
+1001:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 21435              		.loc 1 1001 0
+ 21436 00be 1846     		mov	r0, r3
+ 21437 00c0 07F11C07 		add	r7, r7, #28
+ 21438 00c4 BD46     		mov	sp, r7
+ 21439 00c6 80BC     		pop	{r7}
+ 21440 00c8 7047     		bx	lr
+ 21441              		.cfi_endproc
+ 21442              	.LFE56:
+ 21444 00ca 00BF     		.section	.text.USART_ClearITPendingBit,"ax",%progbits
+ 21445              		.align	2
+ 21446              		.global	USART_ClearITPendingBit
+ 21447              		.thumb
+ 21448              		.thumb_func
+ 21450              	USART_ClearITPendingBit:
+ 21451              	.LFB57:
+1002:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** 
+1003:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** /**
+1004:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @brief  Clears the USARTx's interrupt pending bits.
+1005:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USARTx: Select the USART or the UART peripheral. 
+1006:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+1007:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   USART1, USART2, USART3, UART4 or UART5.
+1008:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @param  USART_IT: specifies the interrupt pending bit to clear.
+1009:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   This parameter can be one of the following values:
+1010:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_CTS:  CTS change interrupt (not available for UART4 and UART5)
+1011:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_LBD:  LIN Break detection interrupt
+1012:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_TC:   Transmission complete interrupt. 
+1013:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     @arg USART_IT_RXNE: Receive Data register not empty interrupt.
+1014:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   
+1015:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @note
+1016:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   - PE (Parity error), FE (Framing error), NE (Noise error), ORE (OverRun 
+1017:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     error) and IDLE (Idle line detected) pending bits are cleared by 
+1018:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     software sequence: a read operation to USART_SR register 
+1019:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     (USART_GetITStatus()) followed by a read operation to USART_DR register 
+1020:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     (USART_ReceiveData()).
+1021:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   - RXNE pending bit can be also cleared by a read to the USART_DR register 
+1022:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     (USART_ReceiveData()).
+1023:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   - TC pending bit can be also cleared by software sequence: a read 
+1024:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     operation to USART_SR register (USART_GetITStatus()) followed by a write 
+1025:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     operation to USART_DR register (USART_SendData()).
+1026:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *   - TXE pending bit is cleared only by a write to the USART_DR register 
+1027:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   *     (USART_SendData()).
+1028:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   * @retval None
+1029:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   */
+1030:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** void USART_ClearITPendingBit(USART_TypeDef* USARTx, uint16_t USART_IT)
+1031:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** {
+ 21452              		.loc 1 1031 0
+ 21453              		.cfi_startproc
+ 21454              		@ args = 0, pretend = 0, frame = 16
+ 21455              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21456              		@ link register save eliminated.
+ 21457 0000 80B4     		push	{r7}
+ 21458              	.LCFI84:
+ 21459              		.cfi_def_cfa_offset 4
+ 21460 0002 85B0     		sub	sp, sp, #20
+ 21461              	.LCFI85:
+ 21462              		.cfi_def_cfa_offset 24
+ 21463 0004 00AF     		add	r7, sp, #0
+ 21464              		.cfi_offset 7, -4
+ 21465              	.LCFI86:
+ 21466              		.cfi_def_cfa_register 7
+ 21467 0006 7860     		str	r0, [r7, #4]
+ 21468 0008 0B46     		mov	r3, r1
+ 21469 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+1032:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   uint16_t bitpos = 0x00, itmask = 0x00;
+ 21470              		.loc 1 1032 0
+ 21471 000c 4FF00003 		mov	r3, #0
+ 21472 0010 FB81     		strh	r3, [r7, #14]	@ movhi
+ 21473 0012 4FF00003 		mov	r3, #0
+ 21474 0016 BB81     		strh	r3, [r7, #12]	@ movhi
+1033:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* Check the parameters */
+1034:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_ALL_PERIPH(USARTx));
+1035:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   assert_param(IS_USART_CLEAR_IT(USART_IT));
+1036:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   /* The CTS interrupt is not available for UART4 and UART5 */
+1037:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   if (USART_IT == USART_IT_CTS)
+1038:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   {
+1039:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****     assert_param(IS_USART_123_PERIPH(USARTx));
+1040:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   }   
+1041:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   
+1042:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   bitpos = USART_IT >> 0x08;
+ 21475              		.loc 1 1042 0
+ 21476 0018 7B88     		ldrh	r3, [r7, #2]
+ 21477 001a 4FEA1323 		lsr	r3, r3, #8
+ 21478 001e FB81     		strh	r3, [r7, #14]	@ movhi
+1043:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   itmask = ((uint16_t)0x01 << (uint16_t)bitpos);
+ 21479              		.loc 1 1043 0
+ 21480 0020 FB89     		ldrh	r3, [r7, #14]
+ 21481 0022 4FF00102 		mov	r2, #1
+ 21482 0026 02FA03F3 		lsl	r3, r2, r3
+ 21483 002a BB81     		strh	r3, [r7, #12]	@ movhi
+1044:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ****   USARTx->SR = (uint16_t)~itmask;
+ 21484              		.loc 1 1044 0
+ 21485 002c BB89     		ldrh	r3, [r7, #12]	@ movhi
+ 21486 002e 6FEA0303 		mvn	r3, r3
+ 21487 0032 9AB2     		uxth	r2, r3
+ 21488 0034 7B68     		ldr	r3, [r7, #4]
+ 21489 0036 1A80     		strh	r2, [r3, #0]	@ movhi
+1045:../Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c **** }
+ 21490              		.loc 1 1045 0
+ 21491 0038 07F11407 		add	r7, r7, #20
+ 21492 003c BD46     		mov	sp, r7
+ 21493 003e 80BC     		pop	{r7}
+ 21494 0040 7047     		bx	lr
+ 21495              		.cfi_endproc
+ 21496              	.LFE57:
+ 21498 0042 00BF     		.text
+ 21499              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f10x_usart.c
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:19575  .text.USART_DeInit:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:19580  .text.USART_DeInit:00000000 USART_DeInit
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:19679  .text.USART_DeInit:000000b8 $d
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:19688  .text.USART_Init:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:19693  .text.USART_Init:00000000 USART_Init
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:19915  .text.USART_Init:000001a8 $d
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:19921  .text.USART_StructInit:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:19926  .text.USART_StructInit:00000000 USART_StructInit
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:19977  .text.USART_ClockInit:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:19982  .text.USART_ClockInit:00000000 USART_ClockInit
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20048  .text.USART_ClockStructInit:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20053  .text.USART_ClockStructInit:00000000 USART_ClockStructInit
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20096  .text.USART_Cmd:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20101  .text.USART_Cmd:00000000 USART_Cmd
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20153  .text.USART_ITConfig:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20158  .text.USART_ITConfig:00000000 USART_ITConfig
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20264  .text.USART_DMACmd:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20269  .text.USART_DMACmd:00000000 USART_DMACmd
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20327  .text.USART_SetAddress:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20332  .text.USART_SetAddress:00000000 USART_SetAddress
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20379  .text.USART_WakeUpConfig:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20384  .text.USART_WakeUpConfig:00000000 USART_WakeUpConfig
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20430  .text.USART_ReceiverWakeUpCmd:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20435  .text.USART_ReceiverWakeUpCmd:00000000 USART_ReceiverWakeUpCmd
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20487  .text.USART_LINBreakDetectLengthConfig:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20492  .text.USART_LINBreakDetectLengthConfig:00000000 USART_LINBreakDetectLengthConfig
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20538  .text.USART_LINCmd:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20543  .text.USART_LINCmd:00000000 USART_LINCmd
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20595  .text.USART_SendData:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20600  .text.USART_SendData:00000000 USART_SendData
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20636  .text.USART_ReceiveData:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20641  .text.USART_ReceiveData:00000000 USART_ReceiveData
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20676  .text.USART_SendBreak:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20681  .text.USART_SendBreak:00000000 USART_SendBreak
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20716  .text.USART_SetGuardTime:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20721  .text.USART_SetGuardTime:00000000 USART_SetGuardTime
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20770  .text.USART_SetPrescaler:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20775  .text.USART_SetPrescaler:00000000 USART_SetPrescaler
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20822  .text.USART_SmartCardCmd:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20827  .text.USART_SmartCardCmd:00000000 USART_SmartCardCmd
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20879  .text.USART_SmartCardNACKCmd:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20884  .text.USART_SmartCardNACKCmd:00000000 USART_SmartCardNACKCmd
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20936  .text.USART_HalfDuplexCmd:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20941  .text.USART_HalfDuplexCmd:00000000 USART_HalfDuplexCmd
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20993  .text.USART_OverSampling8Cmd:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:20998  .text.USART_OverSampling8Cmd:00000000 USART_OverSampling8Cmd
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:21052  .text.USART_OneBitMethodCmd:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:21057  .text.USART_OneBitMethodCmd:00000000 USART_OneBitMethodCmd
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:21109  .text.USART_IrDAConfig:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:21114  .text.USART_IrDAConfig:00000000 USART_IrDAConfig
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:21160  .text.USART_IrDACmd:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:21165  .text.USART_IrDACmd:00000000 USART_IrDACmd
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:21217  .text.USART_GetFlagStatus:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:21222  .text.USART_GetFlagStatus:00000000 USART_GetFlagStatus
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:21275  .text.USART_ClearFlag:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:21280  .text.USART_ClearFlag:00000000 USART_ClearFlag
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:21315  .text.USART_GetITStatus:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:21320  .text.USART_GetITStatus:00000000 USART_GetITStatus
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:21445  .text.USART_ClearITPendingBit:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccVOl0vv.s:21450  .text.USART_ClearITPendingBit:00000000 USART_ClearITPendingBit
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+RCC_APB2PeriphResetCmd
+RCC_APB1PeriphResetCmd
+RCC_GetClocksFreq

@@ -1,0 +1,393 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"ObslugaPrzerwan.c"
+  23              	.Ltext0:
+  24              		.file 1 "../ObslugaPrzerwan.c"
+ 22491              		.align	2
+ 22492              		.global	USART1_IRQHandler
+ 22493              		.thumb
+ 22494              		.thumb_func
+ 22496              	USART1_IRQHandler:
+ 22497              	.LFB29:
+   1:../ObslugaPrzerwan.c **** #include "Init.h"
+   2:../ObslugaPrzerwan.c **** #include "ObslugaPrzerwan.h"
+   3:../ObslugaPrzerwan.c **** #include "Filtry.h"
+   4:../ObslugaPrzerwan.c **** 
+   5:../ObslugaPrzerwan.c **** void USART1_IRQHandler(void)
+   6:../ObslugaPrzerwan.c **** {
+ 22498              		.loc 1 6 0
+ 22499              		.cfi_startproc
+ 22500              		@ args = 0, pretend = 0, frame = 0
+ 22501              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22502 0000 80B5     		push	{r7, lr}
+ 22503              	.LCFI0:
+ 22504              		.cfi_def_cfa_offset 8
+ 22505 0002 00AF     		add	r7, sp, #0
+ 22506              		.cfi_offset 14, -4
+ 22507              		.cfi_offset 7, -8
+ 22508              	.LCFI1:
+ 22509              		.cfi_def_cfa_register 7
+   7:../ObslugaPrzerwan.c ****   if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
+ 22510              		.loc 1 7 0
+ 22511 0004 0548     		ldr	r0, .L2
+ 22512 0006 40F22551 		movw	r1, #1317
+ 22513 000a FFF7FEFF 		bl	USART_GetITStatus
+   8:../ObslugaPrzerwan.c ****   {
+   9:../ObslugaPrzerwan.c ****      // USART_ITConfig(EVAL_COM1, USART_IT_RXNE, DISABLE);
+  10:../ObslugaPrzerwan.c ****   }
+  11:../ObslugaPrzerwan.c **** 
+  12:../ObslugaPrzerwan.c ****   if(USART_GetITStatus(USART1, USART_IT_TXE) != RESET)
+ 22514              		.loc 1 12 0
+ 22515 000e 0348     		ldr	r0, .L2
+ 22516 0010 40F22771 		movw	r1, #1831
+ 22517 0014 FFF7FEFF 		bl	USART_GetITStatus
+  13:../ObslugaPrzerwan.c ****   {
+  14:../ObslugaPrzerwan.c ****     //  USART_ITConfig(EVAL_COM1, USART_IT_TXE, DISABLE);
+  15:../ObslugaPrzerwan.c ****   }
+  16:../ObslugaPrzerwan.c **** }
+ 22518              		.loc 1 16 0
+ 22519 0018 80BD     		pop	{r7, pc}
+ 22520              	.L3:
+ 22521 001a 00BF     		.align	2
+ 22522              	.L2:
+ 22523 001c 00380140 		.word	1073821696
+ 22524              		.cfi_endproc
+ 22525              	.LFE29:
+ 22527              		.section	.text.TIM1_CC_IRQHandler,"ax",%progbits
+ 22528              		.align	2
+ 22529              		.global	TIM1_CC_IRQHandler
+ 22530              		.thumb
+ 22531              		.thumb_func
+ 22533              	TIM1_CC_IRQHandler:
+ 22534              	.LFB30:
+  17:../ObslugaPrzerwan.c **** 
+  18:../ObslugaPrzerwan.c **** void TIM1_CC_IRQHandler(void)
+  19:../ObslugaPrzerwan.c **** {
+ 22535              		.loc 1 19 0
+ 22536              		.cfi_startproc
+ 22537              		@ args = 0, pretend = 0, frame = 0
+ 22538              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22539 0000 80B5     		push	{r7, lr}
+ 22540              	.LCFI2:
+ 22541              		.cfi_def_cfa_offset 8
+ 22542 0002 00AF     		add	r7, sp, #0
+ 22543              		.cfi_offset 14, -4
+ 22544              		.cfi_offset 7, -8
+ 22545              	.LCFI3:
+ 22546              		.cfi_def_cfa_register 7
+  20:../ObslugaPrzerwan.c **** 	if(TIM_GetITStatus(TIM1, TIM_IT_CC1)!=RESET)
+ 22547              		.loc 1 20 0
+ 22548 0004 0648     		ldr	r0, .L6
+ 22549 0006 4FF00201 		mov	r1, #2
+ 22550 000a FFF7FEFF 		bl	TIM_GetITStatus
+ 22551 000e 0346     		mov	r3, r0
+ 22552 0010 002B     		cmp	r3, #0
+ 22553 0012 04D0     		beq	.L4
+  21:../ObslugaPrzerwan.c **** 	{
+  22:../ObslugaPrzerwan.c **** 	//USART_SendData(USART1,'s');
+  23:../ObslugaPrzerwan.c **** 	 TIM_ClearITPendingBit(TIM1, TIM_IT_CC1);
+ 22554              		.loc 1 23 0
+ 22555 0014 0248     		ldr	r0, .L6
+ 22556 0016 4FF00201 		mov	r1, #2
+ 22557 001a FFF7FEFF 		bl	TIM_ClearITPendingBit
+ 22558              	.L4:
+  24:../ObslugaPrzerwan.c **** 	}
+  25:../ObslugaPrzerwan.c ****  }
+ 22559              		.loc 1 25 0
+ 22560 001e 80BD     		pop	{r7, pc}
+ 22561              	.L7:
+ 22562              		.align	2
+ 22563              	.L6:
+ 22564 0020 002C0140 		.word	1073818624
+ 22565              		.cfi_endproc
+ 22566              	.LFE30:
+ 22568              		.global	__aeabi_i2d
+ 22569              		.global	__aeabi_dmul
+ 22570              		.global	__aeabi_ddiv
+ 22571              		.global	__aeabi_d2f
+ 22572              		.section	.text.DMA1_Channel1_IRQHandler,"ax",%progbits
+ 22573              		.align	2
+ 22574              		.global	DMA1_Channel1_IRQHandler
+ 22575              		.thumb
+ 22576              		.thumb_func
+ 22578              	DMA1_Channel1_IRQHandler:
+ 22579              	.LFB31:
+  26:../ObslugaPrzerwan.c **** 
+  27:../ObslugaPrzerwan.c **** /*void ADC1_2_IRQHandler()
+  28:../ObslugaPrzerwan.c **** {
+  29:../ObslugaPrzerwan.c ****    ADC1ConvertedValue = ADC_GetConversionValue(ADC1);
+  30:../ObslugaPrzerwan.c **** }*/
+  31:../ObslugaPrzerwan.c **** 
+  32:../ObslugaPrzerwan.c **** void DMA1_Channel1_IRQHandler(void)
+  33:../ObslugaPrzerwan.c **** {
+ 22580              		.loc 1 33 0
+ 22581              		.cfi_startproc
+ 22582              		@ args = 0, pretend = 0, frame = 8
+ 22583              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22584 0000 80B5     		push	{r7, lr}
+ 22585              	.LCFI4:
+ 22586              		.cfi_def_cfa_offset 8
+ 22587 0002 82B0     		sub	sp, sp, #8
+ 22588              	.LCFI5:
+ 22589              		.cfi_def_cfa_offset 16
+ 22590 0004 00AF     		add	r7, sp, #0
+ 22591              		.cfi_offset 14, -4
+ 22592              		.cfi_offset 7, -8
+ 22593              	.LCFI6:
+ 22594              		.cfi_def_cfa_register 7
+  34:../ObslugaPrzerwan.c ****   if(DMA_GetITStatus(DMA1_IT_TC1))
+ 22595              		.loc 1 34 0
+ 22596 0006 4FF00200 		mov	r0, #2
+ 22597 000a FFF7FEFF 		bl	DMA_GetITStatus
+ 22598 000e 0346     		mov	r3, r0
+ 22599 0010 002B     		cmp	r3, #0
+ 22600 0012 3BD0     		beq	.L8
+  35:../ObslugaPrzerwan.c ****   {
+  36:../ObslugaPrzerwan.c **** 	  val = ADC1ConvertedValue * 3.3 / 4096;
+ 22601              		.loc 1 36 0
+ 22602 0014 224B     		ldr	r3, .L13+8
+ 22603 0016 1B88     		ldrh	r3, [r3, #0]
+ 22604 0018 1846     		mov	r0, r3
+ 22605 001a FFF7FEFF 		bl	__aeabi_i2d
+ 22606 001e 0246     		mov	r2, r0
+ 22607 0020 0B46     		mov	r3, r1
+ 22608 0022 1046     		mov	r0, r2
+ 22609 0024 1946     		mov	r1, r3
+ 22610 0026 1CA3     		adr	r3, .L13
+ 22611 0028 D3E90023 		ldrd	r2, [r3]
+ 22612 002c FFF7FEFF 		bl	__aeabi_dmul
+ 22613 0030 0246     		mov	r2, r0
+ 22614 0032 0B46     		mov	r3, r1
+ 22615 0034 1046     		mov	r0, r2
+ 22616 0036 1946     		mov	r1, r3
+ 22617 0038 4FF00002 		mov	r2, #0
+ 22618 003c 4FF08043 		mov	r3, #1073741824
+ 22619 0040 03F53003 		add	r3, r3, #11534336
+ 22620 0044 FFF7FEFF 		bl	__aeabi_ddiv
+ 22621 0048 0246     		mov	r2, r0
+ 22622 004a 0B46     		mov	r3, r1
+ 22623 004c 1046     		mov	r0, r2
+ 22624 004e 1946     		mov	r1, r3
+ 22625 0050 FFF7FEFF 		bl	__aeabi_d2f
+ 22626 0054 0246     		mov	r2, r0
+ 22627 0056 134B     		ldr	r3, .L13+12
+ 22628 0058 1A60     		str	r2, [r3, #0]	@ float
+  37:../ObslugaPrzerwan.c **** 
+  38:../ObslugaPrzerwan.c **** 	  if(flaga == 1)
+ 22629              		.loc 1 38 0
+ 22630 005a 134B     		ldr	r3, .L13+16
+ 22631 005c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 22632 005e 012B     		cmp	r3, #1
+ 22633 0060 0CD1     		bne	.L10
+ 22634              	.LBB2:
+  39:../ObslugaPrzerwan.c **** 	  {
+  40:../ObslugaPrzerwan.c **** 		  int i;
+  41:../ObslugaPrzerwan.c **** 	  	  for(i=0;i<100000;i++) asm("nop");
+ 22635              		.loc 1 41 0
+ 22636 0062 4FF00003 		mov	r3, #0
+ 22637 0066 7B60     		str	r3, [r7, #4]
+ 22638 0068 04E0     		b	.L11
+ 22639              	.L12:
+ 22640              		.loc 1 41 0 is_stmt 0 discriminator 2
+ 22641              	@ 41 "../ObslugaPrzerwan.c" 1
+ 22642 006a 00BF     		nop
+ 22643              	@ 0 "" 2
+ 22644              		.thumb
+ 22645 006c 7B68     		ldr	r3, [r7, #4]
+ 22646 006e 03F10103 		add	r3, r3, #1
+ 22647 0072 7B60     		str	r3, [r7, #4]
+ 22648              	.L11:
+ 22649              		.loc 1 41 0 discriminator 1
+ 22650 0074 7A68     		ldr	r2, [r7, #4]
+ 22651 0076 0D4B     		ldr	r3, .L13+20
+ 22652 0078 9A42     		cmp	r2, r3
+ 22653 007a F6DD     		ble	.L12
+ 22654              	.L10:
+ 22655              	.LBE2:
+  42:../ObslugaPrzerwan.c **** 	  }
+  43:../ObslugaPrzerwan.c **** 	  flaga = 1;
+ 22656              		.loc 1 43 0 is_stmt 1
+ 22657 007c 0A4B     		ldr	r3, .L13+16
+ 22658 007e 4FF00102 		mov	r2, #1
+ 22659 0082 1A70     		strb	r2, [r3, #0]
+  44:../ObslugaPrzerwan.c **** 	  DMA_ClearITPendingBit(DMA1_IT_TC1);
+ 22660              		.loc 1 44 0
+ 22661 0084 4FF00200 		mov	r0, #2
+ 22662 0088 FFF7FEFF 		bl	DMA_ClearITPendingBit
+ 22663              	.L8:
+  45:../ObslugaPrzerwan.c ****   }
+  46:../ObslugaPrzerwan.c **** }
+ 22664              		.loc 1 46 0
+ 22665 008c 07F10807 		add	r7, r7, #8
+ 22666 0090 BD46     		mov	sp, r7
+ 22667 0092 80BD     		pop	{r7, pc}
+ 22668              	.L14:
+ 22669 0094 AFF30080 		.align	3
+ 22670              	.L13:
+ 22671 0098 66666666 		.word	1717986918
+ 22672 009c 66660A40 		.word	1074423398
+ 22673 00a0 00000000 		.word	ADC1ConvertedValue
+ 22674 00a4 00000000 		.word	val
+ 22675 00a8 00000000 		.word	flaga
+ 22676 00ac 9F860100 		.word	99999
+ 22677              		.cfi_endproc
+ 22678              	.LFE31:
+ 22680              		.section	.text.DMA1_Channel4_IRQHandler,"ax",%progbits
+ 22681              		.align	2
+ 22682              		.global	DMA1_Channel4_IRQHandler
+ 22683              		.thumb
+ 22684              		.thumb_func
+ 22686              	DMA1_Channel4_IRQHandler:
+ 22687              	.LFB32:
+  47:../ObslugaPrzerwan.c **** 
+  48:../ObslugaPrzerwan.c **** void DMA1_Channel4_IRQHandler(void)
+  49:../ObslugaPrzerwan.c **** {
+ 22688              		.loc 1 49 0
+ 22689              		.cfi_startproc
+ 22690              		@ args = 0, pretend = 0, frame = 48
+ 22691              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22692 0000 80B5     		push	{r7, lr}
+ 22693              	.LCFI7:
+ 22694              		.cfi_def_cfa_offset 8
+ 22695 0002 8CB0     		sub	sp, sp, #48
+ 22696              	.LCFI8:
+ 22697              		.cfi_def_cfa_offset 56
+ 22698 0004 00AF     		add	r7, sp, #0
+ 22699              		.cfi_offset 14, -4
+ 22700              		.cfi_offset 7, -8
+ 22701              	.LCFI9:
+ 22702              		.cfi_def_cfa_register 7
+  50:../ObslugaPrzerwan.c ****   if(DMA_GetITStatus(DMA1_IT_TC4))
+ 22703              		.loc 1 50 0
+ 22704 0006 4FF40050 		mov	r0, #8192
+ 22705 000a FFF7FEFF 		bl	DMA_GetITStatus
+ 22706 000e 0346     		mov	r3, r0
+ 22707 0010 002B     		cmp	r3, #0
+ 22708 0012 2BD0     		beq	.L15
+ 22709              	.LBB3:
+  51:../ObslugaPrzerwan.c ****   {
+  52:../ObslugaPrzerwan.c **** 	  DMA_ClearITPendingBit(DMA1_IT_TC4);
+ 22710              		.loc 1 52 0
+ 22711 0014 4FF40050 		mov	r0, #8192
+ 22712 0018 FFF7FEFF 		bl	DMA_ClearITPendingBit
+  53:../ObslugaPrzerwan.c **** 
+  54:../ObslugaPrzerwan.c **** 	  DMA_InitTypeDef DMA_InitStructure;
+  55:../ObslugaPrzerwan.c **** 
+  56:../ObslugaPrzerwan.c **** 	  /* USARTy_Tx_DMA_Channel (triggered by USARTy Tx event) Config */
+  57:../ObslugaPrzerwan.c **** 	  DMA_DeInit(DMA1_Channel4);
+ 22713              		.loc 1 57 0
+ 22714 001c 1548     		ldr	r0, .L17
+ 22715 001e FFF7FEFF 		bl	DMA_DeInit
+  58:../ObslugaPrzerwan.c **** 	  DMA_InitStructure.DMA_PeripheralBaseAddr = ((uint32_t)0x40013804);
+ 22716              		.loc 1 58 0
+ 22717 0022 154B     		ldr	r3, .L17+4
+ 22718 0024 7B60     		str	r3, [r7, #4]
+  59:../ObslugaPrzerwan.c **** 	  DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)TxBuffer;
+ 22719              		.loc 1 59 0
+ 22720 0026 154B     		ldr	r3, .L17+8
+ 22721 0028 BB60     		str	r3, [r7, #8]
+  60:../ObslugaPrzerwan.c **** 	  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
+ 22722              		.loc 1 60 0
+ 22723 002a 4FF01003 		mov	r3, #16
+ 22724 002e FB60     		str	r3, [r7, #12]
+  61:../ObslugaPrzerwan.c **** 	  DMA_InitStructure.DMA_BufferSize = TxBufferSize;
+ 22725              		.loc 1 61 0
+ 22726 0030 134B     		ldr	r3, .L17+12
+ 22727 0032 1B68     		ldr	r3, [r3, #0]
+ 22728 0034 3B61     		str	r3, [r7, #16]
+  62:../ObslugaPrzerwan.c **** 	  DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+ 22729              		.loc 1 62 0
+ 22730 0036 4FF00003 		mov	r3, #0
+ 22731 003a 7B61     		str	r3, [r7, #20]
+  63:../ObslugaPrzerwan.c **** 	  DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+ 22732              		.loc 1 63 0
+ 22733 003c 4FF08003 		mov	r3, #128
+ 22734 0040 BB61     		str	r3, [r7, #24]
+  64:../ObslugaPrzerwan.c **** 	  DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+ 22735              		.loc 1 64 0
+ 22736 0042 4FF00003 		mov	r3, #0
+ 22737 0046 FB61     		str	r3, [r7, #28]
+  65:../ObslugaPrzerwan.c **** 	  DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+ 22738              		.loc 1 65 0
+ 22739 0048 4FF00003 		mov	r3, #0
+ 22740 004c 3B62     		str	r3, [r7, #32]
+  66:../ObslugaPrzerwan.c **** 	  DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+ 22741              		.loc 1 66 0
+ 22742 004e 4FF00003 		mov	r3, #0
+ 22743 0052 7B62     		str	r3, [r7, #36]
+  67:../ObslugaPrzerwan.c **** 	  DMA_InitStructure.DMA_Priority = DMA_Priority_High;
+ 22744              		.loc 1 67 0
+ 22745 0054 4FF40053 		mov	r3, #8192
+ 22746 0058 BB62     		str	r3, [r7, #40]
+  68:../ObslugaPrzerwan.c **** 	  DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+ 22747              		.loc 1 68 0
+ 22748 005a 4FF00003 		mov	r3, #0
+ 22749 005e FB62     		str	r3, [r7, #44]
+  69:../ObslugaPrzerwan.c **** 	  DMA_Init(DMA1_Channel4, &DMA_InitStructure);
+ 22750              		.loc 1 69 0
+ 22751 0060 07F10403 		add	r3, r7, #4
+ 22752 0064 0348     		ldr	r0, .L17
+ 22753 0066 1946     		mov	r1, r3
+ 22754 0068 FFF7FEFF 		bl	DMA_Init
+ 22755              	.L15:
+ 22756              	.LBE3:
+  70:../ObslugaPrzerwan.c ****   }
+  71:../ObslugaPrzerwan.c **** }
+ 22757              		.loc 1 71 0
+ 22758 006c 07F13007 		add	r7, r7, #48
+ 22759 0070 BD46     		mov	sp, r7
+ 22760 0072 80BD     		pop	{r7, pc}
+ 22761              	.L18:
+ 22762              		.align	2
+ 22763              	.L17:
+ 22764 0074 44000240 		.word	1073872964
+ 22765 0078 04380140 		.word	1073821700
+ 22766 007c 00000000 		.word	TxBuffer
+ 22767 0080 00000000 		.word	TxBufferSize
+ 22768              		.cfi_endproc
+ 22769              	.LFE32:
+ 22771              		.text
+ 22772              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 ObslugaPrzerwan.c
+C:\Users\sMi\AppData\Local\Temp\ccpByvUU.s:22491  .text.USART1_IRQHandler:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccpByvUU.s:22496  .text.USART1_IRQHandler:00000000 USART1_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccpByvUU.s:22523  .text.USART1_IRQHandler:0000001c $d
+C:\Users\sMi\AppData\Local\Temp\ccpByvUU.s:22528  .text.TIM1_CC_IRQHandler:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccpByvUU.s:22533  .text.TIM1_CC_IRQHandler:00000000 TIM1_CC_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccpByvUU.s:22564  .text.TIM1_CC_IRQHandler:00000020 $d
+C:\Users\sMi\AppData\Local\Temp\ccpByvUU.s:22573  .text.DMA1_Channel1_IRQHandler:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccpByvUU.s:22578  .text.DMA1_Channel1_IRQHandler:00000000 DMA1_Channel1_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccpByvUU.s:22671  .text.DMA1_Channel1_IRQHandler:00000098 $d
+C:\Users\sMi\AppData\Local\Temp\ccpByvUU.s:22681  .text.DMA1_Channel4_IRQHandler:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccpByvUU.s:22686  .text.DMA1_Channel4_IRQHandler:00000000 DMA1_Channel4_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccpByvUU.s:22764  .text.DMA1_Channel4_IRQHandler:00000074 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+USART_GetITStatus
+TIM_GetITStatus
+TIM_ClearITPendingBit
+__aeabi_i2d
+__aeabi_dmul
+__aeabi_ddiv
+__aeabi_d2f
+DMA_GetITStatus
+DMA_ClearITPendingBit
+ADC1ConvertedValue
+val
+flaga
+DMA_DeInit
+DMA_Init
+TxBuffer
+TxBufferSize

@@ -1,0 +1,774 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"Filtry.c"
+  23              	.Ltext0:
+  24              		.file 1 "../Filtry.c"
+ 1022              		.align	2
+ 1025              	NL2:
+ 1026 0000 03000000 		.word	3
+ 1027              		.global	NUM2
+ 1028              		.section	.rodata.NUM2,"a",%progbits
+ 1029              		.align	2
+ 1032              	NUM2:
+ 1033 0000 FC3F0000 		.word	16380
+ 1034 0004 4980FFFF 		.word	-32695
+ 1035 0008 FC3F0000 		.word	16380
+ 1036              		.global	DL2
+ 1037              		.section	.rodata.DL2,"a",%progbits
+ 1038              		.align	2
+ 1041              	DL2:
+ 1042 0000 03000000 		.word	3
+ 1043              		.global	DEN2
+ 1044              		.section	.rodata.DEN2,"a",%progbits
+ 1045              		.align	2
+ 1048              	DEN2:
+ 1049 0000 00400000 		.word	16384
+ 1050 0004 4980FFFF 		.word	-32695
+ 1051 0008 F83F0000 		.word	16376
+ 1052              		.global	NL
+ 1053              		.section	.rodata.NL,"a",%progbits
+ 1054              		.align	2
+ 1057              	NL:
+ 1058 0000 01000000 		.word	1
+ 1059 0004 03000000 		.word	3
+ 1060 0008 01000000 		.word	1
+ 1061 000c 03000000 		.word	3
+ 1062 0010 01000000 		.word	1
+ 1063 0014 03000000 		.word	3
+ 1064 0018 01000000 		.word	1
+ 1065 001c 03000000 		.word	3
+ 1066 0020 01000000 		.word	1
+ 1067              		.global	NUM
+ 1068              		.section	.rodata.NUM,"a",%progbits
+ 1069              		.align	2
+ 1072              	NUM:
+ 1073 0000 B73F0000 		.word	16311
+ 1074 0004 00000000 		.word	0
+ 1075 0008 00000000 		.word	0
+ 1076 000c 00400000 		.word	16384
+ 1077 0010 0080FFFF 		.word	-32768
+ 1078 0014 00400000 		.word	16384
+ 1079 0018 353F0000 		.word	16181
+ 1080 001c 00000000 		.word	0
+ 1081 0020 00000000 		.word	0
+ 1082 0024 00400000 		.word	16384
+ 1083 0028 0080FFFF 		.word	-32768
+ 1084 002c 00400000 		.word	16384
+ 1085 0030 D33E0000 		.word	16083
+ 1086 0034 00000000 		.word	0
+ 1087 0038 00000000 		.word	0
+ 1088 003c 00400000 		.word	16384
+ 1089 0040 0080FFFF 		.word	-32768
+ 1090 0044 00400000 		.word	16384
+ 1091 0048 9F3E0000 		.word	16031
+ 1092 004c 00000000 		.word	0
+ 1093 0050 00000000 		.word	0
+ 1094 0054 00400000 		.word	16384
+ 1095 0058 0080FFFF 		.word	-32768
+ 1096 005c 00400000 		.word	16384
+ 1097 0060 00400000 		.word	16384
+ 1098 0064 00000000 		.word	0
+ 1099 0068 00000000 		.word	0
+ 1100              		.global	DL
+ 1101              		.section	.rodata.DL,"a",%progbits
+ 1102              		.align	2
+ 1105              	DL:
+ 1106 0000 01000000 		.word	1
+ 1107 0004 03000000 		.word	3
+ 1108 0008 01000000 		.word	1
+ 1109 000c 03000000 		.word	3
+ 1110 0010 01000000 		.word	1
+ 1111 0014 03000000 		.word	3
+ 1112 0018 01000000 		.word	1
+ 1113 001c 03000000 		.word	3
+ 1114 0020 01000000 		.word	1
+ 1115              		.global	DEN
+ 1116              		.section	.rodata.DEN,"a",%progbits
+ 1117              		.align	2
+ 1120              	DEN:
+ 1121 0000 00400000 		.word	16384
+ 1122 0004 00000000 		.word	0
+ 1123 0008 00000000 		.word	0
+ 1124 000c 00400000 		.word	16384
+ 1125 0010 9680FFFF 		.word	-32618
+ 1126 0014 723F0000 		.word	16242
+ 1127 0018 00400000 		.word	16384
+ 1128 001c 00000000 		.word	0
+ 1129 0020 00000000 		.word	0
+ 1130 0024 00400000 		.word	16384
+ 1131 0028 9A81FFFF 		.word	-32358
+ 1132 002c 6E3E0000 		.word	15982
+ 1133 0030 00400000 		.word	16384
+ 1134 0034 00000000 		.word	0
+ 1135 0038 00000000 		.word	0
+ 1136 003c 00400000 		.word	16384
+ 1137 0040 5E82FFFF 		.word	-32162
+ 1138 0044 AA3D0000 		.word	15786
+ 1139 0048 00400000 		.word	16384
+ 1140 004c 00000000 		.word	0
+ 1141 0050 00000000 		.word	0
+ 1142 0054 00400000 		.word	16384
+ 1143 0058 C782FFFF 		.word	-32057
+ 1144 005c 413D0000 		.word	15681
+ 1145 0060 00400000 		.word	16384
+ 1146 0064 00000000 		.word	0
+ 1147 0068 00000000 		.word	0
+ 1148              		.comm	x_notch,12,4
+ 1149              		.comm	y_notch,12,4
+ 1150              		.comm	x_pass,108,4
+ 1151              		.comm	y_pass,108,4
+ 1152              		.section	.text.Filtr_init,"ax",%progbits
+ 1153              		.align	2
+ 1154              		.global	Filtr_init
+ 1155              		.thumb
+ 1156              		.thumb_func
+ 1158              	Filtr_init:
+ 1159              	.LFB0:
+   1:../Filtry.c   **** #include "Filtry.h"
+   2:../Filtry.c   **** #include "Notching.h"
+   3:../Filtry.c   **** #include "HighPass20pass40dB.h"
+   4:../Filtry.c   **** 
+   5:../Filtry.c   **** 
+   6:../Filtry.c   **** float x_notch[3],y_notch[3];
+   7:../Filtry.c   **** float x_pass[9][3], y_pass[9][3];
+   8:../Filtry.c   **** 
+   9:../Filtry.c   **** ///
+  10:../Filtry.c   **** /// Funkcja inicjalizujaca filtry
+  11:../Filtry.c   **** ///
+  12:../Filtry.c   **** void Filtr_init()
+  13:../Filtry.c   **** {
+ 1160              		.loc 1 13 0
+ 1161              		.cfi_startproc
+ 1162              		@ args = 0, pretend = 0, frame = 8
+ 1163              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1164              		@ link register save eliminated.
+ 1165 0000 80B4     		push	{r7}
+ 1166              	.LCFI0:
+ 1167              		.cfi_def_cfa_offset 4
+ 1168 0002 83B0     		sub	sp, sp, #12
+ 1169              	.LCFI1:
+ 1170              		.cfi_def_cfa_offset 16
+ 1171 0004 00AF     		add	r7, sp, #0
+ 1172              		.cfi_offset 7, -4
+ 1173              	.LCFI2:
+ 1174              		.cfi_def_cfa_register 7
+  14:../Filtry.c   **** 	int i,j;
+  15:../Filtry.c   **** 	for(i=0;i<3;i++) x_notch[i] = y_notch[i] = 0;
+ 1175              		.loc 1 15 0
+ 1176 0006 4FF00003 		mov	r3, #0
+ 1177 000a 7B60     		str	r3, [r7, #4]
+ 1178 000c 10E0     		b	.L2
+ 1179              	.L3:
+ 1180              		.loc 1 15 0 is_stmt 0 discriminator 2
+ 1181 000e 274B     		ldr	r3, .L8
+ 1182 0010 7A68     		ldr	r2, [r7, #4]
+ 1183 0012 2A49     		ldr	r1, .L8+16	@ float
+ 1184 0014 43F82210 		str	r1, [r3, r2, lsl #2]	@ float
+ 1185 0018 244B     		ldr	r3, .L8
+ 1186 001a 7A68     		ldr	r2, [r7, #4]
+ 1187 001c 53F82210 		ldr	r1, [r3, r2, lsl #2]	@ float
+ 1188 0020 234B     		ldr	r3, .L8+4
+ 1189 0022 7A68     		ldr	r2, [r7, #4]
+ 1190 0024 43F82210 		str	r1, [r3, r2, lsl #2]	@ float
+ 1191 0028 7B68     		ldr	r3, [r7, #4]
+ 1192 002a 03F10103 		add	r3, r3, #1
+ 1193 002e 7B60     		str	r3, [r7, #4]
+ 1194              	.L2:
+ 1195              		.loc 1 15 0 discriminator 1
+ 1196 0030 7B68     		ldr	r3, [r7, #4]
+ 1197 0032 022B     		cmp	r3, #2
+ 1198 0034 EBDD     		ble	.L3
+  16:../Filtry.c   **** 	for(i=0;i<MWSPT_NSEC;i++) for(j=0;j<3;j++) x_pass[i][j] = y_pass[i][j] = 0;
+ 1199              		.loc 1 16 0 is_stmt 1
+ 1200 0036 4FF00003 		mov	r3, #0
+ 1201 003a 7B60     		str	r3, [r7, #4]
+ 1202 003c 2DE0     		b	.L4
+ 1203              	.L7:
+ 1204              		.loc 1 16 0 is_stmt 0 discriminator 2
+ 1205 003e 4FF00003 		mov	r3, #0
+ 1206 0042 3B60     		str	r3, [r7, #0]
+ 1207 0044 22E0     		b	.L5
+ 1208              	.L6:
+ 1209 0046 1B49     		ldr	r1, .L8+8
+ 1210 0048 7A68     		ldr	r2, [r7, #4]
+ 1211 004a 1346     		mov	r3, r2
+ 1212 004c 4FEA4303 		lsl	r3, r3, #1
+ 1213 0050 9B18     		adds	r3, r3, r2
+ 1214 0052 3A68     		ldr	r2, [r7, #0]
+ 1215 0054 9B18     		adds	r3, r3, r2
+ 1216 0056 194A     		ldr	r2, .L8+16	@ float
+ 1217 0058 41F82320 		str	r2, [r1, r3, lsl #2]	@ float
+ 1218 005c 1549     		ldr	r1, .L8+8
+ 1219 005e 7A68     		ldr	r2, [r7, #4]
+ 1220 0060 1346     		mov	r3, r2
+ 1221 0062 4FEA4303 		lsl	r3, r3, #1
+ 1222 0066 9B18     		adds	r3, r3, r2
+ 1223 0068 3A68     		ldr	r2, [r7, #0]
+ 1224 006a 9B18     		adds	r3, r3, r2
+ 1225 006c 51F82300 		ldr	r0, [r1, r3, lsl #2]	@ float
+ 1226 0070 1149     		ldr	r1, .L8+12
+ 1227 0072 7A68     		ldr	r2, [r7, #4]
+ 1228 0074 1346     		mov	r3, r2
+ 1229 0076 4FEA4303 		lsl	r3, r3, #1
+ 1230 007a 9B18     		adds	r3, r3, r2
+ 1231 007c 3A68     		ldr	r2, [r7, #0]
+ 1232 007e 9B18     		adds	r3, r3, r2
+ 1233 0080 41F82300 		str	r0, [r1, r3, lsl #2]	@ float
+ 1234 0084 3B68     		ldr	r3, [r7, #0]
+ 1235 0086 03F10103 		add	r3, r3, #1
+ 1236 008a 3B60     		str	r3, [r7, #0]
+ 1237              	.L5:
+ 1238              		.loc 1 16 0 discriminator 1
+ 1239 008c 3B68     		ldr	r3, [r7, #0]
+ 1240 008e 022B     		cmp	r3, #2
+ 1241 0090 D9DD     		ble	.L6
+ 1242              		.loc 1 16 0 discriminator 3
+ 1243 0092 7B68     		ldr	r3, [r7, #4]
+ 1244 0094 03F10103 		add	r3, r3, #1
+ 1245 0098 7B60     		str	r3, [r7, #4]
+ 1246              	.L4:
+ 1247              		.loc 1 16 0 discriminator 1
+ 1248 009a 7B68     		ldr	r3, [r7, #4]
+ 1249 009c 082B     		cmp	r3, #8
+ 1250 009e CEDD     		ble	.L7
+  17:../Filtry.c   **** }
+ 1251              		.loc 1 17 0 is_stmt 1
+ 1252 00a0 07F10C07 		add	r7, r7, #12
+ 1253 00a4 BD46     		mov	sp, r7
+ 1254 00a6 80BC     		pop	{r7}
+ 1255 00a8 7047     		bx	lr
+ 1256              	.L9:
+ 1257 00aa 00BF     		.align	2
+ 1258              	.L8:
+ 1259 00ac 00000000 		.word	y_notch
+ 1260 00b0 00000000 		.word	x_notch
+ 1261 00b4 00000000 		.word	y_pass
+ 1262 00b8 00000000 		.word	x_pass
+ 1263 00bc 00000000 		.word	0
+ 1264              		.cfi_endproc
+ 1265              	.LFE0:
+ 1267              		.global	__aeabi_i2f
+ 1268              		.global	__aeabi_fmul
+ 1269              		.global	__aeabi_fadd
+ 1270              		.global	__aeabi_fsub
+ 1271              		.global	__aeabi_fdiv
+ 1272              		.section	.text.Notching,"ax",%progbits
+ 1273              		.align	2
+ 1274              		.global	Notching
+ 1275              		.thumb
+ 1276              		.thumb_func
+ 1278              	Notching:
+ 1279              	.LFB1:
+  18:../Filtry.c   **** 
+  19:../Filtry.c   **** ///
+  20:../Filtry.c   **** /// Funkcja obsluguj¹ca dzialania filtru blokujacego 50Hz
+  21:../Filtry.c   **** ///
+  22:../Filtry.c   **** inline float Notching(float value)
+  23:../Filtry.c   **** {
+ 1280              		.loc 1 23 0
+ 1281              		.cfi_startproc
+ 1282              		@ args = 0, pretend = 0, frame = 16
+ 1283              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1284 0000 80B5     		push	{r7, lr}
+ 1285              	.LCFI3:
+ 1286              		.cfi_def_cfa_offset 8
+ 1287 0002 84B0     		sub	sp, sp, #16
+ 1288              	.LCFI4:
+ 1289              		.cfi_def_cfa_offset 24
+ 1290 0004 00AF     		add	r7, sp, #0
+ 1291              		.cfi_offset 14, -4
+ 1292              		.cfi_offset 7, -8
+ 1293              	.LCFI5:
+ 1294              		.cfi_def_cfa_register 7
+ 1295 0006 7860     		str	r0, [r7, #4]	@ float
+  24:../Filtry.c   **** 	float w = 0;
+ 1296              		.loc 1 24 0
+ 1297 0008 3E4B     		ldr	r3, .L15+24	@ float
+ 1298 000a FB60     		str	r3, [r7, #12]	@ float
+  25:../Filtry.c   **** 
+  26:../Filtry.c   **** 	x_notch[2] = x_notch[1];
+ 1299              		.loc 1 26 0
+ 1300 000c 374B     		ldr	r3, .L15
+ 1301 000e 5A68     		ldr	r2, [r3, #4]	@ float
+ 1302 0010 364B     		ldr	r3, .L15
+ 1303 0012 9A60     		str	r2, [r3, #8]	@ float
+  27:../Filtry.c   **** 	x_notch[1] = x_notch[0];
+ 1304              		.loc 1 27 0
+ 1305 0014 354B     		ldr	r3, .L15
+ 1306 0016 1A68     		ldr	r2, [r3, #0]	@ float
+ 1307 0018 344B     		ldr	r3, .L15
+ 1308 001a 5A60     		str	r2, [r3, #4]	@ float
+  28:../Filtry.c   **** 	x_notch[0] = value;
+ 1309              		.loc 1 28 0
+ 1310 001c 334B     		ldr	r3, .L15
+ 1311 001e 7A68     		ldr	r2, [r7, #4]	@ float
+ 1312 0020 1A60     		str	r2, [r3, #0]	@ float
+  29:../Filtry.c   **** 
+  30:../Filtry.c   **** 	y_notch[2] = y_notch[1];
+ 1313              		.loc 1 30 0
+ 1314 0022 334B     		ldr	r3, .L15+4
+ 1315 0024 5A68     		ldr	r2, [r3, #4]	@ float
+ 1316 0026 324B     		ldr	r3, .L15+4
+ 1317 0028 9A60     		str	r2, [r3, #8]	@ float
+  31:../Filtry.c   **** 	y_notch[1] = y_notch[0];
+ 1318              		.loc 1 31 0
+ 1319 002a 314B     		ldr	r3, .L15+4
+ 1320 002c 1A68     		ldr	r2, [r3, #0]	@ float
+ 1321 002e 304B     		ldr	r3, .L15+4
+ 1322 0030 5A60     		str	r2, [r3, #4]	@ float
+  32:../Filtry.c   **** 
+  33:../Filtry.c   **** 	int i;
+  34:../Filtry.c   **** 	for(i=0;i<NL2;i++) w+= (NUM2[i]*x_notch[i]);
+ 1323              		.loc 1 34 0
+ 1324 0032 4FF00003 		mov	r3, #0
+ 1325 0036 BB60     		str	r3, [r7, #8]
+ 1326 0038 1AE0     		b	.L11
+ 1327              	.L12:
+ 1328              		.loc 1 34 0 is_stmt 0 discriminator 2
+ 1329 003a 2E4B     		ldr	r3, .L15+8
+ 1330 003c BA68     		ldr	r2, [r7, #8]
+ 1331 003e 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ 1332 0042 1846     		mov	r0, r3
+ 1333 0044 FFF7FEFF 		bl	__aeabi_i2f
+ 1334 0048 0246     		mov	r2, r0
+ 1335 004a 284B     		ldr	r3, .L15
+ 1336 004c B968     		ldr	r1, [r7, #8]
+ 1337 004e 53F82130 		ldr	r3, [r3, r1, lsl #2]	@ float
+ 1338 0052 1046     		mov	r0, r2
+ 1339 0054 1946     		mov	r1, r3
+ 1340 0056 FFF7FEFF 		bl	__aeabi_fmul
+ 1341 005a 0346     		mov	r3, r0
+ 1342 005c F868     		ldr	r0, [r7, #12]	@ float
+ 1343 005e 1946     		mov	r1, r3
+ 1344 0060 FFF7FEFF 		bl	__aeabi_fadd
+ 1345 0064 0346     		mov	r3, r0
+ 1346 0066 FB60     		str	r3, [r7, #12]	@ float
+ 1347 0068 BB68     		ldr	r3, [r7, #8]
+ 1348 006a 03F10103 		add	r3, r3, #1
+ 1349 006e BB60     		str	r3, [r7, #8]
+ 1350              	.L11:
+ 1351              		.loc 1 34 0 discriminator 1
+ 1352 0070 214B     		ldr	r3, .L15+12
+ 1353 0072 1B68     		ldr	r3, [r3, #0]
+ 1354 0074 BA68     		ldr	r2, [r7, #8]
+ 1355 0076 9A42     		cmp	r2, r3
+ 1356 0078 DFDB     		blt	.L12
+  35:../Filtry.c   **** 	for(i=1;i<DL2;i++) w-= (DEN2[i]*y_notch[i]);
+ 1357              		.loc 1 35 0 is_stmt 1
+ 1358 007a 4FF00103 		mov	r3, #1
+ 1359 007e BB60     		str	r3, [r7, #8]
+ 1360 0080 1AE0     		b	.L13
+ 1361              	.L14:
+ 1362              		.loc 1 35 0 is_stmt 0 discriminator 2
+ 1363 0082 1E4B     		ldr	r3, .L15+16
+ 1364 0084 BA68     		ldr	r2, [r7, #8]
+ 1365 0086 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ 1366 008a 1846     		mov	r0, r3
+ 1367 008c FFF7FEFF 		bl	__aeabi_i2f
+ 1368 0090 0246     		mov	r2, r0
+ 1369 0092 174B     		ldr	r3, .L15+4
+ 1370 0094 B968     		ldr	r1, [r7, #8]
+ 1371 0096 53F82130 		ldr	r3, [r3, r1, lsl #2]	@ float
+ 1372 009a 1046     		mov	r0, r2
+ 1373 009c 1946     		mov	r1, r3
+ 1374 009e FFF7FEFF 		bl	__aeabi_fmul
+ 1375 00a2 0346     		mov	r3, r0
+ 1376 00a4 F868     		ldr	r0, [r7, #12]	@ float
+ 1377 00a6 1946     		mov	r1, r3
+ 1378 00a8 FFF7FEFF 		bl	__aeabi_fsub
+ 1379 00ac 0346     		mov	r3, r0
+ 1380 00ae FB60     		str	r3, [r7, #12]	@ float
+ 1381 00b0 BB68     		ldr	r3, [r7, #8]
+ 1382 00b2 03F10103 		add	r3, r3, #1
+ 1383 00b6 BB60     		str	r3, [r7, #8]
+ 1384              	.L13:
+ 1385              		.loc 1 35 0 discriminator 1
+ 1386 00b8 114B     		ldr	r3, .L15+20
+ 1387 00ba 1B68     		ldr	r3, [r3, #0]
+ 1388 00bc BA68     		ldr	r2, [r7, #8]
+ 1389 00be 9A42     		cmp	r2, r3
+ 1390 00c0 DFDB     		blt	.L14
+  36:../Filtry.c   **** 	w/= DEN2[0];
+ 1391              		.loc 1 36 0 is_stmt 1
+ 1392 00c2 0E4B     		ldr	r3, .L15+16
+ 1393 00c4 1B68     		ldr	r3, [r3, #0]
+ 1394 00c6 1846     		mov	r0, r3
+ 1395 00c8 FFF7FEFF 		bl	__aeabi_i2f
+ 1396 00cc 0346     		mov	r3, r0
+ 1397 00ce F868     		ldr	r0, [r7, #12]	@ float
+ 1398 00d0 1946     		mov	r1, r3
+ 1399 00d2 FFF7FEFF 		bl	__aeabi_fdiv
+ 1400 00d6 0346     		mov	r3, r0
+ 1401 00d8 FB60     		str	r3, [r7, #12]	@ float
+  37:../Filtry.c   **** 
+  38:../Filtry.c   **** 	y_notch[0] = w;
+ 1402              		.loc 1 38 0
+ 1403 00da 054B     		ldr	r3, .L15+4
+ 1404 00dc FA68     		ldr	r2, [r7, #12]	@ float
+ 1405 00de 1A60     		str	r2, [r3, #0]	@ float
+  39:../Filtry.c   **** 
+  40:../Filtry.c   **** 	return w;
+ 1406              		.loc 1 40 0
+ 1407 00e0 FB68     		ldr	r3, [r7, #12]	@ float
+  41:../Filtry.c   **** }
+ 1408              		.loc 1 41 0
+ 1409 00e2 1846     		mov	r0, r3
+ 1410 00e4 07F11007 		add	r7, r7, #16
+ 1411 00e8 BD46     		mov	sp, r7
+ 1412 00ea 80BD     		pop	{r7, pc}
+ 1413              	.L16:
+ 1414              		.align	2
+ 1415              	.L15:
+ 1416 00ec 00000000 		.word	x_notch
+ 1417 00f0 00000000 		.word	y_notch
+ 1418 00f4 00000000 		.word	NUM2
+ 1419 00f8 00000000 		.word	NL2
+ 1420 00fc 00000000 		.word	DEN2
+ 1421 0100 00000000 		.word	DL2
+ 1422 0104 00000000 		.word	0
+ 1423              		.cfi_endproc
+ 1424              	.LFE1:
+ 1426              		.section	.text.HighPass,"ax",%progbits
+ 1427              		.align	2
+ 1428              		.global	HighPass
+ 1429              		.thumb
+ 1430              		.thumb_func
+ 1432              	HighPass:
+ 1433              	.LFB2:
+  42:../Filtry.c   **** 
+  43:../Filtry.c   **** ///
+  44:../Filtry.c   **** /// Funkcja obslugujaca dzialanie filtru gornoprzepustowego
+  45:../Filtry.c   **** ///
+  46:../Filtry.c   **** inline float HighPass(float value)
+  47:../Filtry.c   **** {
+ 1434              		.loc 1 47 0
+ 1435              		.cfi_startproc
+ 1436              		@ args = 0, pretend = 0, frame = 24
+ 1437              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1438 0000 80B5     		push	{r7, lr}
+ 1439              	.LCFI6:
+ 1440              		.cfi_def_cfa_offset 8
+ 1441 0002 86B0     		sub	sp, sp, #24
+ 1442              	.LCFI7:
+ 1443              		.cfi_def_cfa_offset 32
+ 1444 0004 00AF     		add	r7, sp, #0
+ 1445              		.cfi_offset 14, -4
+ 1446              		.cfi_offset 7, -8
+ 1447              	.LCFI8:
+ 1448              		.cfi_def_cfa_register 7
+ 1449 0006 7860     		str	r0, [r7, #4]	@ float
+  48:../Filtry.c   **** 	float w;
+  49:../Filtry.c   **** 
+  50:../Filtry.c   **** 	int i,j;
+  51:../Filtry.c   **** 	for(i=0;i<MWSPT_NSEC;i++)
+ 1450              		.loc 1 51 0
+ 1451 0008 4FF00003 		mov	r3, #0
+ 1452 000c 3B61     		str	r3, [r7, #16]
+ 1453 000e EFE0     		b	.L18
+ 1454              	.L23:
+  52:../Filtry.c   **** 	{
+  53:../Filtry.c   **** 		w = 0;
+ 1455              		.loc 1 53 0
+ 1456 0010 834B     		ldr	r3, .L24+24	@ float
+ 1457 0012 7B61     		str	r3, [r7, #20]	@ float
+  54:../Filtry.c   **** 
+  55:../Filtry.c   **** 		// i oznacza, który filtr w kaskadzie
+  56:../Filtry.c   **** 		// drugi indeks to ile probek wstecz od obecnej chwili czasowej
+  57:../Filtry.c   **** 		x_pass[i][2] = x_pass[i][1];
+ 1458              		.loc 1 57 0
+ 1459 0014 7C49     		ldr	r1, .L24
+ 1460 0016 3A69     		ldr	r2, [r7, #16]
+ 1461 0018 1346     		mov	r3, r2
+ 1462 001a 4FEA4303 		lsl	r3, r3, #1
+ 1463 001e 9B18     		adds	r3, r3, r2
+ 1464 0020 4FEA8303 		lsl	r3, r3, #2
+ 1465 0024 CB18     		adds	r3, r1, r3
+ 1466 0026 03F10403 		add	r3, r3, #4
+ 1467 002a 1968     		ldr	r1, [r3, #0]	@ float
+ 1468 002c 7648     		ldr	r0, .L24
+ 1469 002e 3A69     		ldr	r2, [r7, #16]
+ 1470 0030 1346     		mov	r3, r2
+ 1471 0032 4FEA4303 		lsl	r3, r3, #1
+ 1472 0036 9B18     		adds	r3, r3, r2
+ 1473 0038 4FEA8303 		lsl	r3, r3, #2
+ 1474 003c C318     		adds	r3, r0, r3
+ 1475 003e 03F10803 		add	r3, r3, #8
+ 1476 0042 1960     		str	r1, [r3, #0]	@ float
+  58:../Filtry.c   **** 		x_pass[i][1] = x_pass[i][0];
+ 1477              		.loc 1 58 0
+ 1478 0044 7049     		ldr	r1, .L24
+ 1479 0046 3A69     		ldr	r2, [r7, #16]
+ 1480 0048 1346     		mov	r3, r2
+ 1481 004a 4FEA4303 		lsl	r3, r3, #1
+ 1482 004e 9B18     		adds	r3, r3, r2
+ 1483 0050 4FEA8303 		lsl	r3, r3, #2
+ 1484 0054 CB18     		adds	r3, r1, r3
+ 1485 0056 1968     		ldr	r1, [r3, #0]	@ float
+ 1486 0058 6B48     		ldr	r0, .L24
+ 1487 005a 3A69     		ldr	r2, [r7, #16]
+ 1488 005c 1346     		mov	r3, r2
+ 1489 005e 4FEA4303 		lsl	r3, r3, #1
+ 1490 0062 9B18     		adds	r3, r3, r2
+ 1491 0064 4FEA8303 		lsl	r3, r3, #2
+ 1492 0068 C318     		adds	r3, r0, r3
+ 1493 006a 03F10403 		add	r3, r3, #4
+ 1494 006e 1960     		str	r1, [r3, #0]	@ float
+  59:../Filtry.c   **** 		x_pass[i][0] = value;
+ 1495              		.loc 1 59 0
+ 1496 0070 6549     		ldr	r1, .L24
+ 1497 0072 3A69     		ldr	r2, [r7, #16]
+ 1498 0074 1346     		mov	r3, r2
+ 1499 0076 4FEA4303 		lsl	r3, r3, #1
+ 1500 007a 9B18     		adds	r3, r3, r2
+ 1501 007c 4FEA8303 		lsl	r3, r3, #2
+ 1502 0080 CB18     		adds	r3, r1, r3
+ 1503 0082 7A68     		ldr	r2, [r7, #4]	@ float
+ 1504 0084 1A60     		str	r2, [r3, #0]	@ float
+  60:../Filtry.c   **** 
+  61:../Filtry.c   **** 		y_pass[i][2] = y_pass[i][1];
+ 1505              		.loc 1 61 0
+ 1506 0086 6149     		ldr	r1, .L24+4
+ 1507 0088 3A69     		ldr	r2, [r7, #16]
+ 1508 008a 1346     		mov	r3, r2
+ 1509 008c 4FEA4303 		lsl	r3, r3, #1
+ 1510 0090 9B18     		adds	r3, r3, r2
+ 1511 0092 4FEA8303 		lsl	r3, r3, #2
+ 1512 0096 CB18     		adds	r3, r1, r3
+ 1513 0098 03F10403 		add	r3, r3, #4
+ 1514 009c 1968     		ldr	r1, [r3, #0]	@ float
+ 1515 009e 5B48     		ldr	r0, .L24+4
+ 1516 00a0 3A69     		ldr	r2, [r7, #16]
+ 1517 00a2 1346     		mov	r3, r2
+ 1518 00a4 4FEA4303 		lsl	r3, r3, #1
+ 1519 00a8 9B18     		adds	r3, r3, r2
+ 1520 00aa 4FEA8303 		lsl	r3, r3, #2
+ 1521 00ae C318     		adds	r3, r0, r3
+ 1522 00b0 03F10803 		add	r3, r3, #8
+ 1523 00b4 1960     		str	r1, [r3, #0]	@ float
+  62:../Filtry.c   **** 		y_pass[i][1] = y_pass[i][0];
+ 1524              		.loc 1 62 0
+ 1525 00b6 5549     		ldr	r1, .L24+4
+ 1526 00b8 3A69     		ldr	r2, [r7, #16]
+ 1527 00ba 1346     		mov	r3, r2
+ 1528 00bc 4FEA4303 		lsl	r3, r3, #1
+ 1529 00c0 9B18     		adds	r3, r3, r2
+ 1530 00c2 4FEA8303 		lsl	r3, r3, #2
+ 1531 00c6 CB18     		adds	r3, r1, r3
+ 1532 00c8 1968     		ldr	r1, [r3, #0]	@ float
+ 1533 00ca 5048     		ldr	r0, .L24+4
+ 1534 00cc 3A69     		ldr	r2, [r7, #16]
+ 1535 00ce 1346     		mov	r3, r2
+ 1536 00d0 4FEA4303 		lsl	r3, r3, #1
+ 1537 00d4 9B18     		adds	r3, r3, r2
+ 1538 00d6 4FEA8303 		lsl	r3, r3, #2
+ 1539 00da C318     		adds	r3, r0, r3
+ 1540 00dc 03F10403 		add	r3, r3, #4
+ 1541 00e0 1960     		str	r1, [r3, #0]	@ float
+  63:../Filtry.c   **** 
+  64:../Filtry.c   **** 		for(j=0;j<NL[i];j++)	w+= (NUM[i][j]*x_pass[i][j]);
+ 1542              		.loc 1 64 0
+ 1543 00e2 4FF00003 		mov	r3, #0
+ 1544 00e6 FB60     		str	r3, [r7, #12]
+ 1545 00e8 26E0     		b	.L19
+ 1546              	.L20:
+ 1547              		.loc 1 64 0 is_stmt 0 discriminator 2
+ 1548 00ea 4949     		ldr	r1, .L24+8
+ 1549 00ec 3A69     		ldr	r2, [r7, #16]
+ 1550 00ee 1346     		mov	r3, r2
+ 1551 00f0 4FEA4303 		lsl	r3, r3, #1
+ 1552 00f4 9B18     		adds	r3, r3, r2
+ 1553 00f6 FA68     		ldr	r2, [r7, #12]
+ 1554 00f8 9B18     		adds	r3, r3, r2
+ 1555 00fa 51F82330 		ldr	r3, [r1, r3, lsl #2]
+ 1556 00fe 1846     		mov	r0, r3
+ 1557 0100 FFF7FEFF 		bl	__aeabi_i2f
+ 1558 0104 0146     		mov	r1, r0
+ 1559 0106 4048     		ldr	r0, .L24
+ 1560 0108 3A69     		ldr	r2, [r7, #16]
+ 1561 010a 1346     		mov	r3, r2
+ 1562 010c 4FEA4303 		lsl	r3, r3, #1
+ 1563 0110 9B18     		adds	r3, r3, r2
+ 1564 0112 FA68     		ldr	r2, [r7, #12]
+ 1565 0114 9B18     		adds	r3, r3, r2
+ 1566 0116 50F82330 		ldr	r3, [r0, r3, lsl #2]	@ float
+ 1567 011a 0846     		mov	r0, r1
+ 1568 011c 1946     		mov	r1, r3
+ 1569 011e FFF7FEFF 		bl	__aeabi_fmul
+ 1570 0122 0346     		mov	r3, r0
+ 1571 0124 7869     		ldr	r0, [r7, #20]	@ float
+ 1572 0126 1946     		mov	r1, r3
+ 1573 0128 FFF7FEFF 		bl	__aeabi_fadd
+ 1574 012c 0346     		mov	r3, r0
+ 1575 012e 7B61     		str	r3, [r7, #20]	@ float
+ 1576 0130 FB68     		ldr	r3, [r7, #12]
+ 1577 0132 03F10103 		add	r3, r3, #1
+ 1578 0136 FB60     		str	r3, [r7, #12]
+ 1579              	.L19:
+ 1580              		.loc 1 64 0 discriminator 1
+ 1581 0138 364B     		ldr	r3, .L24+12
+ 1582 013a 3A69     		ldr	r2, [r7, #16]
+ 1583 013c 53F82220 		ldr	r2, [r3, r2, lsl #2]
+ 1584 0140 FB68     		ldr	r3, [r7, #12]
+ 1585 0142 9A42     		cmp	r2, r3
+ 1586 0144 D1DC     		bgt	.L20
+  65:../Filtry.c   **** 		for(j=1;j<DL[i];j++)	w-= (DEN[i][j]*y_pass[i][j]);
+ 1587              		.loc 1 65 0 is_stmt 1
+ 1588 0146 4FF00103 		mov	r3, #1
+ 1589 014a FB60     		str	r3, [r7, #12]
+ 1590 014c 26E0     		b	.L21
+ 1591              	.L22:
+ 1592              		.loc 1 65 0 is_stmt 0 discriminator 2
+ 1593 014e 3249     		ldr	r1, .L24+16
+ 1594 0150 3A69     		ldr	r2, [r7, #16]
+ 1595 0152 1346     		mov	r3, r2
+ 1596 0154 4FEA4303 		lsl	r3, r3, #1
+ 1597 0158 9B18     		adds	r3, r3, r2
+ 1598 015a FA68     		ldr	r2, [r7, #12]
+ 1599 015c 9B18     		adds	r3, r3, r2
+ 1600 015e 51F82330 		ldr	r3, [r1, r3, lsl #2]
+ 1601 0162 1846     		mov	r0, r3
+ 1602 0164 FFF7FEFF 		bl	__aeabi_i2f
+ 1603 0168 0146     		mov	r1, r0
+ 1604 016a 2848     		ldr	r0, .L24+4
+ 1605 016c 3A69     		ldr	r2, [r7, #16]
+ 1606 016e 1346     		mov	r3, r2
+ 1607 0170 4FEA4303 		lsl	r3, r3, #1
+ 1608 0174 9B18     		adds	r3, r3, r2
+ 1609 0176 FA68     		ldr	r2, [r7, #12]
+ 1610 0178 9B18     		adds	r3, r3, r2
+ 1611 017a 50F82330 		ldr	r3, [r0, r3, lsl #2]	@ float
+ 1612 017e 0846     		mov	r0, r1
+ 1613 0180 1946     		mov	r1, r3
+ 1614 0182 FFF7FEFF 		bl	__aeabi_fmul
+ 1615 0186 0346     		mov	r3, r0
+ 1616 0188 7869     		ldr	r0, [r7, #20]	@ float
+ 1617 018a 1946     		mov	r1, r3
+ 1618 018c FFF7FEFF 		bl	__aeabi_fsub
+ 1619 0190 0346     		mov	r3, r0
+ 1620 0192 7B61     		str	r3, [r7, #20]	@ float
+ 1621 0194 FB68     		ldr	r3, [r7, #12]
+ 1622 0196 03F10103 		add	r3, r3, #1
+ 1623 019a FB60     		str	r3, [r7, #12]
+ 1624              	.L21:
+ 1625              		.loc 1 65 0 discriminator 1
+ 1626 019c 1F4B     		ldr	r3, .L24+20
+ 1627 019e 3A69     		ldr	r2, [r7, #16]
+ 1628 01a0 53F82220 		ldr	r2, [r3, r2, lsl #2]
+ 1629 01a4 FB68     		ldr	r3, [r7, #12]
+ 1630 01a6 9A42     		cmp	r2, r3
+ 1631 01a8 D1DC     		bgt	.L22
+  66:../Filtry.c   **** 		w/=DEN[i][0];
+ 1632              		.loc 1 66 0 is_stmt 1
+ 1633 01aa 1B49     		ldr	r1, .L24+16
+ 1634 01ac 3A69     		ldr	r2, [r7, #16]
+ 1635 01ae 1346     		mov	r3, r2
+ 1636 01b0 4FEA4303 		lsl	r3, r3, #1
+ 1637 01b4 9B18     		adds	r3, r3, r2
+ 1638 01b6 4FEA8303 		lsl	r3, r3, #2
+ 1639 01ba CB18     		adds	r3, r1, r3
+ 1640 01bc 1B68     		ldr	r3, [r3, #0]
+ 1641 01be 1846     		mov	r0, r3
+ 1642 01c0 FFF7FEFF 		bl	__aeabi_i2f
+ 1643 01c4 0346     		mov	r3, r0
+ 1644 01c6 7869     		ldr	r0, [r7, #20]	@ float
+ 1645 01c8 1946     		mov	r1, r3
+ 1646 01ca FFF7FEFF 		bl	__aeabi_fdiv
+ 1647 01ce 0346     		mov	r3, r0
+ 1648 01d0 7B61     		str	r3, [r7, #20]	@ float
+  67:../Filtry.c   **** 
+  68:../Filtry.c   **** 		y_pass[i][0] = w;
+ 1649              		.loc 1 68 0
+ 1650 01d2 0E49     		ldr	r1, .L24+4
+ 1651 01d4 3A69     		ldr	r2, [r7, #16]
+ 1652 01d6 1346     		mov	r3, r2
+ 1653 01d8 4FEA4303 		lsl	r3, r3, #1
+ 1654 01dc 9B18     		adds	r3, r3, r2
+ 1655 01de 4FEA8303 		lsl	r3, r3, #2
+ 1656 01e2 CB18     		adds	r3, r1, r3
+ 1657 01e4 7A69     		ldr	r2, [r7, #20]	@ float
+ 1658 01e6 1A60     		str	r2, [r3, #0]	@ float
+  51:../Filtry.c   **** 	for(i=0;i<MWSPT_NSEC;i++)
+ 1659              		.loc 1 51 0
+ 1660 01e8 3B69     		ldr	r3, [r7, #16]
+ 1661 01ea 03F10103 		add	r3, r3, #1
+ 1662 01ee 3B61     		str	r3, [r7, #16]
+ 1663              	.L18:
+  51:../Filtry.c   **** 	for(i=0;i<MWSPT_NSEC;i++)
+ 1664              		.loc 1 51 0 is_stmt 0 discriminator 1
+ 1665 01f0 3B69     		ldr	r3, [r7, #16]
+ 1666 01f2 082B     		cmp	r3, #8
+ 1667 01f4 7FF70CAF 		ble	.L23
+  69:../Filtry.c   **** 	}
+  70:../Filtry.c   **** 	return y_pass[MWSPT_NSEC-1][0];
+ 1668              		.loc 1 70 0 is_stmt 1
+ 1669 01f8 044B     		ldr	r3, .L24+4
+ 1670 01fa 1B6E     		ldr	r3, [r3, #96]	@ float
+  71:../Filtry.c   **** }
+ 1671              		.loc 1 71 0
+ 1672 01fc 1846     		mov	r0, r3
+ 1673 01fe 07F11807 		add	r7, r7, #24
+ 1674 0202 BD46     		mov	sp, r7
+ 1675 0204 80BD     		pop	{r7, pc}
+ 1676              	.L25:
+ 1677 0206 00BF     		.align	2
+ 1678              	.L24:
+ 1679 0208 00000000 		.word	x_pass
+ 1680 020c 00000000 		.word	y_pass
+ 1681 0210 00000000 		.word	NUM
+ 1682 0214 00000000 		.word	NL
+ 1683 0218 00000000 		.word	DEN
+ 1684 021c 00000000 		.word	DL
+ 1685 0220 00000000 		.word	0
+ 1686              		.cfi_endproc
+ 1687              	.LFE2:
+ 1689              		.text
+ 1690              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 Filtry.c
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1025   .rodata.NL2:00000000 NL2
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1022   .rodata.NL2:00000000 $d
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1032   .rodata.NUM2:00000000 NUM2
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1029   .rodata.NUM2:00000000 $d
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1041   .rodata.DL2:00000000 DL2
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1038   .rodata.DL2:00000000 $d
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1048   .rodata.DEN2:00000000 DEN2
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1045   .rodata.DEN2:00000000 $d
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1057   .rodata.NL:00000000 NL
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1054   .rodata.NL:00000000 $d
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1072   .rodata.NUM:00000000 NUM
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1069   .rodata.NUM:00000000 $d
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1105   .rodata.DL:00000000 DL
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1102   .rodata.DL:00000000 $d
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1120   .rodata.DEN:00000000 DEN
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1117   .rodata.DEN:00000000 $d
+                            *COM*:0000000c x_notch
+                            *COM*:0000000c y_notch
+                            *COM*:0000006c x_pass
+                            *COM*:0000006c y_pass
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1153   .text.Filtr_init:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1158   .text.Filtr_init:00000000 Filtr_init
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1259   .text.Filtr_init:000000ac $d
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1273   .text.Notching:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1278   .text.Notching:00000000 Notching
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1416   .text.Notching:000000ec $d
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1427   .text.HighPass:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1432   .text.HighPass:00000000 HighPass
+C:\Users\sMi\AppData\Local\Temp\ccgPM9TK.s:1679   .text.HighPass:00000208 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__aeabi_i2f
+__aeabi_fmul
+__aeabi_fadd
+__aeabi_fsub
+__aeabi_fdiv

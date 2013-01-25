@@ -1,0 +1,17 @@
+TME:
+trzymaczkê do SD-Card
+
+AVT: 
+NAD 40ST-12	nadajnik ultradŸwiêkowy 4.50zl
+ODB 40SR-12	odbiornik ultradzwiekowy 4.50zl
+
+Kalman
+
+przekleic kola
+
+2 poziom
+
+-> szybka roboty
+-> zasilacz laboratoryjny
+-> pila nagwintowac
+-> zmywacz zwykly

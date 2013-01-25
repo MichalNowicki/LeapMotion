@@ -1,0 +1,381 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"vectors.c"
+  23              	.Ltext0:
+  24              		.file 1 "../Setup/vectors.c"
+ 994              		.align	2
+ 995              		.thumb
+ 996              		.thumb_func
+ 998              	__Default_Handler:
+ 999              	.LFB0:
+   1:../Setup/vectors.c **** /** \file vectors.c
+   2:../Setup/vectors.c ****  * \brief STM32 vector table and __Default_Handler()
+   3:../Setup/vectors.c ****  * \details STM32 vector table and __Default_Handler()
+   4:../Setup/vectors.c ****  * \author Freddie Chopin
+   5:../Setup/vectors.c ****  * \date 2009-09-16
+   6:../Setup/vectors.c ****  */
+   7:../Setup/vectors.c **** 
+   8:../Setup/vectors.c **** /******************************************************************************
+   9:../Setup/vectors.c **** * project: stm32_blink_led
+  10:../Setup/vectors.c **** * chip: STM32F103RB
+  11:../Setup/vectors.c **** * compiler: arm-none-eabi-gcc 4.3.3
+  12:../Setup/vectors.c **** ******************************************************************************/
+  13:../Setup/vectors.c **** 
+  14:../Setup/vectors.c **** /*------------------------------------------------------------------------*//**
+  15:../Setup/vectors.c **** * \brief Default interrupt handler.
+  16:../Setup/vectors.c **** * \details Default interrupt handler, used for interrupts that don't have their
+  17:../Setup/vectors.c **** * own handler defined.
+  18:../Setup/vectors.c **** *//*-------------------------------------------------------------------------*/
+  19:../Setup/vectors.c **** 
+  20:../Setup/vectors.c **** static void __Default_Handler(void) __attribute__ ((interrupt));
+  21:../Setup/vectors.c **** static void __Default_Handler(void)
+  22:../Setup/vectors.c **** {
+ 1000              		.loc 1 22 0
+ 1001              		.cfi_startproc
+ 1002              		@ Stack Align: May be called with mis-aligned SP.
+ 1003              		@ args = 0, pretend = 0, frame = 0
+ 1004              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1005              		@ link register save eliminated.
+ 1006 0000 6846     		mov	r0, sp
+ 1007              		.cfi_register 13, 0
+ 1008 0002 20F00701 		bic	r1, r0, #7
+ 1009 0006 8D46     		mov	sp, r1
+ 1010 0008 81B4     		push	{r0, r7}
+ 1011              	.LCFI0:
+ 1012              		.cfi_def_cfa_offset 8
+ 1013 000a 00AF     		add	r7, sp, #0
+ 1014              		.cfi_offset 7, -4
+ 1015              		.cfi_offset 13, -8
+ 1016              	.LCFI1:
+ 1017              		.cfi_def_cfa_register 7
+ 1018              	.L2:
+  23:../Setup/vectors.c **** 	while (1);
+ 1019              		.loc 1 23 0 discriminator 1
+ 1020 000c FEE7     		b	.L2
+ 1021              		.cfi_endproc
+ 1022              	.LFE0:
+ 1024              		.global	vectors
+ 1025 000e 00BF     		.section	.vectors,"a",%progbits
+ 1026              		.align	2
+ 1029              	vectors:
+ 1030 0000 00000000 		.word	__main_stack_end
+ 1031 0004 00000000 		.word	Reset_Handler
+ 1032 0008 00000000 		.word	NMI_Handler
+ 1033 000c 00000000 		.word	HardFault_Handler
+ 1034 0010 00000000 		.word	MemManage_Handler
+ 1035 0014 00000000 		.word	BusFault_Handler
+ 1036 0018 00000000 		.word	UsageFault_Handler
+ 1037 001c 00000000 		.word	__Reserved_0x1C_Handler
+ 1038 0020 00000000 		.word	__Reserved_0x20_Handler
+ 1039 0024 00000000 		.word	__Reserved_0x24_Handler
+ 1040 0028 00000000 		.word	__Reserved_0x28_Handler
+ 1041 002c 00000000 		.word	SVC_Handler
+ 1042 0030 00000000 		.word	DebugMon_Handler
+ 1043 0034 00000000 		.word	__Reserved_0x34_Handler
+ 1044 0038 00000000 		.word	PendSV_Handler
+ 1045 003c 00000000 		.word	SysTick_Handler
+ 1046 0040 00000000 		.word	WWDG_IRQHandler
+ 1047 0044 00000000 		.word	PVD_IRQHandler
+ 1048 0048 00000000 		.word	TAMPER_IRQHandler
+ 1049 004c 00000000 		.word	RTC_IRQHandler
+ 1050 0050 00000000 		.word	FLASH_IRQHandler
+ 1051 0054 00000000 		.word	RCC_IRQHandler
+ 1052 0058 00000000 		.word	EXTI0_IRQHandler
+ 1053 005c 00000000 		.word	EXTI1_IRQHandler
+ 1054 0060 00000000 		.word	EXTI2_IRQHandler
+ 1055 0064 00000000 		.word	EXTI3_IRQHandler
+ 1056 0068 00000000 		.word	EXTI4_IRQHandler
+ 1057 006c 00000000 		.word	DMA1_Channel1_IRQHandler
+ 1058 0070 00000000 		.word	DMA1_Channel2_IRQHandler
+ 1059 0074 00000000 		.word	DMA1_Channel3_IRQHandler
+ 1060 0078 00000000 		.word	DMA1_Channel4_IRQHandler
+ 1061 007c 00000000 		.word	DMA1_Channel5_IRQHandler
+ 1062 0080 00000000 		.word	DMA1_Channel6_IRQHandler
+ 1063 0084 00000000 		.word	DMA1_Channel7_IRQHandler
+ 1064 0088 00000000 		.word	ADC1_2_IRQHandler
+ 1065 008c 00000000 		.word	USB_HP_CAN_TX_IRQHandler
+ 1066 0090 00000000 		.word	USB_LP_CAN_RX0_IRQHandler
+ 1067 0094 00000000 		.word	CAN_RX1_IRQHandler
+ 1068 0098 00000000 		.word	CAN_SCE_IRQHandler
+ 1069 009c 00000000 		.word	EXTI9_5_IRQHandler
+ 1070 00a0 00000000 		.word	TIM1_BRK_IRQHandler
+ 1071 00a4 00000000 		.word	TIM1_UP_IRQHandler
+ 1072 00a8 00000000 		.word	TIM1_TRG_COM_IRQHandler
+ 1073 00ac 00000000 		.word	TIM1_CC_IRQHandler
+ 1074 00b0 00000000 		.word	TIM2_IRQHandler
+ 1075 00b4 00000000 		.word	TIM3_IRQHandler
+ 1076 00b8 00000000 		.word	TIM4_IRQHandler
+ 1077 00bc 00000000 		.word	I2C1_EV_IRQHandler
+ 1078 00c0 00000000 		.word	I2C1_ER_IRQHandler
+ 1079 00c4 00000000 		.word	I2C2_EV_IRQHandler
+ 1080 00c8 00000000 		.word	I2C2_ER_IRQHandler
+ 1081 00cc 00000000 		.word	SPI1_IRQHandler
+ 1082 00d0 00000000 		.word	SPI2_IRQHandler
+ 1083 00d4 00000000 		.word	USART1_IRQHandler
+ 1084 00d8 00000000 		.word	USART2_IRQHandler
+ 1085 00dc 00000000 		.word	USART3_IRQHandler
+ 1086 00e0 00000000 		.word	EXTI15_10_IRQHandler
+ 1087 00e4 00000000 		.word	RTCAlarm_IRQHandler
+ 1088 00e8 00000000 		.word	USBWakeup_IRQHandler
+ 1089 00ec 00000000 		.word	TIM8_BRK_IRQHandler
+ 1090 00f0 00000000 		.word	TIM8_UP_IRQHandler
+ 1091 00f4 00000000 		.word	TIM8_TRG_COM_IRQHandler
+ 1092 00f8 00000000 		.word	TIM8_CC_IRQHandler
+ 1093 00fc 00000000 		.word	ADC3_IRQHandler
+ 1094 0100 00000000 		.word	FSMC_IRQHandler
+ 1095 0104 00000000 		.word	SDIO_IRQHandler
+ 1096 0108 00000000 		.word	TIM5_IRQHandler
+ 1097 010c 00000000 		.word	SPI3_IRQHandler
+ 1098 0110 00000000 		.word	USART4_IRQHandler
+ 1099 0114 00000000 		.word	USART5_IRQHandler
+ 1100 0118 00000000 		.word	TIM6_IRQHandler
+ 1101 011c 00000000 		.word	TIM7_IRQHandler
+ 1102 0120 00000000 		.word	DMA2_Channel1_IRQHandler
+ 1103 0124 00000000 		.word	DMA2_Channel2_IRQHandler
+ 1104 0128 00000000 		.word	DMA2_Channel3_IRQHandler
+ 1105 012c 00000000 		.word	DMA2_Channel4_5_IRQHandler
+ 1106              		.weak	NMI_Handler
+ 1107              		.thumb_set NMI_Handler,__Default_Handler
+ 1108              		.weak	HardFault_Handler
+ 1109              		.thumb_set HardFault_Handler,__Default_Handler
+ 1110              		.weak	MemManage_Handler
+ 1111              		.thumb_set MemManage_Handler,__Default_Handler
+ 1112              		.weak	BusFault_Handler
+ 1113              		.thumb_set BusFault_Handler,__Default_Handler
+ 1114              		.weak	UsageFault_Handler
+ 1115              		.thumb_set UsageFault_Handler,__Default_Handler
+ 1116              		.weak	__Reserved_0x1C_Handler
+ 1117              		.thumb_set __Reserved_0x1C_Handler,__Default_Handler
+ 1118              		.weak	__Reserved_0x20_Handler
+ 1119              		.thumb_set __Reserved_0x20_Handler,__Default_Handler
+ 1120              		.weak	__Reserved_0x24_Handler
+ 1121              		.thumb_set __Reserved_0x24_Handler,__Default_Handler
+ 1122              		.weak	__Reserved_0x28_Handler
+ 1123              		.thumb_set __Reserved_0x28_Handler,__Default_Handler
+ 1124              		.weak	SVC_Handler
+ 1125              		.thumb_set SVC_Handler,__Default_Handler
+ 1126              		.weak	DebugMon_Handler
+ 1127              		.thumb_set DebugMon_Handler,__Default_Handler
+ 1128              		.weak	__Reserved_0x34_Handler
+ 1129              		.thumb_set __Reserved_0x34_Handler,__Default_Handler
+ 1130              		.weak	PendSV_Handler
+ 1131              		.thumb_set PendSV_Handler,__Default_Handler
+ 1132              		.weak	SysTick_Handler
+ 1133              		.thumb_set SysTick_Handler,__Default_Handler
+ 1134              		.weak	WWDG_IRQHandler
+ 1135              		.thumb_set WWDG_IRQHandler,__Default_Handler
+ 1136              		.weak	PVD_IRQHandler
+ 1137              		.thumb_set PVD_IRQHandler,__Default_Handler
+ 1138              		.weak	TAMPER_IRQHandler
+ 1139              		.thumb_set TAMPER_IRQHandler,__Default_Handler
+ 1140              		.weak	RTC_IRQHandler
+ 1141              		.thumb_set RTC_IRQHandler,__Default_Handler
+ 1142              		.weak	FLASH_IRQHandler
+ 1143              		.thumb_set FLASH_IRQHandler,__Default_Handler
+ 1144              		.weak	RCC_IRQHandler
+ 1145              		.thumb_set RCC_IRQHandler,__Default_Handler
+ 1146              		.weak	EXTI0_IRQHandler
+ 1147              		.thumb_set EXTI0_IRQHandler,__Default_Handler
+ 1148              		.weak	EXTI1_IRQHandler
+ 1149              		.thumb_set EXTI1_IRQHandler,__Default_Handler
+ 1150              		.weak	EXTI2_IRQHandler
+ 1151              		.thumb_set EXTI2_IRQHandler,__Default_Handler
+ 1152              		.weak	EXTI3_IRQHandler
+ 1153              		.thumb_set EXTI3_IRQHandler,__Default_Handler
+ 1154              		.weak	EXTI4_IRQHandler
+ 1155              		.thumb_set EXTI4_IRQHandler,__Default_Handler
+ 1156              		.weak	DMA1_Channel1_IRQHandler
+ 1157              		.thumb_set DMA1_Channel1_IRQHandler,__Default_Handler
+ 1158              		.weak	DMA1_Channel2_IRQHandler
+ 1159              		.thumb_set DMA1_Channel2_IRQHandler,__Default_Handler
+ 1160              		.weak	DMA1_Channel3_IRQHandler
+ 1161              		.thumb_set DMA1_Channel3_IRQHandler,__Default_Handler
+ 1162              		.weak	DMA1_Channel4_IRQHandler
+ 1163              		.thumb_set DMA1_Channel4_IRQHandler,__Default_Handler
+ 1164              		.weak	DMA1_Channel5_IRQHandler
+ 1165              		.thumb_set DMA1_Channel5_IRQHandler,__Default_Handler
+ 1166              		.weak	DMA1_Channel6_IRQHandler
+ 1167              		.thumb_set DMA1_Channel6_IRQHandler,__Default_Handler
+ 1168              		.weak	DMA1_Channel7_IRQHandler
+ 1169              		.thumb_set DMA1_Channel7_IRQHandler,__Default_Handler
+ 1170              		.weak	ADC1_2_IRQHandler
+ 1171              		.thumb_set ADC1_2_IRQHandler,__Default_Handler
+ 1172              		.weak	USB_HP_CAN_TX_IRQHandler
+ 1173              		.thumb_set USB_HP_CAN_TX_IRQHandler,__Default_Handler
+ 1174              		.weak	USB_LP_CAN_RX0_IRQHandler
+ 1175              		.thumb_set USB_LP_CAN_RX0_IRQHandler,__Default_Handler
+ 1176              		.weak	CAN_RX1_IRQHandler
+ 1177              		.thumb_set CAN_RX1_IRQHandler,__Default_Handler
+ 1178              		.weak	CAN_SCE_IRQHandler
+ 1179              		.thumb_set CAN_SCE_IRQHandler,__Default_Handler
+ 1180              		.weak	EXTI9_5_IRQHandler
+ 1181              		.thumb_set EXTI9_5_IRQHandler,__Default_Handler
+ 1182              		.weak	TIM1_BRK_IRQHandler
+ 1183              		.thumb_set TIM1_BRK_IRQHandler,__Default_Handler
+ 1184              		.weak	TIM1_UP_IRQHandler
+ 1185              		.thumb_set TIM1_UP_IRQHandler,__Default_Handler
+ 1186              		.weak	TIM1_TRG_COM_IRQHandler
+ 1187              		.thumb_set TIM1_TRG_COM_IRQHandler,__Default_Handler
+ 1188              		.weak	TIM1_CC_IRQHandler
+ 1189              		.thumb_set TIM1_CC_IRQHandler,__Default_Handler
+ 1190              		.weak	TIM2_IRQHandler
+ 1191              		.thumb_set TIM2_IRQHandler,__Default_Handler
+ 1192              		.weak	TIM3_IRQHandler
+ 1193              		.thumb_set TIM3_IRQHandler,__Default_Handler
+ 1194              		.weak	TIM4_IRQHandler
+ 1195              		.thumb_set TIM4_IRQHandler,__Default_Handler
+ 1196              		.weak	I2C1_EV_IRQHandler
+ 1197              		.thumb_set I2C1_EV_IRQHandler,__Default_Handler
+ 1198              		.weak	I2C1_ER_IRQHandler
+ 1199              		.thumb_set I2C1_ER_IRQHandler,__Default_Handler
+ 1200              		.weak	I2C2_EV_IRQHandler
+ 1201              		.thumb_set I2C2_EV_IRQHandler,__Default_Handler
+ 1202              		.weak	I2C2_ER_IRQHandler
+ 1203              		.thumb_set I2C2_ER_IRQHandler,__Default_Handler
+ 1204              		.weak	SPI1_IRQHandler
+ 1205              		.thumb_set SPI1_IRQHandler,__Default_Handler
+ 1206              		.weak	SPI2_IRQHandler
+ 1207              		.thumb_set SPI2_IRQHandler,__Default_Handler
+ 1208              		.weak	USART1_IRQHandler
+ 1209              		.thumb_set USART1_IRQHandler,__Default_Handler
+ 1210              		.weak	USART2_IRQHandler
+ 1211              		.thumb_set USART2_IRQHandler,__Default_Handler
+ 1212              		.weak	USART3_IRQHandler
+ 1213              		.thumb_set USART3_IRQHandler,__Default_Handler
+ 1214              		.weak	EXTI15_10_IRQHandler
+ 1215              		.thumb_set EXTI15_10_IRQHandler,__Default_Handler
+ 1216              		.weak	RTCAlarm_IRQHandler
+ 1217              		.thumb_set RTCAlarm_IRQHandler,__Default_Handler
+ 1218              		.weak	USBWakeup_IRQHandler
+ 1219              		.thumb_set USBWakeup_IRQHandler,__Default_Handler
+ 1220              		.weak	TIM8_BRK_IRQHandler
+ 1221              		.thumb_set TIM8_BRK_IRQHandler,__Default_Handler
+ 1222              		.weak	TIM8_UP_IRQHandler
+ 1223              		.thumb_set TIM8_UP_IRQHandler,__Default_Handler
+ 1224              		.weak	TIM8_TRG_COM_IRQHandler
+ 1225              		.thumb_set TIM8_TRG_COM_IRQHandler,__Default_Handler
+ 1226              		.weak	TIM8_CC_IRQHandler
+ 1227              		.thumb_set TIM8_CC_IRQHandler,__Default_Handler
+ 1228              		.weak	ADC3_IRQHandler
+ 1229              		.thumb_set ADC3_IRQHandler,__Default_Handler
+ 1230              		.weak	FSMC_IRQHandler
+ 1231              		.thumb_set FSMC_IRQHandler,__Default_Handler
+ 1232              		.weak	SDIO_IRQHandler
+ 1233              		.thumb_set SDIO_IRQHandler,__Default_Handler
+ 1234              		.weak	TIM5_IRQHandler
+ 1235              		.thumb_set TIM5_IRQHandler,__Default_Handler
+ 1236              		.weak	SPI3_IRQHandler
+ 1237              		.thumb_set SPI3_IRQHandler,__Default_Handler
+ 1238              		.weak	USART4_IRQHandler
+ 1239              		.thumb_set USART4_IRQHandler,__Default_Handler
+ 1240              		.weak	USART5_IRQHandler
+ 1241              		.thumb_set USART5_IRQHandler,__Default_Handler
+ 1242              		.weak	TIM6_IRQHandler
+ 1243              		.thumb_set TIM6_IRQHandler,__Default_Handler
+ 1244              		.weak	TIM7_IRQHandler
+ 1245              		.thumb_set TIM7_IRQHandler,__Default_Handler
+ 1246              		.weak	DMA2_Channel1_IRQHandler
+ 1247              		.thumb_set DMA2_Channel1_IRQHandler,__Default_Handler
+ 1248              		.weak	DMA2_Channel2_IRQHandler
+ 1249              		.thumb_set DMA2_Channel2_IRQHandler,__Default_Handler
+ 1250              		.weak	DMA2_Channel3_IRQHandler
+ 1251              		.thumb_set DMA2_Channel3_IRQHandler,__Default_Handler
+ 1252              		.weak	DMA2_Channel4_5_IRQHandler
+ 1253              		.thumb_set DMA2_Channel4_5_IRQHandler,__Default_Handler
+ 1254              		.text
+ 1255              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 vectors.c
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:994    .text.__Default_Handler:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 __Default_Handler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:1029   .vectors:00000000 vectors
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:1026   .vectors:00000000 $d
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 NMI_Handler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 HardFault_Handler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 MemManage_Handler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 BusFault_Handler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 UsageFault_Handler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 __Reserved_0x1C_Handler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 __Reserved_0x20_Handler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 __Reserved_0x24_Handler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 __Reserved_0x28_Handler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 SVC_Handler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 DebugMon_Handler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 __Reserved_0x34_Handler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 PendSV_Handler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 SysTick_Handler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 WWDG_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 PVD_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 TAMPER_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 RTC_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 FLASH_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 RCC_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 EXTI0_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 EXTI1_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 EXTI2_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 EXTI3_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 EXTI4_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 DMA1_Channel1_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 DMA1_Channel2_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 DMA1_Channel3_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 DMA1_Channel4_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 DMA1_Channel5_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 DMA1_Channel6_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 DMA1_Channel7_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 ADC1_2_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 USB_HP_CAN_TX_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 USB_LP_CAN_RX0_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 CAN_RX1_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 CAN_SCE_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 EXTI9_5_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 TIM1_BRK_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 TIM1_UP_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 TIM1_TRG_COM_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 TIM1_CC_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 TIM2_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 TIM3_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 TIM4_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 I2C1_EV_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 I2C1_ER_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 I2C2_EV_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 I2C2_ER_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 SPI1_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 SPI2_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 USART1_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 USART2_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 USART3_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 EXTI15_10_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 RTCAlarm_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 USBWakeup_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 TIM8_BRK_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 TIM8_UP_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 TIM8_TRG_COM_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 TIM8_CC_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 ADC3_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 FSMC_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 SDIO_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 TIM5_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 SPI3_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 USART4_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 USART5_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 TIM6_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 TIM7_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 DMA2_Channel1_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 DMA2_Channel2_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 DMA2_Channel3_IRQHandler
+C:\Users\sMi\AppData\Local\Temp\ccxsKE4b.s:998    .text.__Default_Handler:00000000 DMA2_Channel4_5_IRQHandler
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__main_stack_end
+Reset_Handler

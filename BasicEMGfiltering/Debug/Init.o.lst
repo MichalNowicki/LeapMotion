@@ -1,0 +1,755 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"Init.c"
+  23              	.Ltext0:
+  24              		.file 1 "../Init.c"
+ 22475              		.align	2
+ 22476              		.global	RCC_On
+ 22477              		.thumb
+ 22478              		.thumb_func
+ 22480              	RCC_On:
+ 22481              	.LFB29:
+   1:../Init.c     **** #include "Init.h"
+   2:../Init.c     **** 
+   3:../Init.c     **** //#define FLASH_Latency_2                ((uint32_t)0x00000002)  /*!< FLASH Zero Latency cycle */
+   4:../Init.c     **** //#define FLASH_PrefetchBuffer_Enable    ((uint32_t)0x00000010)  /*!< FLASH Prefetch Buffer Enable 
+   5:../Init.c     **** 
+   6:../Init.c     **** void RCC_On()
+   7:../Init.c     **** {
+ 22482              		.loc 1 7 0
+ 22483              		.cfi_startproc
+ 22484              		@ args = 0, pretend = 0, frame = 8
+ 22485              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22486 0000 80B5     		push	{r7, lr}
+ 22487              	.LCFI0:
+ 22488              		.cfi_def_cfa_offset 8
+ 22489 0002 82B0     		sub	sp, sp, #8
+ 22490              	.LCFI1:
+ 22491              		.cfi_def_cfa_offset 16
+ 22492 0004 00AF     		add	r7, sp, #0
+ 22493              		.cfi_offset 14, -4
+ 22494              		.cfi_offset 7, -8
+ 22495              	.LCFI2:
+ 22496              		.cfi_def_cfa_register 7
+   8:../Init.c     **** 	ErrorStatus HSEStartUpStatus;
+   9:../Init.c     **** 	//if (SysTick_Config(8000000 / 1000))             // tymczasowe skonfigurowanie SysTicka na 8MHz(H
+  10:../Init.c     **** 	//{
+  11:../Init.c     **** 	//	while(1)   asm("nop");                // W razie bledu petla nieskonczona
+  12:../Init.c     **** 	//}
+  13:../Init.c     **** 
+  14:../Init.c     **** 
+  15:../Init.c     **** 	RCC_DeInit();                                           // Reset ustawien RCC
+ 22497              		.loc 1 15 0
+ 22498 0006 FFF7FEFF 		bl	RCC_DeInit
+  16:../Init.c     **** 	RCC_HSEConfig(RCC_HSE_ON);                              // Wlacz HSE
+ 22499              		.loc 1 16 0
+ 22500 000a 4FF48030 		mov	r0, #65536
+ 22501 000e FFF7FEFF 		bl	RCC_HSEConfig
+  17:../Init.c     **** 	HSEStartUpStatus = RCC_WaitForHSEStartUp();             // Czekaj az HSE bedzie gotowy
+ 22502              		.loc 1 17 0
+ 22503 0012 FFF7FEFF 		bl	RCC_WaitForHSEStartUp
+ 22504 0016 0346     		mov	r3, r0
+ 22505 0018 FB71     		strb	r3, [r7, #7]
+  18:../Init.c     **** 	if(HSEStartUpStatus == SUCCESS)
+ 22506              		.loc 1 18 0
+ 22507 001a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 22508 001c 012B     		cmp	r3, #1
+ 22509 001e 2FD1     		bne	.L2
+  19:../Init.c     **** 	{
+  20:../Init.c     **** 		FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);
+ 22510              		.loc 1 20 0
+ 22511 0020 4FF01000 		mov	r0, #16
+ 22512 0024 FFF7FEFF 		bl	FLASH_PrefetchBufferCmd
+  21:../Init.c     **** 		FLASH_SetLatency(FLASH_Latency_2);                  // zwloka dla pamieci Flash
+ 22513              		.loc 1 21 0
+ 22514 0028 4FF00200 		mov	r0, #2
+ 22515 002c FFF7FEFF 		bl	FLASH_SetLatency
+  22:../Init.c     **** 		RCC_HCLKConfig(RCC_SYSCLK_Div1);                    // HCLK = SYSCLK 1
+ 22516              		.loc 1 22 0
+ 22517 0030 4FF00000 		mov	r0, #0
+ 22518 0034 FFF7FEFF 		bl	RCC_HCLKConfig
+  23:../Init.c     **** 		RCC_PCLK2Config(RCC_HCLK_Div1);                     // PCLK2 = HCLK
+ 22519              		.loc 1 23 0
+ 22520 0038 4FF00000 		mov	r0, #0
+ 22521 003c FFF7FEFF 		bl	RCC_PCLK2Config
+  24:../Init.c     **** 		RCC_PCLK1Config(RCC_HCLK_Div2);                     // PCLK1 = HCLK/2
+ 22522              		.loc 1 24 0
+ 22523 0040 4FF48060 		mov	r0, #1024
+ 22524 0044 FFF7FEFF 		bl	RCC_PCLK1Config
+  25:../Init.c     **** 		RCC_PLLConfig(RCC_PLLSource_PREDIV1, RCC_PLLMul_7);// PLLCLK = 10MHz * 7 = 70 MHz
+ 22525              		.loc 1 25 0
+ 22526 0048 4FF48030 		mov	r0, #65536
+ 22527 004c 4FF4A011 		mov	r1, #1310720
+ 22528 0050 FFF7FEFF 		bl	RCC_PLLConfig
+  26:../Init.c     **** 		RCC_PLLCmd(ENABLE);
+ 22529              		.loc 1 26 0
+ 22530 0054 4FF00100 		mov	r0, #1
+ 22531 0058 FFF7FEFF 		bl	RCC_PLLCmd
+  27:../Init.c     **** 		while(RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET); // Czekaj az PLL poprawnie sie uruchomi
+ 22532              		.loc 1 27 0
+ 22533 005c 00BF     		nop
+ 22534              	.L3:
+ 22535              		.loc 1 27 0 is_stmt 0 discriminator 1
+ 22536 005e 4FF03900 		mov	r0, #57
+ 22537 0062 FFF7FEFF 		bl	RCC_GetFlagStatus
+ 22538 0066 0346     		mov	r3, r0
+ 22539 0068 002B     		cmp	r3, #0
+ 22540 006a F8D0     		beq	.L3
+  28:../Init.c     **** 		RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);          // PLL bedzie zrodlem sygnalu zegarowego
+ 22541              		.loc 1 28 0 is_stmt 1
+ 22542 006c 4FF00200 		mov	r0, #2
+ 22543 0070 FFF7FEFF 		bl	RCC_SYSCLKConfig
+  29:../Init.c     **** 		while(RCC_GetSYSCLKSource() != 0x08);               // Czekaj az PLL bedzie sygnalem zegarowym sy
+ 22544              		.loc 1 29 0
+ 22545 0074 00BF     		nop
+ 22546              	.L4:
+ 22547              		.loc 1 29 0 is_stmt 0 discriminator 1
+ 22548 0076 FFF7FEFF 		bl	RCC_GetSYSCLKSource
+ 22549 007a 0346     		mov	r3, r0
+ 22550 007c 082B     		cmp	r3, #8
+ 22551 007e FAD1     		bne	.L4
+ 22552              	.L2:
+  30:../Init.c     **** 	}
+  31:../Init.c     **** 
+  32:../Init.c     **** 	/* DMA clock enable */
+  33:../Init.c     **** 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1 | RCC_AHBPeriph_DMA2, ENABLE);
+ 22553              		.loc 1 33 0 is_stmt 1
+ 22554 0080 4FF00300 		mov	r0, #3
+ 22555 0084 4FF00101 		mov	r1, #1
+ 22556 0088 FFF7FEFF 		bl	RCC_AHBPeriphClockCmd
+  34:../Init.c     **** 
+  35:../Init.c     **** 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE |RCC_APB2Periph_GPIOB | RCC_APB2Periph_AFIO | RCC_APB2
+ 22557              		.loc 1 35 0
+ 22558 008c 40F64900 		movw	r0, #2121
+ 22559 0090 4FF00101 		mov	r1, #1
+ 22560 0094 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+  36:../Init.c     **** 
+  37:../Init.c     **** 	/* Enable UART clock */
+  38:../Init.c     **** 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
+ 22561              		.loc 1 38 0
+ 22562 0098 4FF48040 		mov	r0, #16384
+ 22563 009c 4FF00101 		mov	r1, #1
+ 22564 00a0 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+  39:../Init.c     **** 
+  40:../Init.c     **** 	/* ADCCLK = PCLK2/4 */
+  41:../Init.c     **** 	RCC_ADCCLKConfig(RCC_PCLK2_Div6);
+ 22565              		.loc 1 41 0
+ 22566 00a4 4FF40040 		mov	r0, #32768
+ 22567 00a8 FFF7FEFF 		bl	RCC_ADCCLKConfig
+  42:../Init.c     **** 
+  43:../Init.c     **** 	/* Enable ADC1, ADC2, ADC3 and GPIOC clocks */
+  44:../Init.c     **** 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1 | RCC_APB2Periph_GPIOC, ENABLE);
+ 22568              		.loc 1 44 0
+ 22569 00ac 4FF40470 		mov	r0, #528
+ 22570 00b0 4FF00101 		mov	r1, #1
+ 22571 00b4 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+  45:../Init.c     **** }
+ 22572              		.loc 1 45 0
+ 22573 00b8 07F10807 		add	r7, r7, #8
+ 22574 00bc BD46     		mov	sp, r7
+ 22575 00be 80BD     		pop	{r7, pc}
+ 22576              		.cfi_endproc
+ 22577              	.LFE29:
+ 22579              		.section	.text.GPIO_init,"ax",%progbits
+ 22580              		.align	2
+ 22581              		.global	GPIO_init
+ 22582              		.thumb
+ 22583              		.thumb_func
+ 22585              	GPIO_init:
+ 22586              	.LFB30:
+  46:../Init.c     **** 
+  47:../Init.c     **** void GPIO_init()
+  48:../Init.c     **** {
+ 22587              		.loc 1 48 0
+ 22588              		.cfi_startproc
+ 22589              		@ args = 0, pretend = 0, frame = 8
+ 22590              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22591 0000 80B5     		push	{r7, lr}
+ 22592              	.LCFI3:
+ 22593              		.cfi_def_cfa_offset 8
+ 22594 0002 82B0     		sub	sp, sp, #8
+ 22595              	.LCFI4:
+ 22596              		.cfi_def_cfa_offset 16
+ 22597 0004 00AF     		add	r7, sp, #0
+ 22598              		.cfi_offset 14, -4
+ 22599              		.cfi_offset 7, -8
+ 22600              	.LCFI5:
+ 22601              		.cfi_def_cfa_register 7
+  49:../Init.c     **** 	GPIO_InitTypeDef GPIO_InitDiody;
+  50:../Init.c     **** 	GPIO_InitDiody.GPIO_Mode = GPIO_Mode_Out_PP;
+ 22602              		.loc 1 50 0
+ 22603 0006 4FF01003 		mov	r3, #16
+ 22604 000a FB71     		strb	r3, [r7, #7]
+  51:../Init.c     **** 	GPIO_InitDiody.GPIO_Pin = GPIO_Pin_4 | GPIO_Pin_5 |GPIO_Pin_6|GPIO_Pin_14|GPIO_Pin_15;
+ 22605              		.loc 1 51 0
+ 22606 000c 4CF27003 		movw	r3, #49264
+ 22607 0010 BB80     		strh	r3, [r7, #4]	@ movhi
+  52:../Init.c     **** 	GPIO_InitDiody.GPIO_Speed=GPIO_Speed_50MHz;
+ 22608              		.loc 1 52 0
+ 22609 0012 4FF00303 		mov	r3, #3
+ 22610 0016 BB71     		strb	r3, [r7, #6]
+  53:../Init.c     **** 	GPIO_Init(GPIOE, &GPIO_InitDiody);
+ 22611              		.loc 1 53 0
+ 22612 0018 07F10403 		add	r3, r7, #4
+ 22613 001c 0E48     		ldr	r0, .L6
+ 22614 001e 1946     		mov	r1, r3
+ 22615 0020 FFF7FEFF 		bl	GPIO_Init
+  54:../Init.c     **** 	GPIO_ResetBits(GPIOE, GPIO_Pin_14);
+ 22616              		.loc 1 54 0
+ 22617 0024 0C48     		ldr	r0, .L6
+ 22618 0026 4FF48041 		mov	r1, #16384
+ 22619 002a FFF7FEFF 		bl	GPIO_ResetBits
+  55:../Init.c     **** 	GPIO_ResetBits(GPIOE, GPIO_Pin_15);
+ 22620              		.loc 1 55 0
+ 22621 002e 0A48     		ldr	r0, .L6
+ 22622 0030 4FF40041 		mov	r1, #32768
+ 22623 0034 FFF7FEFF 		bl	GPIO_ResetBits
+  56:../Init.c     **** 
+  57:../Init.c     **** 
+  58:../Init.c     **** 	GPIO_InitTypeDef GPIO_InitStructure;
+  59:../Init.c     **** 
+  60:../Init.c     ****     /* Configure PC.04 (ADC Channel14) as analog inputs */
+  61:../Init.c     **** 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+ 22624              		.loc 1 61 0
+ 22625 0038 4FF01003 		mov	r3, #16
+ 22626 003c 3B80     		strh	r3, [r7, #0]	@ movhi
+  62:../Init.c     **** 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+ 22627              		.loc 1 62 0
+ 22628 003e 4FF00003 		mov	r3, #0
+ 22629 0042 FB70     		strb	r3, [r7, #3]
+  63:../Init.c     **** 	GPIO_Init(GPIOC, &GPIO_InitStructure);
+ 22630              		.loc 1 63 0
+ 22631 0044 3B46     		mov	r3, r7
+ 22632 0046 0548     		ldr	r0, .L6+4
+ 22633 0048 1946     		mov	r1, r3
+ 22634 004a FFF7FEFF 		bl	GPIO_Init
+  64:../Init.c     **** }
+ 22635              		.loc 1 64 0
+ 22636 004e 07F10807 		add	r7, r7, #8
+ 22637 0052 BD46     		mov	sp, r7
+ 22638 0054 80BD     		pop	{r7, pc}
+ 22639              	.L7:
+ 22640 0056 00BF     		.align	2
+ 22641              	.L6:
+ 22642 0058 00180140 		.word	1073813504
+ 22643 005c 00100140 		.word	1073811456
+ 22644              		.cfi_endproc
+ 22645              	.LFE30:
+ 22647              		.section	.text.USART_init,"ax",%progbits
+ 22648              		.align	2
+ 22649              		.global	USART_init
+ 22650              		.thumb
+ 22651              		.thumb_func
+ 22653              	USART_init:
+ 22654              	.LFB31:
+  65:../Init.c     **** 
+  66:../Init.c     **** void USART_init()
+  67:../Init.c     **** {
+ 22655              		.loc 1 67 0
+ 22656              		.cfi_startproc
+ 22657              		@ args = 0, pretend = 0, frame = 24
+ 22658              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22659 0000 80B5     		push	{r7, lr}
+ 22660              	.LCFI6:
+ 22661              		.cfi_def_cfa_offset 8
+ 22662 0002 86B0     		sub	sp, sp, #24
+ 22663              	.LCFI7:
+ 22664              		.cfi_def_cfa_offset 32
+ 22665 0004 00AF     		add	r7, sp, #0
+ 22666              		.cfi_offset 14, -4
+ 22667              		.cfi_offset 7, -8
+ 22668              	.LCFI8:
+ 22669              		.cfi_def_cfa_register 7
+  68:../Init.c     **** 	USART_InitTypeDef USART_InitStructure;
+  69:../Init.c     **** 	USART_InitStructure.USART_BaudRate = 9600;
+ 22670              		.loc 1 69 0
+ 22671 0006 4FF41653 		mov	r3, #9600
+ 22672 000a BB60     		str	r3, [r7, #8]
+  70:../Init.c     **** 	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+ 22673              		.loc 1 70 0
+ 22674 000c 4FF00003 		mov	r3, #0
+ 22675 0010 BB81     		strh	r3, [r7, #12]	@ movhi
+  71:../Init.c     **** 	USART_InitStructure.USART_StopBits = USART_StopBits_1;
+ 22676              		.loc 1 71 0
+ 22677 0012 4FF00003 		mov	r3, #0
+ 22678 0016 FB81     		strh	r3, [r7, #14]	@ movhi
+  72:../Init.c     **** 	USART_InitStructure.USART_Parity = USART_Parity_No;
+ 22679              		.loc 1 72 0
+ 22680 0018 4FF00003 		mov	r3, #0
+ 22681 001c 3B82     		strh	r3, [r7, #16]	@ movhi
+  73:../Init.c     **** 	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+ 22682              		.loc 1 73 0
+ 22683 001e 4FF00003 		mov	r3, #0
+ 22684 0022 BB82     		strh	r3, [r7, #20]	@ movhi
+  74:../Init.c     **** 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+ 22685              		.loc 1 74 0
+ 22686 0024 4FF00C03 		mov	r3, #12
+ 22687 0028 7B82     		strh	r3, [r7, #18]	@ movhi
+  75:../Init.c     **** 
+  76:../Init.c     **** 	GPIO_InitTypeDef GPIO_InitStructure;
+  77:../Init.c     **** 
+  78:../Init.c     **** 	GPIO_PinRemapConfig(GPIO_Remap_USART1, ENABLE);
+ 22688              		.loc 1 78 0
+ 22689 002a 4FF00400 		mov	r0, #4
+ 22690 002e 4FF00101 		mov	r1, #1
+ 22691 0032 FFF7FEFF 		bl	GPIO_PinRemapConfig
+  79:../Init.c     **** 	/* Configure USART Tx as alternate function push-pull */
+  80:../Init.c     **** 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+ 22692              		.loc 1 80 0
+ 22693 0036 4FF01803 		mov	r3, #24
+ 22694 003a FB71     		strb	r3, [r7, #7]
+  81:../Init.c     **** 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
+ 22695              		.loc 1 81 0
+ 22696 003c 4FF04003 		mov	r3, #64
+ 22697 0040 BB80     		strh	r3, [r7, #4]	@ movhi
+  82:../Init.c     **** 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+ 22698              		.loc 1 82 0
+ 22699 0042 4FF00303 		mov	r3, #3
+ 22700 0046 BB71     		strb	r3, [r7, #6]
+  83:../Init.c     **** 	GPIO_Init(GPIOB, &GPIO_InitStructure);
+ 22701              		.loc 1 83 0
+ 22702 0048 07F10403 		add	r3, r7, #4
+ 22703 004c 0C48     		ldr	r0, .L9
+ 22704 004e 1946     		mov	r1, r3
+ 22705 0050 FFF7FEFF 		bl	GPIO_Init
+  84:../Init.c     **** 
+  85:../Init.c     **** 	/* Configure USART Rx as input floating */
+  86:../Init.c     **** 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+ 22706              		.loc 1 86 0
+ 22707 0054 4FF00403 		mov	r3, #4
+ 22708 0058 FB71     		strb	r3, [r7, #7]
+  87:../Init.c     **** 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
+ 22709              		.loc 1 87 0
+ 22710 005a 4FF08003 		mov	r3, #128
+ 22711 005e BB80     		strh	r3, [r7, #4]	@ movhi
+  88:../Init.c     **** 	GPIO_Init(GPIOB, &GPIO_InitStructure);
+ 22712              		.loc 1 88 0
+ 22713 0060 07F10403 		add	r3, r7, #4
+ 22714 0064 0648     		ldr	r0, .L9
+ 22715 0066 1946     		mov	r1, r3
+ 22716 0068 FFF7FEFF 		bl	GPIO_Init
+  89:../Init.c     **** 
+  90:../Init.c     **** 	/* USART configuration */
+  91:../Init.c     **** 	USART_Init(USART1, &USART_InitStructure);
+ 22717              		.loc 1 91 0
+ 22718 006c 07F10803 		add	r3, r7, #8
+ 22719 0070 0448     		ldr	r0, .L9+4
+ 22720 0072 1946     		mov	r1, r3
+ 22721 0074 FFF7FEFF 		bl	USART_Init
+  92:../Init.c     **** }
+ 22722              		.loc 1 92 0
+ 22723 0078 07F11807 		add	r7, r7, #24
+ 22724 007c BD46     		mov	sp, r7
+ 22725 007e 80BD     		pop	{r7, pc}
+ 22726              	.L10:
+ 22727              		.align	2
+ 22728              	.L9:
+ 22729 0080 000C0140 		.word	1073810432
+ 22730 0084 00380140 		.word	1073821696
+ 22731              		.cfi_endproc
+ 22732              	.LFE31:
+ 22734              		.section	.text.Timer_init,"ax",%progbits
+ 22735              		.align	2
+ 22736              		.global	Timer_init
+ 22737              		.thumb
+ 22738              		.thumb_func
+ 22740              	Timer_init:
+ 22741              	.LFB32:
+  93:../Init.c     **** 
+  94:../Init.c     **** void Timer_init()
+  95:../Init.c     **** {
+ 22742              		.loc 1 95 0
+ 22743              		.cfi_startproc
+ 22744              		@ args = 0, pretend = 0, frame = 32
+ 22745              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22746 0000 80B5     		push	{r7, lr}
+ 22747              	.LCFI9:
+ 22748              		.cfi_def_cfa_offset 8
+ 22749 0002 88B0     		sub	sp, sp, #32
+ 22750              	.LCFI10:
+ 22751              		.cfi_def_cfa_offset 40
+ 22752 0004 00AF     		add	r7, sp, #0
+ 22753              		.cfi_offset 14, -4
+ 22754              		.cfi_offset 7, -8
+ 22755              	.LCFI11:
+ 22756              		.cfi_def_cfa_register 7
+  96:../Init.c     **** 	TIM_TimeBaseInitTypeDef TIMER1;
+  97:../Init.c     **** 	TIMER1.TIM_ClockDivision = 0;
+ 22757              		.loc 1 97 0
+ 22758 0006 4FF00003 		mov	r3, #0
+ 22759 000a 7B83     		strh	r3, [r7, #26]	@ movhi
+  98:../Init.c     **** 	TIMER1.TIM_CounterMode = TIM_CounterMode_Up;
+ 22760              		.loc 1 98 0
+ 22761 000c 4FF00003 		mov	r3, #0
+ 22762 0010 FB82     		strh	r3, [r7, #22]	@ movhi
+  99:../Init.c     **** 	TIMER1.TIM_Prescaler = 70; // 100 000 Hz
+ 22763              		.loc 1 99 0
+ 22764 0012 4FF04603 		mov	r3, #70
+ 22765 0016 BB82     		strh	r3, [r7, #20]	@ movhi
+ 100:../Init.c     **** 	TIMER1.TIM_Period = 200; // 5 000 Hz
+ 22766              		.loc 1 100 0
+ 22767 0018 4FF0C803 		mov	r3, #200
+ 22768 001c 3B83     		strh	r3, [r7, #24]	@ movhi
+ 101:../Init.c     **** 	//TIMER1.TIM_Prescaler = 7000; // 1000 Hz
+ 102:../Init.c     **** 	//TIMER1.TIM_Period = 50000; // 1/5 Hz
+ 103:../Init.c     **** 	TIM_TimeBaseInit(TIM1, &TIMER1);
+ 22769              		.loc 1 103 0
+ 22770 001e 07F11403 		add	r3, r7, #20
+ 22771 0022 0D48     		ldr	r0, .L12
+ 22772 0024 1946     		mov	r1, r3
+ 22773 0026 FFF7FEFF 		bl	TIM_TimeBaseInit
+ 104:../Init.c     **** 
+ 105:../Init.c     **** 
+ 106:../Init.c     **** 	TIM_OCInitTypeDef         TIM_OCInitStructure;
+ 107:../Init.c     **** 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
+ 22774              		.loc 1 107 0
+ 22775 002a 4FF06003 		mov	r3, #96
+ 22776 002e BB80     		strh	r3, [r7, #4]	@ movhi
+ 108:../Init.c     **** 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+ 22777              		.loc 1 108 0
+ 22778 0030 4FF00103 		mov	r3, #1
+ 22779 0034 FB80     		strh	r3, [r7, #6]	@ movhi
+ 109:../Init.c     **** 	TIM_OCInitStructure.TIM_Pulse = 0x7F;
+ 22780              		.loc 1 109 0
+ 22781 0036 4FF07F03 		mov	r3, #127
+ 22782 003a 7B81     		strh	r3, [r7, #10]	@ movhi
+ 110:../Init.c     **** 	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;
+ 22783              		.loc 1 110 0
+ 22784 003c 4FF00203 		mov	r3, #2
+ 22785 0040 BB81     		strh	r3, [r7, #12]	@ movhi
+ 111:../Init.c     **** 	TIM_OC1Init(TIM1, &TIM_OCInitStructure);
+ 22786              		.loc 1 111 0
+ 22787 0042 07F10403 		add	r3, r7, #4
+ 22788 0046 0448     		ldr	r0, .L12
+ 22789 0048 1946     		mov	r1, r3
+ 22790 004a FFF7FEFF 		bl	TIM_OC1Init
+ 112:../Init.c     **** }
+ 22791              		.loc 1 112 0
+ 22792 004e 07F12007 		add	r7, r7, #32
+ 22793 0052 BD46     		mov	sp, r7
+ 22794 0054 80BD     		pop	{r7, pc}
+ 22795              	.L13:
+ 22796 0056 00BF     		.align	2
+ 22797              	.L12:
+ 22798 0058 002C0140 		.word	1073818624
+ 22799              		.cfi_endproc
+ 22800              	.LFE32:
+ 22802              		.section	.text.DMA_init,"ax",%progbits
+ 22803              		.align	2
+ 22804              		.global	DMA_init
+ 22805              		.thumb
+ 22806              		.thumb_func
+ 22808              	DMA_init:
+ 22809              	.LFB33:
+ 113:../Init.c     **** void DMA_init()
+ 114:../Init.c     **** {
+ 22810              		.loc 1 114 0
+ 22811              		.cfi_startproc
+ 22812              		@ args = 0, pretend = 0, frame = 88
+ 22813              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22814 0000 80B5     		push	{r7, lr}
+ 22815              	.LCFI12:
+ 22816              		.cfi_def_cfa_offset 8
+ 22817 0002 96B0     		sub	sp, sp, #88
+ 22818              	.LCFI13:
+ 22819              		.cfi_def_cfa_offset 96
+ 22820 0004 00AF     		add	r7, sp, #0
+ 22821              		.cfi_offset 14, -4
+ 22822              		.cfi_offset 7, -8
+ 22823              	.LCFI14:
+ 22824              		.cfi_def_cfa_register 7
+ 115:../Init.c     **** 	DMA_InitTypeDef DMA_InitStructure, DMA_InitStructure2;
+ 116:../Init.c     **** 
+ 117:../Init.c     ****      /* USARTy_Tx_DMA_Channel (triggered by USARTy Tx event) Config */
+ 118:../Init.c     **** 	DMA_DeInit(DMA1_Channel4);
+ 22825              		.loc 1 118 0
+ 22826 0006 3248     		ldr	r0, .L15
+ 22827 0008 FFF7FEFF 		bl	DMA_DeInit
+ 119:../Init.c     **** 	DMA_InitStructure.DMA_PeripheralBaseAddr = ((uint32_t)0x40013804);
+ 22828              		.loc 1 119 0
+ 22829 000c 314B     		ldr	r3, .L15+4
+ 22830 000e FB62     		str	r3, [r7, #44]
+ 120:../Init.c     **** 	DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)TxBuffer;
+ 22831              		.loc 1 120 0
+ 22832 0010 314B     		ldr	r3, .L15+8
+ 22833 0012 3B63     		str	r3, [r7, #48]
+ 121:../Init.c     **** 	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
+ 22834              		.loc 1 121 0
+ 22835 0014 4FF01003 		mov	r3, #16
+ 22836 0018 7B63     		str	r3, [r7, #52]
+ 122:../Init.c     **** 	DMA_InitStructure.DMA_BufferSize = TxBufferSize;
+ 22837              		.loc 1 122 0
+ 22838 001a 304B     		ldr	r3, .L15+12
+ 22839 001c 1B68     		ldr	r3, [r3, #0]
+ 22840 001e BB63     		str	r3, [r7, #56]
+ 123:../Init.c     **** 	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+ 22841              		.loc 1 123 0
+ 22842 0020 4FF00003 		mov	r3, #0
+ 22843 0024 FB63     		str	r3, [r7, #60]
+ 124:../Init.c     **** 	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+ 22844              		.loc 1 124 0
+ 22845 0026 4FF08003 		mov	r3, #128
+ 22846 002a 3B64     		str	r3, [r7, #64]
+ 125:../Init.c     **** 	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+ 22847              		.loc 1 125 0
+ 22848 002c 4FF00003 		mov	r3, #0
+ 22849 0030 7B64     		str	r3, [r7, #68]
+ 126:../Init.c     **** 	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+ 22850              		.loc 1 126 0
+ 22851 0032 4FF00003 		mov	r3, #0
+ 22852 0036 BB64     		str	r3, [r7, #72]
+ 127:../Init.c     **** 	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+ 22853              		.loc 1 127 0
+ 22854 0038 4FF00003 		mov	r3, #0
+ 22855 003c FB64     		str	r3, [r7, #76]
+ 128:../Init.c     **** 	DMA_InitStructure.DMA_Priority = DMA_Priority_High;
+ 22856              		.loc 1 128 0
+ 22857 003e 4FF40053 		mov	r3, #8192
+ 22858 0042 3B65     		str	r3, [r7, #80]
+ 129:../Init.c     **** 	DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+ 22859              		.loc 1 129 0
+ 22860 0044 4FF00003 		mov	r3, #0
+ 22861 0048 7B65     		str	r3, [r7, #84]
+ 130:../Init.c     **** 	DMA_Init(DMA1_Channel4, &DMA_InitStructure);
+ 22862              		.loc 1 130 0
+ 22863 004a 07F12C03 		add	r3, r7, #44
+ 22864 004e 2048     		ldr	r0, .L15
+ 22865 0050 1946     		mov	r1, r3
+ 22866 0052 FFF7FEFF 		bl	DMA_Init
+ 131:../Init.c     **** 
+ 132:../Init.c     **** 	DMA_ITConfig(DMA1_Channel4,DMA_IT_TC ,ENABLE);
+ 22867              		.loc 1 132 0
+ 22868 0056 1E48     		ldr	r0, .L15
+ 22869 0058 4FF00201 		mov	r1, #2
+ 22870 005c 4FF00102 		mov	r2, #1
+ 22871 0060 FFF7FEFF 		bl	DMA_ITConfig
+ 133:../Init.c     **** 	DMA_ClearFlag(DMA1_FLAG_TC4);
+ 22872              		.loc 1 133 0
+ 22873 0064 4FF40050 		mov	r0, #8192
+ 22874 0068 FFF7FEFF 		bl	DMA_ClearFlag
+ 134:../Init.c     **** 
+ 135:../Init.c     ****   /* DMA1 channel1 configuration ----------------------------------------------*/
+ 136:../Init.c     ****     DMA_DeInit(DMA1_Channel1);
+ 22875              		.loc 1 136 0
+ 22876 006c 1C48     		ldr	r0, .L15+16
+ 22877 006e FFF7FEFF 		bl	DMA_DeInit
+ 137:../Init.c     ****     DMA_InitStructure2.DMA_PeripheralBaseAddr = ((uint32_t)0x4001244C);
+ 22878              		.loc 1 137 0
+ 22879 0072 1C4B     		ldr	r3, .L15+20
+ 22880 0074 3B60     		str	r3, [r7, #0]
+ 138:../Init.c     ****     DMA_InitStructure2.DMA_MemoryBaseAddr = (uint32_t)&ADC1ConvertedValue;
+ 22881              		.loc 1 138 0
+ 22882 0076 1C4B     		ldr	r3, .L15+24
+ 22883 0078 7B60     		str	r3, [r7, #4]
+ 139:../Init.c     ****     DMA_InitStructure2.DMA_DIR = DMA_DIR_PeripheralSRC;
+ 22884              		.loc 1 139 0
+ 22885 007a 4FF00003 		mov	r3, #0
+ 22886 007e BB60     		str	r3, [r7, #8]
+ 140:../Init.c     ****     DMA_InitStructure2.DMA_BufferSize = 1;
+ 22887              		.loc 1 140 0
+ 22888 0080 4FF00103 		mov	r3, #1
+ 22889 0084 FB60     		str	r3, [r7, #12]
+ 141:../Init.c     ****     DMA_InitStructure2.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+ 22890              		.loc 1 141 0
+ 22891 0086 4FF00003 		mov	r3, #0
+ 22892 008a 3B61     		str	r3, [r7, #16]
+ 142:../Init.c     ****     DMA_InitStructure2.DMA_MemoryInc = DMA_MemoryInc_Disable;
+ 22893              		.loc 1 142 0
+ 22894 008c 4FF00003 		mov	r3, #0
+ 22895 0090 7B61     		str	r3, [r7, #20]
+ 143:../Init.c     ****     DMA_InitStructure2.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+ 22896              		.loc 1 143 0
+ 22897 0092 4FF48073 		mov	r3, #256
+ 22898 0096 BB61     		str	r3, [r7, #24]
+ 144:../Init.c     ****     DMA_InitStructure2.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+ 22899              		.loc 1 144 0
+ 22900 0098 4FF48063 		mov	r3, #1024
+ 22901 009c FB61     		str	r3, [r7, #28]
+ 145:../Init.c     ****     DMA_InitStructure2.DMA_Mode = DMA_Mode_Circular;
+ 22902              		.loc 1 145 0
+ 22903 009e 4FF02003 		mov	r3, #32
+ 22904 00a2 3B62     		str	r3, [r7, #32]
+ 146:../Init.c     ****     DMA_InitStructure2.DMA_Priority = DMA_Priority_High;
+ 22905              		.loc 1 146 0
+ 22906 00a4 4FF40053 		mov	r3, #8192
+ 22907 00a8 7B62     		str	r3, [r7, #36]
+ 147:../Init.c     ****     DMA_InitStructure2.DMA_M2M = DMA_M2M_Disable;
+ 22908              		.loc 1 147 0
+ 22909 00aa 4FF00003 		mov	r3, #0
+ 22910 00ae BB62     		str	r3, [r7, #40]
+ 148:../Init.c     ****     DMA_Init(DMA1_Channel1, &DMA_InitStructure2);
+ 22911              		.loc 1 148 0
+ 22912 00b0 3B46     		mov	r3, r7
+ 22913 00b2 0B48     		ldr	r0, .L15+16
+ 22914 00b4 1946     		mov	r1, r3
+ 22915 00b6 FFF7FEFF 		bl	DMA_Init
+ 149:../Init.c     **** 
+ 150:../Init.c     ****     DMA_ITConfig(DMA1_Channel1,DMA1_IT_TC1 ,ENABLE);
+ 22916              		.loc 1 150 0
+ 22917 00ba 0948     		ldr	r0, .L15+16
+ 22918 00bc 4FF00201 		mov	r1, #2
+ 22919 00c0 4FF00102 		mov	r2, #1
+ 22920 00c4 FFF7FEFF 		bl	DMA_ITConfig
+ 151:../Init.c     **** }
+ 22921              		.loc 1 151 0
+ 22922 00c8 07F15807 		add	r7, r7, #88
+ 22923 00cc BD46     		mov	sp, r7
+ 22924 00ce 80BD     		pop	{r7, pc}
+ 22925              	.L16:
+ 22926              		.align	2
+ 22927              	.L15:
+ 22928 00d0 44000240 		.word	1073872964
+ 22929 00d4 04380140 		.word	1073821700
+ 22930 00d8 00000000 		.word	TxBuffer
+ 22931 00dc 00000000 		.word	TxBufferSize
+ 22932 00e0 08000240 		.word	1073872904
+ 22933 00e4 4C240140 		.word	1073816652
+ 22934 00e8 00000000 		.word	ADC1ConvertedValue
+ 22935              		.cfi_endproc
+ 22936              	.LFE33:
+ 22938              		.section	.text.ADC_init,"ax",%progbits
+ 22939              		.align	2
+ 22940              		.global	ADC_init
+ 22941              		.thumb
+ 22942              		.thumb_func
+ 22944              	ADC_init:
+ 22945              	.LFB34:
+ 152:../Init.c     **** void ADC_init()
+ 153:../Init.c     **** {
+ 22946              		.loc 1 153 0
+ 22947              		.cfi_startproc
+ 22948              		@ args = 0, pretend = 0, frame = 24
+ 22949              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22950 0000 80B5     		push	{r7, lr}
+ 22951              	.LCFI15:
+ 22952              		.cfi_def_cfa_offset 8
+ 22953 0002 86B0     		sub	sp, sp, #24
+ 22954              	.LCFI16:
+ 22955              		.cfi_def_cfa_offset 32
+ 22956 0004 00AF     		add	r7, sp, #0
+ 22957              		.cfi_offset 14, -4
+ 22958              		.cfi_offset 7, -8
+ 22959              	.LCFI17:
+ 22960              		.cfi_def_cfa_register 7
+ 154:../Init.c     **** 	ADC_InitTypeDef ADC_InitStructure;
+ 155:../Init.c     **** 
+ 156:../Init.c     **** 	/* ADC1 configuration ------------------------------------------------------*/
+ 157:../Init.c     **** 	ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+ 22961              		.loc 1 157 0
+ 22962 0006 4FF00003 		mov	r3, #0
+ 22963 000a 7B60     		str	r3, [r7, #4]
+ 158:../Init.c     **** 	ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+ 22964              		.loc 1 158 0
+ 22965 000c 4FF00003 		mov	r3, #0
+ 22966 0010 3B72     		strb	r3, [r7, #8]
+ 159:../Init.c     **** 	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+ 22967              		.loc 1 159 0
+ 22968 0012 4FF00003 		mov	r3, #0
+ 22969 0016 7B72     		strb	r3, [r7, #9]
+ 160:../Init.c     **** 	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_T1_CC1;
+ 22970              		.loc 1 160 0
+ 22971 0018 4FF00003 		mov	r3, #0
+ 22972 001c FB60     		str	r3, [r7, #12]
+ 161:../Init.c     **** 	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+ 22973              		.loc 1 161 0
+ 22974 001e 4FF00003 		mov	r3, #0
+ 22975 0022 3B61     		str	r3, [r7, #16]
+ 162:../Init.c     **** 	ADC_InitStructure.ADC_NbrOfChannel = 1;
+ 22976              		.loc 1 162 0
+ 22977 0024 4FF00103 		mov	r3, #1
+ 22978 0028 3B75     		strb	r3, [r7, #20]
+ 163:../Init.c     **** 	ADC_Init(ADC1, &ADC_InitStructure);
+ 22979              		.loc 1 163 0
+ 22980 002a 07F10403 		add	r3, r7, #4
+ 22981 002e 0848     		ldr	r0, .L18
+ 22982 0030 1946     		mov	r1, r3
+ 22983 0032 FFF7FEFF 		bl	ADC_Init
+ 164:../Init.c     **** 	/* ADC1 regular channels configuration */
+ 165:../Init.c     **** 	ADC_RegularChannelConfig(ADC1, ADC_Channel_14, 1, ADC_SampleTime_28Cycles5);
+ 22984              		.loc 1 165 0
+ 22985 0036 0648     		ldr	r0, .L18
+ 22986 0038 4FF00E01 		mov	r1, #14
+ 22987 003c 4FF00102 		mov	r2, #1
+ 22988 0040 4FF00303 		mov	r3, #3
+ 22989 0044 FFF7FEFF 		bl	ADC_RegularChannelConfig
+ 166:../Init.c     **** 
+ 167:../Init.c     **** 	/* Enable ADC2 EOC interrupt */
+ 168:../Init.c     **** 	//ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);
+ 169:../Init.c     **** 	//ADC_ITConfig(ADC1, ADC_IT_JEOC, ENABLE);
+ 170:../Init.c     **** 
+ 171:../Init.c     **** }
+ 22990              		.loc 1 171 0
+ 22991 0048 07F11807 		add	r7, r7, #24
+ 22992 004c BD46     		mov	sp, r7
+ 22993 004e 80BD     		pop	{r7, pc}
+ 22994              	.L19:
+ 22995              		.align	2
+ 22996              	.L18:
+ 22997 0050 00240140 		.word	1073816576
+ 22998              		.cfi_endproc
+ 22999              	.LFE34:
+ 23001              		.text
+ 23002              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 Init.c
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22475  .text.RCC_On:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22480  .text.RCC_On:00000000 RCC_On
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22580  .text.GPIO_init:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22585  .text.GPIO_init:00000000 GPIO_init
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22642  .text.GPIO_init:00000058 $d
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22648  .text.USART_init:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22653  .text.USART_init:00000000 USART_init
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22729  .text.USART_init:00000080 $d
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22735  .text.Timer_init:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22740  .text.Timer_init:00000000 Timer_init
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22798  .text.Timer_init:00000058 $d
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22803  .text.DMA_init:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22808  .text.DMA_init:00000000 DMA_init
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22928  .text.DMA_init:000000d0 $d
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22939  .text.ADC_init:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22944  .text.ADC_init:00000000 ADC_init
+C:\Users\sMi\AppData\Local\Temp\ccKGdjz1.s:22997  .text.ADC_init:00000050 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+RCC_DeInit
+RCC_HSEConfig
+RCC_WaitForHSEStartUp
+FLASH_PrefetchBufferCmd
+FLASH_SetLatency
+RCC_HCLKConfig
+RCC_PCLK2Config
+RCC_PCLK1Config
+RCC_PLLConfig
+RCC_PLLCmd
+RCC_GetFlagStatus
+RCC_SYSCLKConfig
+RCC_GetSYSCLKSource
+RCC_AHBPeriphClockCmd
+RCC_APB2PeriphClockCmd
+RCC_ADCCLKConfig
+GPIO_Init
+GPIO_ResetBits
+GPIO_PinRemapConfig
+USART_Init
+TIM_TimeBaseInit
+TIM_OC1Init
+DMA_DeInit
+DMA_Init
+DMA_ITConfig
+DMA_ClearFlag
+TxBuffer
+TxBufferSize
+ADC1ConvertedValue
+ADC_Init
+ADC_RegularChannelConfig

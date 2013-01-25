@@ -1,0 +1,1776 @@
+
+Rysiu.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000007d8  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000038  00800060  000007d8  0000086c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000014  00800098  00800098  000008a4  2**0
+                  ALLOC
+  3 .stab         000006cc  00000000  00000000  000008a4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      00000085  00000000  00000000  00000f70  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_aranges 000000c0  00000000  00000000  00000ff5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_pubnames 000004ee  00000000  00000000  000010b5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_info   00000e9b  00000000  00000000  000015a3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_abbrev 00000608  00000000  00000000  0000243e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_line   00000f2c  00000000  00000000  00002a46  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_frame  00000220  00000000  00000000  00003974  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_str    0000032f  00000000  00000000  00003b94  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_loc    000002cd  00000000  00000000  00003ec3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_pubtypes 00000103  00000000  00000000  00004190  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_ranges 00000030  00000000  00000000  00004293  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	4f c0       	rjmp	.+158    	; 0xa2 <__vector_1>
+   4:	8d c0       	rjmp	.+282    	; 0x120 <__vector_2>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
+  12:	a8 c1       	rjmp	.+848    	; 0x364 <__vector_9>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	a5 c3       	rjmp	.+1866   	; 0x762 <__vector_11>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	cf c0       	rjmp	.+414    	; 0x1c2 <__vector_17>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	e8 ed       	ldi	r30, 0xD8	; 216
+  3a:	f7 e0       	ldi	r31, 0x07	; 7
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+  42:	a8 39       	cpi	r26, 0x98	; 152
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <__SP_H__>
+
+00000048 <__do_clear_bss>:
+  48:	10 e0       	ldi	r17, 0x00	; 0
+  4a:	a8 e9       	ldi	r26, 0x98	; 152
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	ac 3a       	cpi	r26, 0xAC	; 172
+  54:	b1 07       	cpc	r27, r17
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	08 d0       	rcall	.+16     	; 0x6a <main>
+  5a:	bc c3       	rjmp	.+1912   	; 0x7d4 <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <Init>:
+ */ 
+#include "Includes/Headers.h"
+
+void Init()
+{
+	I2C_init();
+  5e:	9f d0       	rcall	.+318    	; 0x19e <I2C_init>
+	USART_init();
+  60:	52 d3       	rcall	.+1700   	; 0x706 <USART_init>
+	Enkoders_Init();
+  62:	13 d0       	rcall	.+38     	; 0x8a <Enkoders_Init>
+	Sharp_Init();
+  64:	14 d1       	rcall	.+552    	; 0x28e <Sharp_Init>
+	Silniki_Init();
+  66:	eb d2       	rcall	.+1494   	; 0x63e <Silniki_Init>
+}
+  68:	08 95       	ret
+
+0000006a <main>:
+ */ 
+#include "Includes/Headers.h"
+
+void Init()
+{
+	I2C_init();
+  6a:	99 d0       	rcall	.+306    	; 0x19e <I2C_init>
+	USART_init();
+  6c:	4c d3       	rcall	.+1688   	; 0x706 <USART_init>
+	Enkoders_Init();
+  6e:	0d d0       	rcall	.+26     	; 0x8a <Enkoders_Init>
+	Sharp_Init();
+  70:	0e d1       	rcall	.+540    	; 0x28e <Sharp_Init>
+	Silniki_Init();
+  72:	e5 d2       	rcall	.+1482   	; 0x63e <Silniki_Init>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  74:	8f ef       	ldi	r24, 0xFF	; 255
+  76:	93 e2       	ldi	r25, 0x23	; 35
+  78:	a4 ef       	ldi	r26, 0xF4	; 244
+  7a:	81 50       	subi	r24, 0x01	; 1
+  7c:	90 40       	sbci	r25, 0x00	; 0
+  7e:	a0 40       	sbci	r26, 0x00	; 0
+  80:	e1 f7       	brne	.-8      	; 0x7a <main+0x10>
+  82:	00 c0       	rjmp	.+0      	; 0x84 <main+0x1a>
+  84:	00 00       	nop
+	
+	Init();
+	
+	_delay_ms(10000);
+	
+	sei();
+  86:	78 94       	sei
+  88:	ff cf       	rjmp	.-2      	; 0x88 <main+0x1e>
+
+0000008a <Enkoders_Init>:
+#include "../Includes/Headers.h"
+
+void Enkoders_Init()
+{
+	// Piny od enkoderów PD2 i PD3
+	DDRD &= ~(1<<2);
+  8a:	8a 98       	cbi	0x11, 2	; 17
+	DDRD &= ~(1<<3);
+  8c:	8b 98       	cbi	0x11, 3	; 17
+	
+	// Ustawienie przerwania INT1 i INT0
+	// ISC11 = 0, ISC10 = 1 -> Any logical change generates interrupt
+	MCUCR |=(1<<ISC10);
+  8e:	85 b7       	in	r24, 0x35	; 53
+  90:	84 60       	ori	r24, 0x04	; 4
+  92:	85 bf       	out	0x35, r24	; 53
+	MCUCR |=(1<<ISC00);
+  94:	85 b7       	in	r24, 0x35	; 53
+  96:	81 60       	ori	r24, 0x01	; 1
+  98:	85 bf       	out	0x35, r24	; 53
+	
+	// Wlaczenie przerwan
+	GICR |= (1<<INT1) | (1<<INT0);
+  9a:	8b b7       	in	r24, 0x3b	; 59
+  9c:	80 6c       	ori	r24, 0xC0	; 192
+  9e:	8b bf       	out	0x3b, r24	; 59
+}
+  a0:	08 95       	ret
+
+000000a2 <__vector_1>:
+SIGNAL(SIG_INTERRUPT0)
+{
+  a2:	1f 92       	push	r1
+  a4:	0f 92       	push	r0
+  a6:	0f b6       	in	r0, 0x3f	; 63
+  a8:	0f 92       	push	r0
+  aa:	11 24       	eor	r1, r1
+  ac:	2f 93       	push	r18
+  ae:	3f 93       	push	r19
+  b0:	4f 93       	push	r20
+  b2:	5f 93       	push	r21
+  b4:	6f 93       	push	r22
+  b6:	7f 93       	push	r23
+  b8:	8f 93       	push	r24
+  ba:	9f 93       	push	r25
+  bc:	af 93       	push	r26
+  be:	bf 93       	push	r27
+  c0:	ef 93       	push	r30
+  c2:	ff 93       	push	r31
+	// Enkoder lewego ko³a
+	akt_indeks = 0;
+	buffer[akt_indeks++] = '#';
+  c4:	83 e2       	ldi	r24, 0x23	; 35
+  c6:	80 93 9d 00 	sts	0x009D, r24
+	buffer[akt_indeks++] = 'L';
+  ca:	9c e4       	ldi	r25, 0x4C	; 76
+  cc:	90 93 9e 00 	sts	0x009E, r25
+  d0:	82 e0       	ldi	r24, 0x02	; 2
+  d2:	80 93 9b 00 	sts	0x009B, r24
+	buffer[akt_indeks++] = kierunek_lewe;
+  d6:	88 b3       	in	r24, 0x18	; 24
+  d8:	81 70       	andi	r24, 0x01	; 1
+  da:	80 93 9f 00 	sts	0x009F, r24
+	buffer[akt_indeks++] = 'L';
+  de:	90 93 a0 00 	sts	0x00A0, r25
+  e2:	84 e0       	ldi	r24, 0x04	; 4
+  e4:	80 93 9b 00 	sts	0x009B, r24
+	buffer[akt_indeks++] = kierunek_lewe;
+  e8:	88 b3       	in	r24, 0x18	; 24
+  ea:	81 70       	andi	r24, 0x01	; 1
+  ec:	80 93 a1 00 	sts	0x00A1, r24
+	buffer[akt_indeks++] = '%';
+  f0:	85 e2       	ldi	r24, 0x25	; 37
+  f2:	80 93 a2 00 	sts	0x00A2, r24
+  f6:	86 e0       	ldi	r24, 0x06	; 6
+  f8:	80 93 9b 00 	sts	0x009B, r24
+	I2C_RequestTransmision();
+  fc:	5c d0       	rcall	.+184    	; 0x1b6 <I2C_RequestTransmision>
+}
+  fe:	ff 91       	pop	r31
+ 100:	ef 91       	pop	r30
+ 102:	bf 91       	pop	r27
+ 104:	af 91       	pop	r26
+ 106:	9f 91       	pop	r25
+ 108:	8f 91       	pop	r24
+ 10a:	7f 91       	pop	r23
+ 10c:	6f 91       	pop	r22
+ 10e:	5f 91       	pop	r21
+ 110:	4f 91       	pop	r20
+ 112:	3f 91       	pop	r19
+ 114:	2f 91       	pop	r18
+ 116:	0f 90       	pop	r0
+ 118:	0f be       	out	0x3f, r0	; 63
+ 11a:	0f 90       	pop	r0
+ 11c:	1f 90       	pop	r1
+ 11e:	18 95       	reti
+
+00000120 <__vector_2>:
+SIGNAL(SIG_INTERRUPT1)
+{
+ 120:	1f 92       	push	r1
+ 122:	0f 92       	push	r0
+ 124:	0f b6       	in	r0, 0x3f	; 63
+ 126:	0f 92       	push	r0
+ 128:	11 24       	eor	r1, r1
+ 12a:	2f 93       	push	r18
+ 12c:	3f 93       	push	r19
+ 12e:	4f 93       	push	r20
+ 130:	5f 93       	push	r21
+ 132:	6f 93       	push	r22
+ 134:	7f 93       	push	r23
+ 136:	8f 93       	push	r24
+ 138:	9f 93       	push	r25
+ 13a:	af 93       	push	r26
+ 13c:	bf 93       	push	r27
+ 13e:	ef 93       	push	r30
+ 140:	ff 93       	push	r31
+	akt_indeks = 0;
+	buffer[akt_indeks++] = '#';
+ 142:	83 e2       	ldi	r24, 0x23	; 35
+ 144:	80 93 9d 00 	sts	0x009D, r24
+	buffer[akt_indeks++] = 'P';
+ 148:	90 e5       	ldi	r25, 0x50	; 80
+ 14a:	90 93 9e 00 	sts	0x009E, r25
+ 14e:	82 e0       	ldi	r24, 0x02	; 2
+ 150:	80 93 9b 00 	sts	0x009B, r24
+	buffer[akt_indeks++] = kierunek_prawe;
+ 154:	82 b3       	in	r24, 0x12	; 18
+ 156:	80 78       	andi	r24, 0x80	; 128
+ 158:	80 93 9f 00 	sts	0x009F, r24
+	buffer[akt_indeks++] = 'P';
+ 15c:	90 93 a0 00 	sts	0x00A0, r25
+ 160:	84 e0       	ldi	r24, 0x04	; 4
+ 162:	80 93 9b 00 	sts	0x009B, r24
+	buffer[akt_indeks++] = kierunek_prawe;
+ 166:	82 b3       	in	r24, 0x12	; 18
+ 168:	80 78       	andi	r24, 0x80	; 128
+ 16a:	80 93 a1 00 	sts	0x00A1, r24
+	buffer[akt_indeks++] = '%';
+ 16e:	85 e2       	ldi	r24, 0x25	; 37
+ 170:	80 93 a2 00 	sts	0x00A2, r24
+ 174:	86 e0       	ldi	r24, 0x06	; 6
+ 176:	80 93 9b 00 	sts	0x009B, r24
+	I2C_RequestTransmision();
+ 17a:	1d d0       	rcall	.+58     	; 0x1b6 <I2C_RequestTransmision>
+}
+ 17c:	ff 91       	pop	r31
+ 17e:	ef 91       	pop	r30
+ 180:	bf 91       	pop	r27
+ 182:	af 91       	pop	r26
+ 184:	9f 91       	pop	r25
+ 186:	8f 91       	pop	r24
+ 188:	7f 91       	pop	r23
+ 18a:	6f 91       	pop	r22
+ 18c:	5f 91       	pop	r21
+ 18e:	4f 91       	pop	r20
+ 190:	3f 91       	pop	r19
+ 192:	2f 91       	pop	r18
+ 194:	0f 90       	pop	r0
+ 196:	0f be       	out	0x3f, r0	; 63
+ 198:	0f 90       	pop	r0
+ 19a:	1f 90       	pop	r1
+ 19c:	18 95       	reti
+
+0000019e <I2C_init>:
+#include "../Includes/Headers.h"
+
+
+void I2C_init()
+{	
+	buf_i = 0;
+ 19e:	10 92 9c 00 	sts	0x009C, r1
+	akt_indeks = 0;
+ 1a2:	10 92 9b 00 	sts	0x009B, r1
+	
+	TWAR = (adres_slave<<1);
+ 1a6:	84 e0       	ldi	r24, 0x04	; 4
+ 1a8:	82 b9       	out	0x02, r24	; 2
+	TWCR = 0x00;
+ 1aa:	16 be       	out	0x36, r1	; 54
+	TWCR |= (1<<TWEN) | (1<<TWEA) | (1<<TWIE);
+ 1ac:	86 b7       	in	r24, 0x36	; 54
+ 1ae:	85 64       	ori	r24, 0x45	; 69
+ 1b0:	86 bf       	out	0x36, r24	; 54
+	
+	// Ustawienie portu sygnalizuj¹cego jak wyjœcia
+	DDRD |= (1<<I2C_INFO);
+ 1b2:	8c 9a       	sbi	0x11, 4	; 17
+}
+ 1b4:	08 95       	ret
+
+000001b6 <I2C_RequestTransmision>:
+
+void I2C_RequestTransmision()
+{
+	if(PORTD & (1<<I2C_INFO))
+ 1b6:	94 99       	sbic	0x12, 4	; 18
+ 1b8:	02 c0       	rjmp	.+4      	; 0x1be <I2C_RequestTransmision+0x8>
+		PORTD &= ~(1<<I2C_INFO);	
+	else 
+		PORTD |= (1<<I2C_INFO);	
+ 1ba:	94 9a       	sbi	0x12, 4	; 18
+ 1bc:	08 95       	ret
+}
+
+void I2C_RequestTransmision()
+{
+	if(PORTD & (1<<I2C_INFO))
+		PORTD &= ~(1<<I2C_INFO);	
+ 1be:	94 98       	cbi	0x12, 4	; 18
+ 1c0:	08 95       	ret
+
+000001c2 <__vector_17>:
+	else 
+		PORTD |= (1<<I2C_INFO);	
+};
+
+SIGNAL (SIG_2WIRE_SERIAL) 
+{ 
+ 1c2:	1f 92       	push	r1
+ 1c4:	0f 92       	push	r0
+ 1c6:	0f b6       	in	r0, 0x3f	; 63
+ 1c8:	0f 92       	push	r0
+ 1ca:	11 24       	eor	r1, r1
+ 1cc:	2f 93       	push	r18
+ 1ce:	3f 93       	push	r19
+ 1d0:	4f 93       	push	r20
+ 1d2:	5f 93       	push	r21
+ 1d4:	6f 93       	push	r22
+ 1d6:	7f 93       	push	r23
+ 1d8:	8f 93       	push	r24
+ 1da:	9f 93       	push	r25
+ 1dc:	af 93       	push	r26
+ 1de:	bf 93       	push	r27
+ 1e0:	ef 93       	push	r30
+ 1e2:	ff 93       	push	r31
+	switch (TW_STATUS) 
+ 1e4:	81 b1       	in	r24, 0x01	; 1
+ 1e6:	90 e0       	ldi	r25, 0x00	; 0
+ 1e8:	88 7f       	andi	r24, 0xF8	; 248
+ 1ea:	90 70       	andi	r25, 0x00	; 0
+ 1ec:	80 38       	cpi	r24, 0x80	; 128
+ 1ee:	91 05       	cpc	r25, r1
+ 1f0:	89 f1       	breq	.+98     	; 0x254 <__vector_17+0x92>
+ 1f2:	81 38       	cpi	r24, 0x81	; 129
+ 1f4:	91 05       	cpc	r25, r1
+ 1f6:	cc f4       	brge	.+50     	; 0x22a <__vector_17+0x68>
+ 1f8:	80 36       	cpi	r24, 0x60	; 96
+ 1fa:	91 05       	cpc	r25, r1
+ 1fc:	d9 f1       	breq	.+118    	; 0x274 <__vector_17+0xb2>
+			TWDR = buffer[buf_i++];
+			TWCR |= (1<<TWEA);	
+			
+			break;
+		default:
+			buf_i = 0;
+ 1fe:	10 92 9c 00 	sts	0x009C, r1
+			break;
+	} 
+	TWCR |= _BV(TWINT);
+ 202:	86 b7       	in	r24, 0x36	; 54
+ 204:	80 68       	ori	r24, 0x80	; 128
+ 206:	86 bf       	out	0x36, r24	; 54
+	 
+ 208:	ff 91       	pop	r31
+ 20a:	ef 91       	pop	r30
+ 20c:	bf 91       	pop	r27
+ 20e:	af 91       	pop	r26
+ 210:	9f 91       	pop	r25
+ 212:	8f 91       	pop	r24
+ 214:	7f 91       	pop	r23
+ 216:	6f 91       	pop	r22
+ 218:	5f 91       	pop	r21
+ 21a:	4f 91       	pop	r20
+ 21c:	3f 91       	pop	r19
+ 21e:	2f 91       	pop	r18
+ 220:	0f 90       	pop	r0
+ 222:	0f be       	out	0x3f, r0	; 63
+ 224:	0f 90       	pop	r0
+ 226:	1f 90       	pop	r1
+ 228:	18 95       	reti
+		PORTD |= (1<<I2C_INFO);	
+};
+
+SIGNAL (SIG_2WIRE_SERIAL) 
+{ 
+	switch (TW_STATUS) 
+ 22a:	88 3a       	cpi	r24, 0xA8	; 168
+ 22c:	91 05       	cpc	r25, r1
+ 22e:	19 f0       	breq	.+6      	; 0x236 <__vector_17+0x74>
+ 230:	88 3b       	cpi	r24, 0xB8	; 184
+ 232:	91 05       	cpc	r25, r1
+ 234:	21 f7       	brne	.-56     	; 0x1fe <__vector_17+0x3c>
+		// case TW_ST_DATA_NACK:
+		case TW_ST_DATA_ACK:
+			//USART_transmit(buffer[1]);
+			//TWCR = buffer[buf_i++]; // DATA 	
+			//if(buf_i==BUFFER_SIZE) buf_i = 0;
+			TWDR = buffer[buf_i++];
+ 236:	80 91 9c 00 	lds	r24, 0x009C
+ 23a:	e8 2f       	mov	r30, r24
+ 23c:	f0 e0       	ldi	r31, 0x00	; 0
+ 23e:	e3 56       	subi	r30, 0x63	; 99
+ 240:	ff 4f       	sbci	r31, 0xFF	; 255
+ 242:	90 81       	ld	r25, Z
+ 244:	93 b9       	out	0x03, r25	; 3
+ 246:	8f 5f       	subi	r24, 0xFF	; 255
+ 248:	80 93 9c 00 	sts	0x009C, r24
+			TWCR |= (1<<TWEA);	
+ 24c:	86 b7       	in	r24, 0x36	; 54
+ 24e:	80 64       	ori	r24, 0x40	; 64
+ 250:	86 bf       	out	0x36, r24	; 54
+			
+			break;
+ 252:	d7 cf       	rjmp	.-82     	; 0x202 <__vector_17+0x40>
+			TWCR |= (1<<TWEA);
+			break;
+			
+		// case TW_SR_DATA_NACK:
+		case TW_SR_DATA_ACK:
+			I2C_received = TWDR;
+ 254:	83 b1       	in	r24, 0x03	; 3
+ 256:	80 93 98 00 	sts	0x0098, r24
+			USART_transmit(I2C_received);
+ 25a:	66 d2       	rcall	.+1228   	; 0x728 <USART_transmit>
+			if(I2C_received == 's')
+ 25c:	80 91 98 00 	lds	r24, 0x0098
+ 260:	83 37       	cpi	r24, 0x73	; 115
+ 262:	79 f0       	breq	.+30     	; 0x282 <__vector_17+0xc0>
+				Silniki_Stop();
+			// Lewo
+			else if(I2C_received == 'a')
+ 264:	81 36       	cpi	r24, 0x61	; 97
+ 266:	79 f0       	breq	.+30     	; 0x286 <__vector_17+0xc4>
+				SkretWLewo();
+			// Przod
+			else if(I2C_received == 'w')
+ 268:	87 37       	cpi	r24, 0x77	; 119
+ 26a:	79 f0       	breq	.+30     	; 0x28a <__vector_17+0xc8>
+				JazdaNaPrzod();
+			// Prawo
+			else if(I2C_received == 'd')
+ 26c:	84 36       	cpi	r24, 0x64	; 100
+ 26e:	71 f7       	brne	.-36     	; 0x24c <__vector_17+0x8a>
+				SkretWPrawo();
+ 270:	22 d2       	rcall	.+1092   	; 0x6b6 <SkretWPrawo>
+ 272:	ec cf       	rjmp	.-40     	; 0x24c <__vector_17+0x8a>
+	switch (TW_STATUS) 
+	{ 
+		// case TW_ST_SLA_NACK:	
+		// case TW_SR_SLA_NACK:	
+		case TW_SR_SLA_ACK:
+			I2C_received = TWDR; 
+ 274:	83 b1       	in	r24, 0x03	; 3
+ 276:	80 93 98 00 	sts	0x0098, r24
+			TWCR |= (1<<TWEA);
+ 27a:	86 b7       	in	r24, 0x36	; 54
+ 27c:	80 64       	ori	r24, 0x40	; 64
+ 27e:	86 bf       	out	0x36, r24	; 54
+			break;
+ 280:	c0 cf       	rjmp	.-128    	; 0x202 <__vector_17+0x40>
+		// case TW_SR_DATA_NACK:
+		case TW_SR_DATA_ACK:
+			I2C_received = TWDR;
+			USART_transmit(I2C_received);
+			if(I2C_received == 's')
+				Silniki_Stop();
+ 282:	22 d2       	rcall	.+1092   	; 0x6c8 <Silniki_Stop>
+ 284:	e3 cf       	rjmp	.-58     	; 0x24c <__vector_17+0x8a>
+			// Lewo
+			else if(I2C_received == 'a')
+				SkretWLewo();
+ 286:	0e d2       	rcall	.+1052   	; 0x6a4 <SkretWLewo>
+ 288:	e1 cf       	rjmp	.-62     	; 0x24c <__vector_17+0x8a>
+			// Przod
+			else if(I2C_received == 'w')
+				JazdaNaPrzod();
+ 28a:	03 d2       	rcall	.+1030   	; 0x692 <JazdaNaPrzod>
+ 28c:	df cf       	rjmp	.-66     	; 0x24c <__vector_17+0x8a>
+
+0000028e <Sharp_Init>:
+
+void Sharp_Init()
+{
+	// Sharpy wywolywane timerem, bo ADC ma za du¿¹ czêstotliwoœæ :D. Nie potrzebuje 20kHz
+	
+	ADMUX |= (1 << ADLAR); // Left adjust ADC result to allow easy 8 bit reading 
+ 28e:	3d 9a       	sbi	0x07, 5	; 7
+	ADC2 = 0;
+	ADC3 = 0;
+}
+void ADC_Timer_Init() 
+{
+	Sharp_Timer_Value = 0;
+ 290:	10 92 a6 00 	sts	0x00A6, r1
+ 294:	10 92 a5 00 	sts	0x00A5, r1
+	TCCR0 |= _BV(CS02); // 256 prescale
+ 298:	83 b7       	in	r24, 0x33	; 51
+ 29a:	84 60       	ori	r24, 0x04	; 4
+ 29c:	83 bf       	out	0x33, r24	; 51
+	TCNT0 = 0;
+ 29e:	12 be       	out	0x32, r1	; 50
+	TIMSK |= _BV(TOIE0);
+ 2a0:	89 b7       	in	r24, 0x39	; 57
+ 2a2:	81 60       	ori	r24, 0x01	; 1
+ 2a4:	89 bf       	out	0x39, r24	; 57
+		
+	ADC_Timer_Init();
+	
+	
+	// Zerowanie zmiennych usredniajacych
+	ADC0 = 0;
+ 2a6:	10 92 9a 00 	sts	0x009A, r1
+ 2aa:	10 92 99 00 	sts	0x0099, r1
+	ADC1 = 0;
+ 2ae:	10 92 aa 00 	sts	0x00AA, r1
+ 2b2:	10 92 a9 00 	sts	0x00A9, r1
+	ADC2 = 0;
+ 2b6:	10 92 a4 00 	sts	0x00A4, r1
+ 2ba:	10 92 a3 00 	sts	0x00A3, r1
+	ADC3 = 0;
+ 2be:	10 92 a8 00 	sts	0x00A8, r1
+ 2c2:	10 92 a7 00 	sts	0x00A7, r1
+}
+ 2c6:	08 95       	ret
+
+000002c8 <ADC_Timer_Init>:
+void ADC_Timer_Init() 
+{
+	Sharp_Timer_Value = 0;
+ 2c8:	10 92 a6 00 	sts	0x00A6, r1
+ 2cc:	10 92 a5 00 	sts	0x00A5, r1
+	TCCR0 |= _BV(CS02); // 256 prescale
+ 2d0:	83 b7       	in	r24, 0x33	; 51
+ 2d2:	84 60       	ori	r24, 0x04	; 4
+ 2d4:	83 bf       	out	0x33, r24	; 51
+	TCNT0 = 0;
+ 2d6:	12 be       	out	0x32, r1	; 50
+	TIMSK |= _BV(TOIE0);
+ 2d8:	89 b7       	in	r24, 0x39	; 57
+ 2da:	81 60       	ori	r24, 0x01	; 1
+ 2dc:	89 bf       	out	0x39, r24	; 57
+}
+ 2de:	08 95       	ret
+
+000002e0 <Zrob_Pomiar>:
+int Zrob_Pomiar(int nr)
+{
+	// Wylacz ADC by zmienic ustawienia
+	ADCSRA 	&= ~(1<<ADEN);
+ 2e0:	37 98       	cbi	0x06, 7	; 6
+		
+	// Zrobienie pomiaru dla ADC
+	ADMUX &= 0x00;
+ 2e2:	27 b1       	in	r18, 0x07	; 7
+ 2e4:	17 b8       	out	0x07, r1	; 7
+	ADMUX |= (1 << ADLAR); // Left adjust ADC result to allow easy 8 bit reading 
+ 2e6:	3d 9a       	sbi	0x07, 5	; 7
+	
+	if(nr == 0)			; 
+ 2e8:	00 97       	sbiw	r24, 0x00	; 0
+ 2ea:	49 f0       	breq	.+18     	; 0x2fe <Zrob_Pomiar+0x1e>
+	else if(nr == 1)	ADMUX 	|= (1<<MUX0); 
+ 2ec:	81 30       	cpi	r24, 0x01	; 1
+ 2ee:	91 05       	cpc	r25, r1
+ 2f0:	c9 f0       	breq	.+50     	; 0x324 <Zrob_Pomiar+0x44>
+	else if(nr == 2)	ADMUX 	|= (1<<MUX1); 
+ 2f2:	82 30       	cpi	r24, 0x02	; 2
+ 2f4:	91 05       	cpc	r25, r1
+ 2f6:	e1 f0       	breq	.+56     	; 0x330 <Zrob_Pomiar+0x50>
+	else if(nr == 3)	ADMUX 	|= (1<<MUX1) | (1<<MUX0); 
+ 2f8:	83 30       	cpi	r24, 0x03	; 3
+ 2fa:	91 05       	cpc	r25, r1
+ 2fc:	a9 f0       	breq	.+42     	; 0x328 <Zrob_Pomiar+0x48>
+	
+	
+	// Zezwolenie na ADC
+	ADCSRA 	|= (1<<ADEN); 
+ 2fe:	37 9a       	sbi	0x06, 7	; 6
+		
+	// START
+	ADCSRA  |= (1 << ADSC); 
+ 300:	36 9a       	sbi	0x06, 6	; 6
+	while(ADCSRA & (1 << ADSC)) {}; // Oczekiwanie na pomiar
+ 302:	36 99       	sbic	0x06, 6	; 6
+ 304:	fe cf       	rjmp	.-4      	; 0x302 <Zrob_Pomiar+0x22>
+		
+	//	Pobranie wyniku z ADC
+	nr = ADCL>>6;
+ 306:	84 b1       	in	r24, 0x04	; 4
+ 308:	82 95       	swap	r24
+ 30a:	86 95       	lsr	r24
+ 30c:	86 95       	lsr	r24
+ 30e:	83 70       	andi	r24, 0x03	; 3
+	nr = nr + (ADCH<<2); 
+ 310:	25 b1       	in	r18, 0x05	; 5
+ 312:	30 e0       	ldi	r19, 0x00	; 0
+ 314:	22 0f       	add	r18, r18
+ 316:	33 1f       	adc	r19, r19
+ 318:	22 0f       	add	r18, r18
+ 31a:	33 1f       	adc	r19, r19
+ 31c:	28 0f       	add	r18, r24
+ 31e:	31 1d       	adc	r19, r1
+	return nr;
+}
+ 320:	c9 01       	movw	r24, r18
+ 322:	08 95       	ret
+	// Zrobienie pomiaru dla ADC
+	ADMUX &= 0x00;
+	ADMUX |= (1 << ADLAR); // Left adjust ADC result to allow easy 8 bit reading 
+	
+	if(nr == 0)			; 
+	else if(nr == 1)	ADMUX 	|= (1<<MUX0); 
+ 324:	38 9a       	sbi	0x07, 0	; 7
+ 326:	eb cf       	rjmp	.-42     	; 0x2fe <Zrob_Pomiar+0x1e>
+	else if(nr == 2)	ADMUX 	|= (1<<MUX1); 
+	else if(nr == 3)	ADMUX 	|= (1<<MUX1) | (1<<MUX0); 
+ 328:	87 b1       	in	r24, 0x07	; 7
+ 32a:	83 60       	ori	r24, 0x03	; 3
+ 32c:	87 b9       	out	0x07, r24	; 7
+ 32e:	e7 cf       	rjmp	.-50     	; 0x2fe <Zrob_Pomiar+0x1e>
+	ADMUX &= 0x00;
+	ADMUX |= (1 << ADLAR); // Left adjust ADC result to allow easy 8 bit reading 
+	
+	if(nr == 0)			; 
+	else if(nr == 1)	ADMUX 	|= (1<<MUX0); 
+	else if(nr == 2)	ADMUX 	|= (1<<MUX1); 
+ 330:	39 9a       	sbi	0x07, 1	; 7
+ 332:	e5 cf       	rjmp	.-54     	; 0x2fe <Zrob_Pomiar+0x1e>
+
+00000334 <Pomiar2Indeks>:
+	nr = nr + (ADCH<<2); 
+	return nr;
+}
+uint16_t Pomiar2Indeks(uint16_t val)
+{
+	val = (((val*50)/1024)-4);
+ 334:	42 e3       	ldi	r20, 0x32	; 50
+ 336:	50 e0       	ldi	r21, 0x00	; 0
+ 338:	84 9f       	mul	r24, r20
+ 33a:	90 01       	movw	r18, r0
+ 33c:	85 9f       	mul	r24, r21
+ 33e:	30 0d       	add	r19, r0
+ 340:	94 9f       	mul	r25, r20
+ 342:	30 0d       	add	r19, r0
+ 344:	11 24       	eor	r1, r1
+ 346:	23 2f       	mov	r18, r19
+ 348:	33 27       	eor	r19, r19
+ 34a:	26 95       	lsr	r18
+ 34c:	26 95       	lsr	r18
+ 34e:	24 50       	subi	r18, 0x04	; 4
+ 350:	30 40       	sbci	r19, 0x00	; 0
+	if ( val > 26 || val < 4) val = 27;
+ 352:	c9 01       	movw	r24, r18
+ 354:	04 97       	sbiw	r24, 0x04	; 4
+ 356:	87 31       	cpi	r24, 0x17	; 23
+ 358:	91 05       	cpc	r25, r1
+ 35a:	10 f0       	brcs	.+4      	; 0x360 <Pomiar2Indeks+0x2c>
+ 35c:	2b e1       	ldi	r18, 0x1B	; 27
+ 35e:	30 e0       	ldi	r19, 0x00	; 0
+	return  val;
+	
+}
+ 360:	c9 01       	movw	r24, r18
+ 362:	08 95       	ret
+
+00000364 <__vector_9>:
+
+SIGNAL(SIG_OVERFLOW0) // 8Mhz/ 256/ 256 = 122.07 Hz 
+{
+ 364:	1f 92       	push	r1
+ 366:	0f 92       	push	r0
+ 368:	0f b6       	in	r0, 0x3f	; 63
+ 36a:	0f 92       	push	r0
+ 36c:	11 24       	eor	r1, r1
+ 36e:	ff 92       	push	r15
+ 370:	0f 93       	push	r16
+ 372:	1f 93       	push	r17
+ 374:	2f 93       	push	r18
+ 376:	3f 93       	push	r19
+ 378:	4f 93       	push	r20
+ 37a:	5f 93       	push	r21
+ 37c:	6f 93       	push	r22
+ 37e:	7f 93       	push	r23
+ 380:	8f 93       	push	r24
+ 382:	9f 93       	push	r25
+ 384:	af 93       	push	r26
+ 386:	bf 93       	push	r27
+ 388:	cf 93       	push	r28
+ 38a:	df 93       	push	r29
+ 38c:	ef 93       	push	r30
+ 38e:	ff 93       	push	r31
+	
+	Sharp_Timer_Value++;
+ 390:	e0 91 a5 00 	lds	r30, 0x00A5
+ 394:	f0 91 a6 00 	lds	r31, 0x00A6
+ 398:	31 96       	adiw	r30, 0x01	; 1
+ 39a:	f0 93 a6 00 	sts	0x00A6, r31
+ 39e:	e0 93 a5 00 	sts	0x00A5, r30
+	TIMSK |= _BV(TOIE0);
+}
+int Zrob_Pomiar(int nr)
+{
+	// Wylacz ADC by zmienic ustawienia
+	ADCSRA 	&= ~(1<<ADEN);
+ 3a2:	37 98       	cbi	0x06, 7	; 6
+		
+	// Zrobienie pomiaru dla ADC
+	ADMUX &= 0x00;
+ 3a4:	87 b1       	in	r24, 0x07	; 7
+ 3a6:	17 b8       	out	0x07, r1	; 7
+	ADMUX |= (1 << ADLAR); // Left adjust ADC result to allow easy 8 bit reading 
+ 3a8:	3d 9a       	sbi	0x07, 5	; 7
+	else if(nr == 2)	ADMUX 	|= (1<<MUX1); 
+	else if(nr == 3)	ADMUX 	|= (1<<MUX1) | (1<<MUX0); 
+	
+	
+	// Zezwolenie na ADC
+	ADCSRA 	|= (1<<ADEN); 
+ 3aa:	37 9a       	sbi	0x06, 7	; 6
+		
+	// START
+	ADCSRA  |= (1 << ADSC); 
+ 3ac:	36 9a       	sbi	0x06, 6	; 6
+	while(ADCSRA & (1 << ADSC)) {}; // Oczekiwanie na pomiar
+ 3ae:	36 99       	sbic	0x06, 6	; 6
+ 3b0:	fe cf       	rjmp	.-4      	; 0x3ae <__vector_9+0x4a>
+		
+	//	Pobranie wyniku z ADC
+	nr = ADCL>>6;
+ 3b2:	84 b1       	in	r24, 0x04	; 4
+ 3b4:	82 95       	swap	r24
+ 3b6:	86 95       	lsr	r24
+ 3b8:	86 95       	lsr	r24
+ 3ba:	83 70       	andi	r24, 0x03	; 3
+	nr = nr + (ADCH<<2); 
+ 3bc:	25 b1       	in	r18, 0x05	; 5
+ 3be:	30 e0       	ldi	r19, 0x00	; 0
+ 3c0:	22 0f       	add	r18, r18
+ 3c2:	33 1f       	adc	r19, r19
+ 3c4:	22 0f       	add	r18, r18
+ 3c6:	33 1f       	adc	r19, r19
+ 3c8:	28 0f       	add	r18, r24
+ 3ca:	31 1d       	adc	r19, r1
+{
+	
+	Sharp_Timer_Value++;
+	
+	// Sharp ADC0
+	ADC0 +=	Zrob_Pomiar(0);
+ 3cc:	80 91 99 00 	lds	r24, 0x0099
+ 3d0:	90 91 9a 00 	lds	r25, 0x009A
+ 3d4:	82 0f       	add	r24, r18
+ 3d6:	93 1f       	adc	r25, r19
+ 3d8:	90 93 9a 00 	sts	0x009A, r25
+ 3dc:	80 93 99 00 	sts	0x0099, r24
+	TIMSK |= _BV(TOIE0);
+}
+int Zrob_Pomiar(int nr)
+{
+	// Wylacz ADC by zmienic ustawienia
+	ADCSRA 	&= ~(1<<ADEN);
+ 3e0:	37 98       	cbi	0x06, 7	; 6
+		
+	// Zrobienie pomiaru dla ADC
+	ADMUX &= 0x00;
+ 3e2:	27 b1       	in	r18, 0x07	; 7
+ 3e4:	17 b8       	out	0x07, r1	; 7
+	ADMUX |= (1 << ADLAR); // Left adjust ADC result to allow easy 8 bit reading 
+ 3e6:	3d 9a       	sbi	0x07, 5	; 7
+	
+	if(nr == 0)			; 
+	else if(nr == 1)	ADMUX 	|= (1<<MUX0); 
+ 3e8:	38 9a       	sbi	0x07, 0	; 7
+	else if(nr == 2)	ADMUX 	|= (1<<MUX1); 
+	else if(nr == 3)	ADMUX 	|= (1<<MUX1) | (1<<MUX0); 
+	
+	
+	// Zezwolenie na ADC
+	ADCSRA 	|= (1<<ADEN); 
+ 3ea:	37 9a       	sbi	0x06, 7	; 6
+		
+	// START
+	ADCSRA  |= (1 << ADSC); 
+ 3ec:	36 9a       	sbi	0x06, 6	; 6
+	while(ADCSRA & (1 << ADSC)) {}; // Oczekiwanie na pomiar
+ 3ee:	36 99       	sbic	0x06, 6	; 6
+ 3f0:	fe cf       	rjmp	.-4      	; 0x3ee <__vector_9+0x8a>
+		
+	//	Pobranie wyniku z ADC
+	nr = ADCL>>6;
+ 3f2:	44 b1       	in	r20, 0x04	; 4
+ 3f4:	42 95       	swap	r20
+ 3f6:	46 95       	lsr	r20
+ 3f8:	46 95       	lsr	r20
+ 3fa:	43 70       	andi	r20, 0x03	; 3
+	nr = nr + (ADCH<<2); 
+ 3fc:	25 b1       	in	r18, 0x05	; 5
+ 3fe:	30 e0       	ldi	r19, 0x00	; 0
+ 400:	22 0f       	add	r18, r18
+ 402:	33 1f       	adc	r19, r19
+ 404:	22 0f       	add	r18, r18
+ 406:	33 1f       	adc	r19, r19
+ 408:	24 0f       	add	r18, r20
+ 40a:	31 1d       	adc	r19, r1
+	Sharp_Timer_Value++;
+	
+	// Sharp ADC0
+	ADC0 +=	Zrob_Pomiar(0);
+	// Sharp ADC1
+	ADC1 +=	Zrob_Pomiar(1);
+ 40c:	c0 91 a9 00 	lds	r28, 0x00A9
+ 410:	d0 91 aa 00 	lds	r29, 0x00AA
+ 414:	c2 0f       	add	r28, r18
+ 416:	d3 1f       	adc	r29, r19
+ 418:	d0 93 aa 00 	sts	0x00AA, r29
+ 41c:	c0 93 a9 00 	sts	0x00A9, r28
+	TIMSK |= _BV(TOIE0);
+}
+int Zrob_Pomiar(int nr)
+{
+	// Wylacz ADC by zmienic ustawienia
+	ADCSRA 	&= ~(1<<ADEN);
+ 420:	37 98       	cbi	0x06, 7	; 6
+		
+	// Zrobienie pomiaru dla ADC
+	ADMUX &= 0x00;
+ 422:	27 b1       	in	r18, 0x07	; 7
+ 424:	17 b8       	out	0x07, r1	; 7
+	ADMUX |= (1 << ADLAR); // Left adjust ADC result to allow easy 8 bit reading 
+ 426:	3d 9a       	sbi	0x07, 5	; 7
+	
+	if(nr == 0)			; 
+	else if(nr == 1)	ADMUX 	|= (1<<MUX0); 
+	else if(nr == 2)	ADMUX 	|= (1<<MUX1); 
+ 428:	39 9a       	sbi	0x07, 1	; 7
+	else if(nr == 3)	ADMUX 	|= (1<<MUX1) | (1<<MUX0); 
+	
+	
+	// Zezwolenie na ADC
+	ADCSRA 	|= (1<<ADEN); 
+ 42a:	37 9a       	sbi	0x06, 7	; 6
+		
+	// START
+	ADCSRA  |= (1 << ADSC); 
+ 42c:	36 9a       	sbi	0x06, 6	; 6
+	while(ADCSRA & (1 << ADSC)) {}; // Oczekiwanie na pomiar
+ 42e:	36 99       	sbic	0x06, 6	; 6
+ 430:	fe cf       	rjmp	.-4      	; 0x42e <__vector_9+0xca>
+		
+	//	Pobranie wyniku z ADC
+	nr = ADCL>>6;
+ 432:	44 b1       	in	r20, 0x04	; 4
+ 434:	42 95       	swap	r20
+ 436:	46 95       	lsr	r20
+ 438:	46 95       	lsr	r20
+ 43a:	43 70       	andi	r20, 0x03	; 3
+	nr = nr + (ADCH<<2); 
+ 43c:	25 b1       	in	r18, 0x05	; 5
+ 43e:	30 e0       	ldi	r19, 0x00	; 0
+ 440:	22 0f       	add	r18, r18
+ 442:	33 1f       	adc	r19, r19
+ 444:	22 0f       	add	r18, r18
+ 446:	33 1f       	adc	r19, r19
+ 448:	24 0f       	add	r18, r20
+ 44a:	31 1d       	adc	r19, r1
+	// Sharp ADC0
+	ADC0 +=	Zrob_Pomiar(0);
+	// Sharp ADC1
+	ADC1 +=	Zrob_Pomiar(1);
+	// Sharp ADC2
+	ADC2 +=	Zrob_Pomiar(2);
+ 44c:	00 91 a3 00 	lds	r16, 0x00A3
+ 450:	10 91 a4 00 	lds	r17, 0x00A4
+ 454:	02 0f       	add	r16, r18
+ 456:	13 1f       	adc	r17, r19
+ 458:	10 93 a4 00 	sts	0x00A4, r17
+ 45c:	00 93 a3 00 	sts	0x00A3, r16
+	TIMSK |= _BV(TOIE0);
+}
+int Zrob_Pomiar(int nr)
+{
+	// Wylacz ADC by zmienic ustawienia
+	ADCSRA 	&= ~(1<<ADEN);
+ 460:	37 98       	cbi	0x06, 7	; 6
+		
+	// Zrobienie pomiaru dla ADC
+	ADMUX &= 0x00;
+ 462:	27 b1       	in	r18, 0x07	; 7
+ 464:	17 b8       	out	0x07, r1	; 7
+	ADMUX |= (1 << ADLAR); // Left adjust ADC result to allow easy 8 bit reading 
+ 466:	3d 9a       	sbi	0x07, 5	; 7
+	
+	if(nr == 0)			; 
+	else if(nr == 1)	ADMUX 	|= (1<<MUX0); 
+	else if(nr == 2)	ADMUX 	|= (1<<MUX1); 
+	else if(nr == 3)	ADMUX 	|= (1<<MUX1) | (1<<MUX0); 
+ 468:	27 b1       	in	r18, 0x07	; 7
+ 46a:	23 60       	ori	r18, 0x03	; 3
+ 46c:	27 b9       	out	0x07, r18	; 7
+	
+	
+	// Zezwolenie na ADC
+	ADCSRA 	|= (1<<ADEN); 
+ 46e:	37 9a       	sbi	0x06, 7	; 6
+		
+	// START
+	ADCSRA  |= (1 << ADSC); 
+ 470:	36 9a       	sbi	0x06, 6	; 6
+	while(ADCSRA & (1 << ADSC)) {}; // Oczekiwanie na pomiar
+ 472:	36 99       	sbic	0x06, 6	; 6
+ 474:	fe cf       	rjmp	.-4      	; 0x472 <__stack+0x13>
+		
+	//	Pobranie wyniku z ADC
+	nr = ADCL>>6;
+ 476:	44 b1       	in	r20, 0x04	; 4
+ 478:	42 95       	swap	r20
+ 47a:	46 95       	lsr	r20
+ 47c:	46 95       	lsr	r20
+ 47e:	43 70       	andi	r20, 0x03	; 3
+	nr = nr + (ADCH<<2); 
+ 480:	25 b1       	in	r18, 0x05	; 5
+ 482:	30 e0       	ldi	r19, 0x00	; 0
+ 484:	22 0f       	add	r18, r18
+ 486:	33 1f       	adc	r19, r19
+ 488:	22 0f       	add	r18, r18
+ 48a:	33 1f       	adc	r19, r19
+ 48c:	24 0f       	add	r18, r20
+ 48e:	31 1d       	adc	r19, r1
+	// Sharp ADC1
+	ADC1 +=	Zrob_Pomiar(1);
+	// Sharp ADC2
+	ADC2 +=	Zrob_Pomiar(2);
+	// Sharp ADC3
+	ADC3 +=	Zrob_Pomiar(3);
+ 490:	40 91 a7 00 	lds	r20, 0x00A7
+ 494:	50 91 a8 00 	lds	r21, 0x00A8
+ 498:	24 0f       	add	r18, r20
+ 49a:	35 1f       	adc	r19, r21
+ 49c:	30 93 a8 00 	sts	0x00A8, r19
+ 4a0:	20 93 a7 00 	sts	0x00A7, r18
+		
+	if(Sharp_Timer_Value == 50) // By³o 30
+ 4a4:	e2 33       	cpi	r30, 0x32	; 50
+ 4a6:	f1 05       	cpc	r31, r1
+ 4a8:	b1 f0       	breq	.+44     	; 0x4d6 <__stack+0x77>
+		ADC1 = 0;
+		ADC2 = 0;
+		ADC3 = 0;
+		Sharp_Timer_Value = 0;
+	}		
+}
+ 4aa:	ff 91       	pop	r31
+ 4ac:	ef 91       	pop	r30
+ 4ae:	df 91       	pop	r29
+ 4b0:	cf 91       	pop	r28
+ 4b2:	bf 91       	pop	r27
+ 4b4:	af 91       	pop	r26
+ 4b6:	9f 91       	pop	r25
+ 4b8:	8f 91       	pop	r24
+ 4ba:	7f 91       	pop	r23
+ 4bc:	6f 91       	pop	r22
+ 4be:	5f 91       	pop	r21
+ 4c0:	4f 91       	pop	r20
+ 4c2:	3f 91       	pop	r19
+ 4c4:	2f 91       	pop	r18
+ 4c6:	1f 91       	pop	r17
+ 4c8:	0f 91       	pop	r16
+ 4ca:	ff 90       	pop	r15
+ 4cc:	0f 90       	pop	r0
+ 4ce:	0f be       	out	0x3f, r0	; 63
+ 4d0:	0f 90       	pop	r0
+ 4d2:	1f 90       	pop	r1
+ 4d4:	18 95       	reti
+	ADC3 +=	Zrob_Pomiar(3);
+		
+	if(Sharp_Timer_Value == 50) // By³o 30
+	{	
+		// Przeliczanie wynikow z Voltow na mm z tabeli przyblizonych charakterystyk
+		ADC0 = SharpValue[Pomiar2Indeks(ADC0 / 50)];
+ 4d6:	bf 01       	movw	r22, r30
+ 4d8:	56 d1       	rcall	.+684    	; 0x786 <__udivmodhi4>
+	nr = nr + (ADCH<<2); 
+	return nr;
+}
+uint16_t Pomiar2Indeks(uint16_t val)
+{
+	val = (((val*50)/1024)-4);
+ 4da:	6e 9f       	mul	r22, r30
+ 4dc:	c0 01       	movw	r24, r0
+ 4de:	6f 9f       	mul	r22, r31
+ 4e0:	90 0d       	add	r25, r0
+ 4e2:	7e 9f       	mul	r23, r30
+ 4e4:	90 0d       	add	r25, r0
+ 4e6:	11 24       	eor	r1, r1
+ 4e8:	89 2f       	mov	r24, r25
+ 4ea:	99 27       	eor	r25, r25
+ 4ec:	86 95       	lsr	r24
+ 4ee:	86 95       	lsr	r24
+ 4f0:	04 97       	sbiw	r24, 0x04	; 4
+	if ( val > 26 || val < 4) val = 27;
+ 4f2:	ac 01       	movw	r20, r24
+ 4f4:	44 50       	subi	r20, 0x04	; 4
+ 4f6:	50 40       	sbci	r21, 0x00	; 0
+ 4f8:	47 31       	cpi	r20, 0x17	; 23
+ 4fa:	51 05       	cpc	r21, r1
+ 4fc:	10 f0       	brcs	.+4      	; 0x502 <__stack+0xa3>
+ 4fe:	8b e1       	ldi	r24, 0x1B	; 27
+ 500:	90 e0       	ldi	r25, 0x00	; 0
+	ADC3 +=	Zrob_Pomiar(3);
+		
+	if(Sharp_Timer_Value == 50) // By³o 30
+	{	
+		// Przeliczanie wynikow z Voltow na mm z tabeli przyblizonych charakterystyk
+		ADC0 = SharpValue[Pomiar2Indeks(ADC0 / 50)];
+ 502:	fc 01       	movw	r30, r24
+ 504:	ee 0f       	add	r30, r30
+ 506:	ff 1f       	adc	r31, r31
+ 508:	e0 5a       	subi	r30, 0xA0	; 160
+ 50a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 50c:	40 81       	ld	r20, Z
+ 50e:	81 81       	ldd	r24, Z+1	; 0x01
+ 510:	40 93 99 00 	sts	0x0099, r20
+ 514:	80 93 9a 00 	sts	0x009A, r24
+		ADC1 = SharpValue[Pomiar2Indeks(ADC1 / 50)];
+ 518:	e2 e3       	ldi	r30, 0x32	; 50
+ 51a:	f0 e0       	ldi	r31, 0x00	; 0
+ 51c:	ce 01       	movw	r24, r28
+ 51e:	bf 01       	movw	r22, r30
+ 520:	32 d1       	rcall	.+612    	; 0x786 <__udivmodhi4>
+	nr = nr + (ADCH<<2); 
+	return nr;
+}
+uint16_t Pomiar2Indeks(uint16_t val)
+{
+	val = (((val*50)/1024)-4);
+ 522:	6e 9f       	mul	r22, r30
+ 524:	c0 01       	movw	r24, r0
+ 526:	6f 9f       	mul	r22, r31
+ 528:	90 0d       	add	r25, r0
+ 52a:	7e 9f       	mul	r23, r30
+ 52c:	90 0d       	add	r25, r0
+ 52e:	11 24       	eor	r1, r1
+ 530:	89 2f       	mov	r24, r25
+ 532:	99 27       	eor	r25, r25
+ 534:	86 95       	lsr	r24
+ 536:	86 95       	lsr	r24
+ 538:	04 97       	sbiw	r24, 0x04	; 4
+	if ( val > 26 || val < 4) val = 27;
+ 53a:	bc 01       	movw	r22, r24
+ 53c:	64 50       	subi	r22, 0x04	; 4
+ 53e:	70 40       	sbci	r23, 0x00	; 0
+ 540:	67 31       	cpi	r22, 0x17	; 23
+ 542:	71 05       	cpc	r23, r1
+ 544:	10 f0       	brcs	.+4      	; 0x54a <__stack+0xeb>
+ 546:	8b e1       	ldi	r24, 0x1B	; 27
+ 548:	90 e0       	ldi	r25, 0x00	; 0
+		
+	if(Sharp_Timer_Value == 50) // By³o 30
+	{	
+		// Przeliczanie wynikow z Voltow na mm z tabeli przyblizonych charakterystyk
+		ADC0 = SharpValue[Pomiar2Indeks(ADC0 / 50)];
+		ADC1 = SharpValue[Pomiar2Indeks(ADC1 / 50)];
+ 54a:	fc 01       	movw	r30, r24
+ 54c:	ee 0f       	add	r30, r30
+ 54e:	ff 1f       	adc	r31, r31
+ 550:	e0 5a       	subi	r30, 0xA0	; 160
+ 552:	ff 4f       	sbci	r31, 0xFF	; 255
+ 554:	f0 80       	ld	r15, Z
+ 556:	81 81       	ldd	r24, Z+1	; 0x01
+ 558:	f0 92 a9 00 	sts	0x00A9, r15
+ 55c:	80 93 aa 00 	sts	0x00AA, r24
+		ADC2 = SharpValue[Pomiar2Indeks(ADC2 / 50)];
+ 560:	e2 e3       	ldi	r30, 0x32	; 50
+ 562:	f0 e0       	ldi	r31, 0x00	; 0
+ 564:	c8 01       	movw	r24, r16
+ 566:	bf 01       	movw	r22, r30
+ 568:	0e d1       	rcall	.+540    	; 0x786 <__udivmodhi4>
+	nr = nr + (ADCH<<2); 
+	return nr;
+}
+uint16_t Pomiar2Indeks(uint16_t val)
+{
+	val = (((val*50)/1024)-4);
+ 56a:	6e 9f       	mul	r22, r30
+ 56c:	c0 01       	movw	r24, r0
+ 56e:	6f 9f       	mul	r22, r31
+ 570:	90 0d       	add	r25, r0
+ 572:	7e 9f       	mul	r23, r30
+ 574:	90 0d       	add	r25, r0
+ 576:	11 24       	eor	r1, r1
+ 578:	89 2f       	mov	r24, r25
+ 57a:	99 27       	eor	r25, r25
+ 57c:	86 95       	lsr	r24
+ 57e:	86 95       	lsr	r24
+ 580:	04 97       	sbiw	r24, 0x04	; 4
+	if ( val > 26 || val < 4) val = 27;
+ 582:	bc 01       	movw	r22, r24
+ 584:	64 50       	subi	r22, 0x04	; 4
+ 586:	70 40       	sbci	r23, 0x00	; 0
+ 588:	67 31       	cpi	r22, 0x17	; 23
+ 58a:	71 05       	cpc	r23, r1
+ 58c:	10 f0       	brcs	.+4      	; 0x592 <__stack+0x133>
+ 58e:	8b e1       	ldi	r24, 0x1B	; 27
+ 590:	90 e0       	ldi	r25, 0x00	; 0
+	if(Sharp_Timer_Value == 50) // By³o 30
+	{	
+		// Przeliczanie wynikow z Voltow na mm z tabeli przyblizonych charakterystyk
+		ADC0 = SharpValue[Pomiar2Indeks(ADC0 / 50)];
+		ADC1 = SharpValue[Pomiar2Indeks(ADC1 / 50)];
+		ADC2 = SharpValue[Pomiar2Indeks(ADC2 / 50)];
+ 592:	fc 01       	movw	r30, r24
+ 594:	ee 0f       	add	r30, r30
+ 596:	ff 1f       	adc	r31, r31
+ 598:	e0 5a       	subi	r30, 0xA0	; 160
+ 59a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 59c:	00 81       	ld	r16, Z
+ 59e:	81 81       	ldd	r24, Z+1	; 0x01
+ 5a0:	00 93 a3 00 	sts	0x00A3, r16
+ 5a4:	80 93 a4 00 	sts	0x00A4, r24
+		ADC3 = SharpValue[Pomiar2Indeks(ADC3 / 50)];
+ 5a8:	e2 e3       	ldi	r30, 0x32	; 50
+ 5aa:	f0 e0       	ldi	r31, 0x00	; 0
+ 5ac:	c9 01       	movw	r24, r18
+ 5ae:	bf 01       	movw	r22, r30
+ 5b0:	ea d0       	rcall	.+468    	; 0x786 <__udivmodhi4>
+	nr = nr + (ADCH<<2); 
+	return nr;
+}
+uint16_t Pomiar2Indeks(uint16_t val)
+{
+	val = (((val*50)/1024)-4);
+ 5b2:	6e 9f       	mul	r22, r30
+ 5b4:	c0 01       	movw	r24, r0
+ 5b6:	6f 9f       	mul	r22, r31
+ 5b8:	90 0d       	add	r25, r0
+ 5ba:	7e 9f       	mul	r23, r30
+ 5bc:	90 0d       	add	r25, r0
+ 5be:	11 24       	eor	r1, r1
+ 5c0:	89 2f       	mov	r24, r25
+ 5c2:	99 27       	eor	r25, r25
+ 5c4:	86 95       	lsr	r24
+ 5c6:	86 95       	lsr	r24
+ 5c8:	04 97       	sbiw	r24, 0x04	; 4
+	if ( val > 26 || val < 4) val = 27;
+ 5ca:	9c 01       	movw	r18, r24
+ 5cc:	24 50       	subi	r18, 0x04	; 4
+ 5ce:	30 40       	sbci	r19, 0x00	; 0
+ 5d0:	27 31       	cpi	r18, 0x17	; 23
+ 5d2:	31 05       	cpc	r19, r1
+ 5d4:	10 f0       	brcs	.+4      	; 0x5da <__stack+0x17b>
+ 5d6:	8b e1       	ldi	r24, 0x1B	; 27
+ 5d8:	90 e0       	ldi	r25, 0x00	; 0
+	{	
+		// Przeliczanie wynikow z Voltow na mm z tabeli przyblizonych charakterystyk
+		ADC0 = SharpValue[Pomiar2Indeks(ADC0 / 50)];
+		ADC1 = SharpValue[Pomiar2Indeks(ADC1 / 50)];
+		ADC2 = SharpValue[Pomiar2Indeks(ADC2 / 50)];
+		ADC3 = SharpValue[Pomiar2Indeks(ADC3 / 50)];
+ 5da:	fc 01       	movw	r30, r24
+ 5dc:	ee 0f       	add	r30, r30
+ 5de:	ff 1f       	adc	r31, r31
+ 5e0:	e0 5a       	subi	r30, 0xA0	; 160
+ 5e2:	ff 4f       	sbci	r31, 0xFF	; 255
+ 5e4:	80 81       	ld	r24, Z
+ 5e6:	91 81       	ldd	r25, Z+1	; 0x01
+ 5e8:	80 93 a7 00 	sts	0x00A7, r24
+ 5ec:	90 93 a8 00 	sts	0x00A8, r25
+		// Zrob cos z wynikami Sharpa
+		// 
+		// Robie ...
+		
+		akt_indeks = 0;
+		buffer[akt_indeks++] = '#';
+ 5f0:	93 e2       	ldi	r25, 0x23	; 35
+ 5f2:	90 93 9d 00 	sts	0x009D, r25
+		buffer[akt_indeks++] = ADC0;
+ 5f6:	40 93 9e 00 	sts	0x009E, r20
+		buffer[akt_indeks++] = ADC1;
+ 5fa:	f0 92 9f 00 	sts	0x009F, r15
+		buffer[akt_indeks++] = ADC2;
+ 5fe:	00 93 a0 00 	sts	0x00A0, r16
+		buffer[akt_indeks++] = ADC3;
+ 602:	80 93 a1 00 	sts	0x00A1, r24
+		buffer[akt_indeks++] = '%';
+ 606:	85 e2       	ldi	r24, 0x25	; 37
+ 608:	80 93 a2 00 	sts	0x00A2, r24
+ 60c:	86 e0       	ldi	r24, 0x06	; 6
+ 60e:	80 93 9b 00 	sts	0x009B, r24
+		I2C_RequestTransmision();
+ 612:	d1 dd       	rcall	.-1118   	; 0x1b6 <I2C_RequestTransmision>
+		
+		ADC0 = 0;
+ 614:	10 92 9a 00 	sts	0x009A, r1
+ 618:	10 92 99 00 	sts	0x0099, r1
+		ADC1 = 0;
+ 61c:	10 92 aa 00 	sts	0x00AA, r1
+ 620:	10 92 a9 00 	sts	0x00A9, r1
+		ADC2 = 0;
+ 624:	10 92 a4 00 	sts	0x00A4, r1
+ 628:	10 92 a3 00 	sts	0x00A3, r1
+		ADC3 = 0;
+ 62c:	10 92 a8 00 	sts	0x00A8, r1
+ 630:	10 92 a7 00 	sts	0x00A7, r1
+		Sharp_Timer_Value = 0;
+ 634:	10 92 a6 00 	sts	0x00A6, r1
+ 638:	10 92 a5 00 	sts	0x00A5, r1
+ 63c:	36 cf       	rjmp	.-404    	; 0x4aa <__stack+0x4b>
+
+0000063e <Silniki_Init>:
+#include "../Includes/Headers.h"
+
+void Silniki_Init()
+{
+	// AIN1 i AIN2 Silnika1 jak wyjscia
+	DDR_SIL_1_1 |= (1<<AIN1);
+ 63e:	8d 9a       	sbi	0x11, 5	; 17
+	DDR_SIL_1_2 |= (1<<AIN2);
+ 640:	b8 9a       	sbi	0x17, 0	; 23
+	
+	// BIN1 i BIN2 Silnika2 jako wyjscia
+	DDR_SIL_2 |= (1<<BIN1) | (1<<BIN2);
+ 642:	81 b3       	in	r24, 0x11	; 17
+ 644:	80 6c       	ori	r24, 0xC0	; 192
+ 646:	81 bb       	out	0x11, r24	; 17
+	
+	// timer 1 fast PWM 8 bit 
+	TCCR1A = _BV(COM1A1)| _BV(COM1B1) |_BV(WGM10 ); // |_BV(COM1A0)|_BV(COM1B0)  
+ 648:	81 ea       	ldi	r24, 0xA1	; 161
+ 64a:	8f bd       	out	0x2f, r24	; 47
+	//no prescaling
+	TCCR1B = _BV(CS10)|_BV(WGM12);  
+ 64c:	89 e0       	ldi	r24, 0x09	; 9
+ 64e:	8e bd       	out	0x2e, r24	; 46
+	
+	// PWM1 i PWM2 as outputs
+	DDRB |= (1<<1) |(1<<2);
+ 650:	87 b3       	in	r24, 0x17	; 23
+ 652:	86 60       	ori	r24, 0x06	; 6
+ 654:	87 bb       	out	0x17, r24	; 23
+	
+	OCR1A = 0;
+ 656:	1b bc       	out	0x2b, r1	; 43
+ 658:	1a bc       	out	0x2a, r1	; 42
+	OCR1B = 0;
+ 65a:	19 bc       	out	0x29, r1	; 41
+ 65c:	18 bc       	out	0x28, r1	; 40
+	Silniki_Start();
+}
+void Silniki_Start()
+{
+	// AIN1 i AIN2 Silnika1 -> kierunki poczatkowe
+	PORT_SIL_1_1 &= ~(1<<AIN1);
+ 65e:	95 98       	cbi	0x12, 5	; 18
+	PORT_SIL_1_2 |= (1<<AIN2);
+ 660:	c0 9a       	sbi	0x18, 0	; 24
+	
+	// BIN1 i BIN2 Silnika2 -> kierunki poczatkowe
+	PORT_SIL_2 &= ~(1<<BIN1);
+ 662:	96 98       	cbi	0x12, 6	; 18
+	PORT_SIL_2 |= (1<<BIN2);
+ 664:	97 9a       	sbi	0x12, 7	; 18
+	
+	OCR1A = 0;
+	OCR1B = 0;
+	
+	Silniki_Start();
+}
+ 666:	08 95       	ret
+
+00000668 <Silniki_Start>:
+void Silniki_Start()
+{
+	// AIN1 i AIN2 Silnika1 -> kierunki poczatkowe
+	PORT_SIL_1_1 &= ~(1<<AIN1);
+ 668:	95 98       	cbi	0x12, 5	; 18
+	PORT_SIL_1_2 |= (1<<AIN2);
+ 66a:	c0 9a       	sbi	0x18, 0	; 24
+	
+	// BIN1 i BIN2 Silnika2 -> kierunki poczatkowe
+	PORT_SIL_2 &= ~(1<<BIN1);
+ 66c:	96 98       	cbi	0x12, 6	; 18
+	PORT_SIL_2 |= (1<<BIN2);
+ 66e:	97 9a       	sbi	0x12, 7	; 18
+}
+ 670:	08 95       	ret
+
+00000672 <SetWypelnieniePWM>:
+void SetWypelnieniePWM(int b, int a)
+{
+ 672:	e8 2f       	mov	r30, r24
+	OCR1A = (a*256)/100;
+ 674:	96 2f       	mov	r25, r22
+ 676:	80 e0       	ldi	r24, 0x00	; 0
+ 678:	24 e6       	ldi	r18, 0x64	; 100
+ 67a:	30 e0       	ldi	r19, 0x00	; 0
+ 67c:	b9 01       	movw	r22, r18
+ 67e:	97 d0       	rcall	.+302    	; 0x7ae <__divmodhi4>
+ 680:	7b bd       	out	0x2b, r23	; 43
+ 682:	6a bd       	out	0x2a, r22	; 42
+	OCR1B = (b*256)/100;
+ 684:	9e 2f       	mov	r25, r30
+ 686:	80 e0       	ldi	r24, 0x00	; 0
+ 688:	b9 01       	movw	r22, r18
+ 68a:	91 d0       	rcall	.+290    	; 0x7ae <__divmodhi4>
+ 68c:	79 bd       	out	0x29, r23	; 41
+ 68e:	68 bd       	out	0x28, r22	; 40
+}
+ 690:	08 95       	ret
+
+00000692 <JazdaNaPrzod>:
+	PORT_SIL_2 &= ~(1<<BIN1);
+	PORT_SIL_2 |= (1<<BIN2);
+}
+void SetWypelnieniePWM(int b, int a)
+{
+	OCR1A = (a*256)/100;
+ 692:	80 ec       	ldi	r24, 0xC0	; 192
+ 694:	90 e0       	ldi	r25, 0x00	; 0
+ 696:	9b bd       	out	0x2b, r25	; 43
+ 698:	8a bd       	out	0x2a, r24	; 42
+	OCR1B = (b*256)/100;
+ 69a:	8f e8       	ldi	r24, 0x8F	; 143
+ 69c:	90 e0       	ldi	r25, 0x00	; 0
+ 69e:	99 bd       	out	0x29, r25	; 41
+ 6a0:	88 bd       	out	0x28, r24	; 40
+}
+void JazdaNaPrzod()
+{
+	SetWypelnieniePWM(56,75);
+}
+ 6a2:	08 95       	ret
+
+000006a4 <SkretWLewo>:
+	PORT_SIL_2 &= ~(1<<BIN1);
+	PORT_SIL_2 |= (1<<BIN2);
+}
+void SetWypelnieniePWM(int b, int a)
+{
+	OCR1A = (a*256)/100;
+ 6a4:	8b ee       	ldi	r24, 0xEB	; 235
+ 6a6:	90 e0       	ldi	r25, 0x00	; 0
+ 6a8:	9b bd       	out	0x2b, r25	; 43
+ 6aa:	8a bd       	out	0x2a, r24	; 42
+	OCR1B = (b*256)/100;
+ 6ac:	80 e4       	ldi	r24, 0x40	; 64
+ 6ae:	90 e0       	ldi	r25, 0x00	; 0
+ 6b0:	99 bd       	out	0x29, r25	; 41
+ 6b2:	88 bd       	out	0x28, r24	; 40
+	SetWypelnieniePWM(56,75);
+}
+void SkretWLewo()
+{
+	SetWypelnieniePWM(25,92);
+}
+ 6b4:	08 95       	ret
+
+000006b6 <SkretWPrawo>:
+	PORT_SIL_2 &= ~(1<<BIN1);
+	PORT_SIL_2 |= (1<<BIN2);
+}
+void SetWypelnieniePWM(int b, int a)
+{
+	OCR1A = (a*256)/100;
+ 6b6:	89 e5       	ldi	r24, 0x59	; 89
+ 6b8:	90 e0       	ldi	r25, 0x00	; 0
+ 6ba:	9b bd       	out	0x2b, r25	; 43
+ 6bc:	8a bd       	out	0x2a, r24	; 42
+	OCR1B = (b*256)/100;
+ 6be:	83 eb       	ldi	r24, 0xB3	; 179
+ 6c0:	90 e0       	ldi	r25, 0x00	; 0
+ 6c2:	99 bd       	out	0x29, r25	; 41
+ 6c4:	88 bd       	out	0x28, r24	; 40
+	SetWypelnieniePWM(25,92);
+}
+void SkretWPrawo()
+{
+	SetWypelnieniePWM(70,35);
+}
+ 6c6:	08 95       	ret
+
+000006c8 <Silniki_Stop>:
+	PORT_SIL_2 &= ~(1<<BIN1);
+	PORT_SIL_2 |= (1<<BIN2);
+}
+void SetWypelnieniePWM(int b, int a)
+{
+	OCR1A = (a*256)/100;
+ 6c8:	1b bc       	out	0x2b, r1	; 43
+ 6ca:	1a bc       	out	0x2a, r1	; 42
+	OCR1B = (b*256)/100;
+ 6cc:	19 bc       	out	0x29, r1	; 41
+ 6ce:	18 bc       	out	0x28, r1	; 40
+	SetWypelnieniePWM(70,35);
+}
+void Silniki_Stop()
+{
+	SetWypelnieniePWM(0,0);
+}
+ 6d0:	08 95       	ret
+
+000006d2 <ZmienKierunek>:
+	ZmienKierunekLewe();
+	ZmienKierunekPrawe();
+}
+void ZmienKierunekLewe()
+{
+	if(kierunek_lewe == 1)
+ 6d2:	c0 99       	sbic	0x18, 0	; 24
+ 6d4:	06 c0       	rjmp	.+12     	; 0x6e2 <ZmienKierunek+0x10>
+		PORT_SIL_2 &= ~(1<<BIN1);
+		PORT_SIL_2 |= (1<<BIN2);
+	}
+	else
+	{
+		PORT_SIL_2 |= (1<<BIN2);
+ 6d6:	97 9a       	sbi	0x12, 7	; 18
+		PORT_SIL_2 &= ~(1<<BIN1);		
+ 6d8:	96 98       	cbi	0x12, 6	; 18
+	}
+}
+void ZmienKierunekPrawe()
+{
+	if(kierunek_prawe == 1)
+ 6da:	82 b3       	in	r24, 0x12	; 18
+		PORT_SIL_1_1 |= (1<<AIN1);
+		PORT_SIL_1_2 &= ~(1<<AIN2);
+	}
+	else
+	{
+		PORT_SIL_1_1 &= ~(1<<AIN1);
+ 6dc:	95 98       	cbi	0x12, 5	; 18
+		PORT_SIL_1_2 |= (1<<AIN2);		
+ 6de:	c0 9a       	sbi	0x18, 0	; 24
+}
+void ZmienKierunek()
+{
+	ZmienKierunekLewe();
+	ZmienKierunekPrawe();
+}
+ 6e0:	08 95       	ret
+void ZmienKierunekLewe()
+{
+	if(kierunek_lewe == 1)
+	{
+		PORT_SIL_2 &= ~(1<<BIN1);
+ 6e2:	96 98       	cbi	0x12, 6	; 18
+		PORT_SIL_2 |= (1<<BIN2);
+ 6e4:	97 9a       	sbi	0x12, 7	; 18
+		PORT_SIL_2 &= ~(1<<BIN1);		
+	}
+}
+void ZmienKierunekPrawe()
+{
+	if(kierunek_prawe == 1)
+ 6e6:	82 b3       	in	r24, 0x12	; 18
+		PORT_SIL_1_1 |= (1<<AIN1);
+		PORT_SIL_1_2 &= ~(1<<AIN2);
+	}
+	else
+	{
+		PORT_SIL_1_1 &= ~(1<<AIN1);
+ 6e8:	95 98       	cbi	0x12, 5	; 18
+		PORT_SIL_1_2 |= (1<<AIN2);		
+ 6ea:	c0 9a       	sbi	0x18, 0	; 24
+}
+void ZmienKierunek()
+{
+	ZmienKierunekLewe();
+	ZmienKierunekPrawe();
+}
+ 6ec:	08 95       	ret
+
+000006ee <ZmienKierunekLewe>:
+void ZmienKierunekLewe()
+{
+	if(kierunek_lewe == 1)
+ 6ee:	c0 99       	sbic	0x18, 0	; 24
+ 6f0:	03 c0       	rjmp	.+6      	; 0x6f8 <ZmienKierunekLewe+0xa>
+		PORT_SIL_2 &= ~(1<<BIN1);
+		PORT_SIL_2 |= (1<<BIN2);
+	}
+	else
+	{
+		PORT_SIL_2 |= (1<<BIN2);
+ 6f2:	97 9a       	sbi	0x12, 7	; 18
+		PORT_SIL_2 &= ~(1<<BIN1);		
+ 6f4:	96 98       	cbi	0x12, 6	; 18
+ 6f6:	08 95       	ret
+}
+void ZmienKierunekLewe()
+{
+	if(kierunek_lewe == 1)
+	{
+		PORT_SIL_2 &= ~(1<<BIN1);
+ 6f8:	96 98       	cbi	0x12, 6	; 18
+		PORT_SIL_2 |= (1<<BIN2);
+ 6fa:	97 9a       	sbi	0x12, 7	; 18
+ 6fc:	08 95       	ret
+
+000006fe <ZmienKierunekPrawe>:
+		PORT_SIL_2 &= ~(1<<BIN1);		
+	}
+}
+void ZmienKierunekPrawe()
+{
+	if(kierunek_prawe == 1)
+ 6fe:	82 b3       	in	r24, 0x12	; 18
+		PORT_SIL_1_1 |= (1<<AIN1);
+		PORT_SIL_1_2 &= ~(1<<AIN2);
+	}
+	else
+	{
+		PORT_SIL_1_1 &= ~(1<<AIN1);
+ 700:	95 98       	cbi	0x12, 5	; 18
+		PORT_SIL_1_2 |= (1<<AIN2);		
+ 702:	c0 9a       	sbi	0x18, 0	; 24
+	}
+ 704:	08 95       	ret
+
+00000706 <USART_init>:
+char receive;
+
+
+void USART_init()	
+{
+	UBRRH = (BAUD_PRESCALE >> 8); // Load upper 8-bits of the baud rate value into the high byte of the UBRR register 
+ 706:	10 bc       	out	0x20, r1	; 32
+	UBRRL = BAUD_PRESCALE; // Load lower 8-bits of the baud rate value into the low byte of the UBRR register 
+ 708:	83 e0       	ldi	r24, 0x03	; 3
+ 70a:	89 b9       	out	0x09, r24	; 9
+    
+	UCSRA &=0;
+ 70c:	8b b1       	in	r24, 0x0b	; 11
+ 70e:	1b b8       	out	0x0b, r1	; 11
+	UCSRB &=0;
+ 710:	8a b1       	in	r24, 0x0a	; 10
+ 712:	1a b8       	out	0x0a, r1	; 10
+	UCSRC &=0;
+ 714:	80 b5       	in	r24, 0x20	; 32
+ 716:	10 bc       	out	0x20, r1	; 32
+	UCSRA |= (1 << U2X); // Asynchroniczna x2
+ 718:	59 9a       	sbi	0x0b, 1	; 11
+	UCSRB |= (1 << RXEN) | (1 << TXEN) | (1 << RXCIE );   // Turn on the transmission and reception circuitry 
+ 71a:	8a b1       	in	r24, 0x0a	; 10
+ 71c:	88 69       	ori	r24, 0x98	; 152
+ 71e:	8a b9       	out	0x0a, r24	; 10
+    UCSRC |= (1 << UCSZ0) | (1 << UCSZ1)| (1 << URSEL); // Use 8-bit character sizes 
+ 720:	80 b5       	in	r24, 0x20	; 32
+ 722:	86 68       	ori	r24, 0x86	; 134
+ 724:	80 bd       	out	0x20, r24	; 32
+}
+ 726:	08 95       	ret
+
+00000728 <USART_transmit>:
+
+void USART_transmit(unsigned char ReceivedByte)
+{
+	while ((UCSRA & (1 << UDRE)) == 0) {};
+ 728:	5d 9b       	sbis	0x0b, 5	; 11
+ 72a:	fe cf       	rjmp	.-4      	; 0x728 <USART_transmit>
+    UDR = ReceivedByte; 
+ 72c:	8c b9       	out	0x0c, r24	; 12
+}
+ 72e:	08 95       	ret
+
+00000730 <USART_receive>:
+void USART_receive()
+{
+	while ((UCSRA & (1 << RXC)) == 0) {}; // Do nothing until data have been received and is ready to be read from UDR 
+ 730:	5f 9b       	sbis	0x0b, 7	; 11
+ 732:	fe cf       	rjmp	.-4      	; 0x730 <USART_receive>
+    receive = UDR; 
+ 734:	8c b1       	in	r24, 0x0c	; 12
+ 736:	80 93 ab 00 	sts	0x00AB, r24
+}
+ 73a:	08 95       	ret
+
+0000073c <USART_SendInt>:
+void USART_SendInt(int Data2Send)
+{
+ 73c:	28 e0       	ldi	r18, 0x08	; 8
+ 73e:	30 e0       	ldi	r19, 0x00	; 0
+	char znak;
+	for(int i=1;i>=0;i--)
+	{
+		// 04 00
+		znak=(Data2Send>>(i*8)) & 0x00ff;
+ 740:	ac 01       	movw	r20, r24
+ 742:	02 2e       	mov	r0, r18
+ 744:	02 c0       	rjmp	.+4      	; 0x74a <USART_SendInt+0xe>
+ 746:	55 95       	asr	r21
+ 748:	47 95       	ror	r20
+ 74a:	0a 94       	dec	r0
+ 74c:	e2 f7       	brpl	.-8      	; 0x746 <USART_SendInt+0xa>
+    UCSRC |= (1 << UCSZ0) | (1 << UCSZ1)| (1 << URSEL); // Use 8-bit character sizes 
+}
+
+void USART_transmit(unsigned char ReceivedByte)
+{
+	while ((UCSRA & (1 << UDRE)) == 0) {};
+ 74e:	5d 9b       	sbis	0x0b, 5	; 11
+ 750:	fe cf       	rjmp	.-4      	; 0x74e <USART_SendInt+0x12>
+    UDR = ReceivedByte; 
+ 752:	4c b9       	out	0x0c, r20	; 12
+ 754:	28 50       	subi	r18, 0x08	; 8
+ 756:	30 40       	sbci	r19, 0x00	; 0
+    receive = UDR; 
+}
+void USART_SendInt(int Data2Send)
+{
+	char znak;
+	for(int i=1;i>=0;i--)
+ 758:	4f ef       	ldi	r20, 0xFF	; 255
+ 75a:	28 3f       	cpi	r18, 0xF8	; 248
+ 75c:	34 07       	cpc	r19, r20
+ 75e:	81 f7       	brne	.-32     	; 0x740 <USART_SendInt+0x4>
+	{
+		// 04 00
+		znak=(Data2Send>>(i*8)) & 0x00ff;
+		USART_transmit(znak);
+	}
+}
+ 760:	08 95       	ret
+
+00000762 <__vector_11>:
+SIGNAL(SIG_UART_RECV)
+{
+ 762:	1f 92       	push	r1
+ 764:	0f 92       	push	r0
+ 766:	0f b6       	in	r0, 0x3f	; 63
+ 768:	0f 92       	push	r0
+ 76a:	11 24       	eor	r1, r1
+ 76c:	8f 93       	push	r24
+	 receive = UDR;
+ 76e:	8c b1       	in	r24, 0x0c	; 12
+ 770:	80 93 ab 00 	sts	0x00AB, r24
+    UCSRC |= (1 << UCSZ0) | (1 << UCSZ1)| (1 << URSEL); // Use 8-bit character sizes 
+}
+
+void USART_transmit(unsigned char ReceivedByte)
+{
+	while ((UCSRA & (1 << UDRE)) == 0) {};
+ 774:	5d 9b       	sbis	0x0b, 5	; 11
+ 776:	fe cf       	rjmp	.-4      	; 0x774 <__vector_11+0x12>
+    UDR = ReceivedByte; 
+ 778:	8c b9       	out	0x0c, r24	; 12
+SIGNAL(SIG_UART_RECV)
+{
+	 receive = UDR;
+	 // Odkodowanie rozkazu
+	 USART_transmit(receive);
+ 77a:	8f 91       	pop	r24
+ 77c:	0f 90       	pop	r0
+ 77e:	0f be       	out	0x3f, r0	; 63
+ 780:	0f 90       	pop	r0
+ 782:	1f 90       	pop	r1
+ 784:	18 95       	reti
+
+00000786 <__udivmodhi4>:
+ 786:	aa 1b       	sub	r26, r26
+ 788:	bb 1b       	sub	r27, r27
+ 78a:	51 e1       	ldi	r21, 0x11	; 17
+ 78c:	07 c0       	rjmp	.+14     	; 0x79c <__udivmodhi4_ep>
+
+0000078e <__udivmodhi4_loop>:
+ 78e:	aa 1f       	adc	r26, r26
+ 790:	bb 1f       	adc	r27, r27
+ 792:	a6 17       	cp	r26, r22
+ 794:	b7 07       	cpc	r27, r23
+ 796:	10 f0       	brcs	.+4      	; 0x79c <__udivmodhi4_ep>
+ 798:	a6 1b       	sub	r26, r22
+ 79a:	b7 0b       	sbc	r27, r23
+
+0000079c <__udivmodhi4_ep>:
+ 79c:	88 1f       	adc	r24, r24
+ 79e:	99 1f       	adc	r25, r25
+ 7a0:	5a 95       	dec	r21
+ 7a2:	a9 f7       	brne	.-22     	; 0x78e <__udivmodhi4_loop>
+ 7a4:	80 95       	com	r24
+ 7a6:	90 95       	com	r25
+ 7a8:	bc 01       	movw	r22, r24
+ 7aa:	cd 01       	movw	r24, r26
+ 7ac:	08 95       	ret
+
+000007ae <__divmodhi4>:
+ 7ae:	97 fb       	bst	r25, 7
+ 7b0:	09 2e       	mov	r0, r25
+ 7b2:	07 26       	eor	r0, r23
+ 7b4:	0a d0       	rcall	.+20     	; 0x7ca <__divmodhi4_neg1>
+ 7b6:	77 fd       	sbrc	r23, 7
+ 7b8:	04 d0       	rcall	.+8      	; 0x7c2 <__divmodhi4_neg2>
+ 7ba:	e5 df       	rcall	.-54     	; 0x786 <__udivmodhi4>
+ 7bc:	06 d0       	rcall	.+12     	; 0x7ca <__divmodhi4_neg1>
+ 7be:	00 20       	and	r0, r0
+ 7c0:	1a f4       	brpl	.+6      	; 0x7c8 <__divmodhi4_exit>
+
+000007c2 <__divmodhi4_neg2>:
+ 7c2:	70 95       	com	r23
+ 7c4:	61 95       	neg	r22
+ 7c6:	7f 4f       	sbci	r23, 0xFF	; 255
+
+000007c8 <__divmodhi4_exit>:
+ 7c8:	08 95       	ret
+
+000007ca <__divmodhi4_neg1>:
+ 7ca:	f6 f7       	brtc	.-4      	; 0x7c8 <__divmodhi4_exit>
+ 7cc:	90 95       	com	r25
+ 7ce:	81 95       	neg	r24
+ 7d0:	9f 4f       	sbci	r25, 0xFF	; 255
+ 7d2:	08 95       	ret
+
+000007d4 <_exit>:
+ 7d4:	f8 94       	cli
+
+000007d6 <__stop_program>:
+ 7d6:	ff cf       	rjmp	.-2      	; 0x7d6 <__stop_program>

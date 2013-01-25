@@ -1,0 +1,9 @@
+D:\Materials\RobotRysiu\ProgramNaKomputerze\RobotRysiu\RobotRysiu\bin\Debug\RobotRysiu.exe
+D:\Materials\RobotRysiu\ProgramNaKomputerze\RobotRysiu\RobotRysiu\bin\Debug\RobotRysiu.pdb
+D:\Materials\RobotRysiu\ProgramNaKomputerze\RobotRysiu\RobotRysiu\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Materials\RobotRysiu\ProgramNaKomputerze\RobotRysiu\RobotRysiu\obj\x86\Debug\RobotRysiu.OknoGlowne.resources
+D:\Materials\RobotRysiu\ProgramNaKomputerze\RobotRysiu\RobotRysiu\obj\x86\Debug\RobotRysiu.Properties.Resources.resources
+D:\Materials\RobotRysiu\ProgramNaKomputerze\RobotRysiu\RobotRysiu\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\Materials\RobotRysiu\ProgramNaKomputerze\RobotRysiu\RobotRysiu\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\Materials\RobotRysiu\ProgramNaKomputerze\RobotRysiu\RobotRysiu\obj\x86\Debug\RobotRysiu.exe
+D:\Materials\RobotRysiu\ProgramNaKomputerze\RobotRysiu\RobotRysiu\obj\x86\Debug\RobotRysiu.pdb

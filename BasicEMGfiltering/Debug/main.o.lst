@@ -1,0 +1,698 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"main.c"
+  23              	.Ltext0:
+  24              		.file 1 "../main.c"
+ 22507              		.align	2
+ 22508              		.global	NVIC_Configuration
+ 22509              		.thumb
+ 22510              		.thumb_func
+ 22512              	NVIC_Configuration:
+ 22513              	.LFB29:
+   1:../NVIC.h     **** #ifndef _NVIC
+   2:../NVIC.h     **** #define _NVIC
+   3:../NVIC.h     **** 
+   4:../NVIC.h     **** //
+   5:../NVIC.h     **** // Funkcja ustawiajaca dwa przerwanie: konca transmisji usarta po dma oraz konca konwersji ADC
+   6:../NVIC.h     **** //
+   7:../NVIC.h     **** void NVIC_Configuration(void)
+   8:../NVIC.h     **** {
+ 22514              		.loc 33 8 0
+ 22515              		.cfi_startproc
+ 22516              		@ args = 0, pretend = 0, frame = 8
+ 22517              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22518 0000 80B5     		push	{r7, lr}
+ 22519              	.LCFI0:
+ 22520              		.cfi_def_cfa_offset 8
+ 22521 0002 82B0     		sub	sp, sp, #8
+ 22522              	.LCFI1:
+ 22523              		.cfi_def_cfa_offset 16
+ 22524 0004 00AF     		add	r7, sp, #0
+ 22525              		.cfi_offset 14, -4
+ 22526              		.cfi_offset 7, -8
+ 22527              	.LCFI2:
+ 22528              		.cfi_def_cfa_register 7
+   9:../NVIC.h     **** 	/* Enable the DMA1 Channel1 Interrupt */
+  10:../NVIC.h     **** 	NVIC_InitTypeDef NVIC_InitStructure2;
+  11:../NVIC.h     **** 	NVIC_InitStructure2.NVIC_IRQChannel = DMA1_Channel1_IRQn;
+ 22529              		.loc 33 11 0
+ 22530 0006 4FF00B03 		mov	r3, #11
+ 22531 000a 3B71     		strb	r3, [r7, #4]
+  12:../NVIC.h     **** 	NVIC_InitStructure2.NVIC_IRQChannelPreemptionPriority = 0;
+ 22532              		.loc 33 12 0
+ 22533 000c 4FF00003 		mov	r3, #0
+ 22534 0010 7B71     		strb	r3, [r7, #5]
+  13:../NVIC.h     **** 	NVIC_InitStructure2.NVIC_IRQChannelSubPriority = 0;
+ 22535              		.loc 33 13 0
+ 22536 0012 4FF00003 		mov	r3, #0
+ 22537 0016 BB71     		strb	r3, [r7, #6]
+  14:../NVIC.h     **** 	NVIC_InitStructure2.NVIC_IRQChannelCmd = ENABLE;
+ 22538              		.loc 33 14 0
+ 22539 0018 4FF00103 		mov	r3, #1
+ 22540 001c FB71     		strb	r3, [r7, #7]
+  15:../NVIC.h     **** 	NVIC_Init(&NVIC_InitStructure2);
+ 22541              		.loc 33 15 0
+ 22542 001e 07F10403 		add	r3, r7, #4
+ 22543 0022 1846     		mov	r0, r3
+ 22544 0024 FFF7FEFF 		bl	NVIC_Init
+  16:../NVIC.h     **** 
+  17:../NVIC.h     **** 	/* Enable the DMA1 Channel4 Interrupt */
+  18:../NVIC.h     **** 	NVIC_InitTypeDef NVIC_InitStructure;
+  19:../NVIC.h     **** 	NVIC_InitStructure.NVIC_IRQChannel = DMA1_Channel4_IRQn;
+ 22545              		.loc 33 19 0
+ 22546 0028 4FF00E03 		mov	r3, #14
+ 22547 002c 3B70     		strb	r3, [r7, #0]
+  20:../NVIC.h     **** 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+ 22548              		.loc 33 20 0
+ 22549 002e 4FF00003 		mov	r3, #0
+ 22550 0032 7B70     		strb	r3, [r7, #1]
+  21:../NVIC.h     **** 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+ 22551              		.loc 33 21 0
+ 22552 0034 4FF00003 		mov	r3, #0
+ 22553 0038 BB70     		strb	r3, [r7, #2]
+  22:../NVIC.h     **** 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+ 22554              		.loc 33 22 0
+ 22555 003a 4FF00103 		mov	r3, #1
+ 22556 003e FB70     		strb	r3, [r7, #3]
+  23:../NVIC.h     **** 	NVIC_Init(&NVIC_InitStructure);
+ 22557              		.loc 33 23 0
+ 22558 0040 3B46     		mov	r3, r7
+ 22559 0042 1846     		mov	r0, r3
+ 22560 0044 FFF7FEFF 		bl	NVIC_Init
+  24:../NVIC.h     **** }
+ 22561              		.loc 33 24 0
+ 22562 0048 07F10807 		add	r7, r7, #8
+ 22563 004c BD46     		mov	sp, r7
+ 22564 004e 80BD     		pop	{r7, pc}
+ 22565              		.cfi_endproc
+ 22566              	.LFE29:
+ 22568              		.comm	TimeTick,4,4
+ 22569              		.section	.text.Delay,"ax",%progbits
+ 22570              		.align	2
+ 22571              		.global	Delay
+ 22572              		.thumb
+ 22573              		.thumb_func
+ 22575              	Delay:
+ 22576              	.LFB30:
+   1:../Delay.h    **** ///
+   2:../Delay.h    **** /// Funkcja opozniajaca o wielokrotnosc 10ms podana jako unsigned long tick
+   3:../Delay.h    **** ///
+   4:../Delay.h    **** #ifndef _dela
+   5:../Delay.h    **** #define _dela
+   6:../Delay.h    **** 
+   7:../Delay.h    **** volatile unsigned long TimeTick;
+   8:../Delay.h    **** 
+   9:../Delay.h    **** void Delay (unsigned long tick)
+  10:../Delay.h    **** {
+ 22577              		.loc 34 10 0
+ 22578              		.cfi_startproc
+ 22579              		@ args = 0, pretend = 0, frame = 16
+ 22580              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22581              		@ link register save eliminated.
+ 22582 0000 80B4     		push	{r7}
+ 22583              	.LCFI3:
+ 22584              		.cfi_def_cfa_offset 4
+ 22585 0002 85B0     		sub	sp, sp, #20
+ 22586              	.LCFI4:
+ 22587              		.cfi_def_cfa_offset 24
+ 22588 0004 00AF     		add	r7, sp, #0
+ 22589              		.cfi_offset 7, -4
+ 22590              	.LCFI5:
+ 22591              		.cfi_def_cfa_register 7
+ 22592 0006 7860     		str	r0, [r7, #4]
+  11:../Delay.h    ****     unsigned long timetick;
+  12:../Delay.h    **** 
+  13:../Delay.h    ****     timetick = TimeTick;
+ 22593              		.loc 34 13 0
+ 22594 0008 074B     		ldr	r3, .L4
+ 22595 000a 1B68     		ldr	r3, [r3, #0]
+ 22596 000c FB60     		str	r3, [r7, #12]
+  14:../Delay.h    ****     while ((TimeTick - timetick) < tick);
+ 22597              		.loc 34 14 0
+ 22598 000e 00BF     		nop
+ 22599              	.L3:
+ 22600              		.loc 34 14 0 is_stmt 0 discriminator 1
+ 22601 0010 054B     		ldr	r3, .L4
+ 22602 0012 1A68     		ldr	r2, [r3, #0]
+ 22603 0014 FB68     		ldr	r3, [r7, #12]
+ 22604 0016 D21A     		subs	r2, r2, r3
+ 22605 0018 7B68     		ldr	r3, [r7, #4]
+ 22606 001a 9A42     		cmp	r2, r3
+ 22607 001c F8D3     		bcc	.L3
+  15:../Delay.h    **** }
+ 22608              		.loc 34 15 0 is_stmt 1
+ 22609 001e 07F11407 		add	r7, r7, #20
+ 22610 0022 BD46     		mov	sp, r7
+ 22611 0024 80BC     		pop	{r7}
+ 22612 0026 7047     		bx	lr
+ 22613              	.L5:
+ 22614              		.align	2
+ 22615              	.L4:
+ 22616 0028 00000000 		.word	TimeTick
+ 22617              		.cfi_endproc
+ 22618              	.LFE30:
+ 22620              		.global	TxBufferSize
+ 22621              		.section	.data.TxBufferSize,"aw",%progbits
+ 22622              		.align	2
+ 22625              	TxBufferSize:
+ 22626 0000 04000000 		.word	4
+ 22627              		.comm	TxBuffer,30,4
+ 22628              		.global	ADC1ConvertedValue
+ 22629              		.section	.bss.ADC1ConvertedValue,"aw",%nobits
+ 22630              		.align	1
+ 22633              	ADC1ConvertedValue:
+ 22634 0000 0000     		.space	2
+ 22635              		.comm	RMS,4,4
+ 22636              		.comm	LicznikProbek,4,4
+ 22637              		.comm	val,4,4
+ 22638              		.global	flaga
+ 22639              		.section	.bss.flaga,"aw",%nobits
+ 22642              	flaga:
+ 22643 0000 00       		.space	1
+ 22644              		.global	__aeabi_fmul
+ 22645              		.global	__aeabi_fadd
+ 22646              		.global	__aeabi_fcmpeq
+ 22647              		.global	__aeabi_fdiv
+ 22648              		.global	__aeabi_f2d
+ 22649              		.global	__aeabi_d2f
+ 22650              		.global	__aeabi_f2uiz
+ 22651              		.section	.text.main,"ax",%progbits
+ 22652              		.align	2
+ 22653              		.global	main
+ 22654              		.thumb
+ 22655              		.thumb_func
+ 22657              	main:
+ 22658              	.LFB31:
+   1:../main.c     **** #include "Init.h"
+   2:../main.c     **** #include "ObslugaPrzerwan.h"
+   3:../main.c     **** #include "NVIC.h"
+   4:../main.c     **** #include "Delay.h"
+   5:../main.c     **** 
+   6:../main.c     **** #include "Filtry.h"
+   7:../main.c     **** 
+   8:../main.c     **** 
+   9:../main.c     **** 
+  10:../main.c     **** uint32_t TxBufferSize = 4;
+  11:../main.c     **** uint8_t TxBuffer[30];
+  12:../main.c     **** uint16_t ADC1ConvertedValue = 0;
+  13:../main.c     **** float RMS, LicznikProbek, val;
+  14:../main.c     **** uint8_t flaga = 0;
+  15:../main.c     **** 
+  16:../main.c     **** int main()
+  17:../main.c     **** {
+ 22659              		.loc 1 17 0
+ 22660              		.cfi_startproc
+ 22661              		@ args = 0, pretend = 0, frame = 16
+ 22662              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22663 0000 80B5     		push	{r7, lr}
+ 22664              	.LCFI6:
+ 22665              		.cfi_def_cfa_offset 8
+ 22666 0002 84B0     		sub	sp, sp, #16
+ 22667              	.LCFI7:
+ 22668              		.cfi_def_cfa_offset 24
+ 22669 0004 00AF     		add	r7, sp, #0
+ 22670              		.cfi_offset 14, -4
+ 22671              		.cfi_offset 7, -8
+ 22672              	.LCFI8:
+ 22673              		.cfi_def_cfa_register 7
+  18:../main.c     **** 	RCC_On();
+ 22674              		.loc 1 18 0
+ 22675 0006 FFF7FEFF 		bl	RCC_On
+  19:../main.c     **** 	NVIC_Configuration();
+ 22676              		.loc 1 19 0
+ 22677 000a FFF7FEFF 		bl	NVIC_Configuration
+  20:../main.c     **** 	GPIO_init();
+ 22678              		.loc 1 20 0
+ 22679 000e FFF7FEFF 		bl	GPIO_init
+  21:../main.c     **** 
+  22:../main.c     **** 	ADC_init();
+ 22680              		.loc 1 22 0
+ 22681 0012 FFF7FEFF 		bl	ADC_init
+  23:../main.c     **** 	USART_init();
+ 22682              		.loc 1 23 0
+ 22683 0016 FFF7FEFF 		bl	USART_init
+  24:../main.c     **** 	DMA_init();
+ 22684              		.loc 1 24 0
+ 22685 001a FFF7FEFF 		bl	DMA_init
+  25:../main.c     **** 
+  26:../main.c     **** 	Timer_init();
+ 22686              		.loc 1 26 0
+ 22687 001e FFF7FEFF 		bl	Timer_init
+  27:../main.c     **** 
+  28:../main.c     **** 
+  29:../main.c     **** 	RMS = 0;
+ 22688              		.loc 1 29 0
+ 22689 0022 704B     		ldr	r3, .L19
+ 22690 0024 794A     		ldr	r2, .L19+40	@ float
+ 22691 0026 1A60     		str	r2, [r3, #0]	@ float
+  30:../main.c     **** 	LicznikProbek = 0;
+ 22692              		.loc 1 30 0
+ 22693 0028 6F4B     		ldr	r3, .L19+4
+ 22694 002a 784A     		ldr	r2, .L19+40	@ float
+ 22695 002c 1A60     		str	r2, [r3, #0]	@ float
+  31:../main.c     **** 
+  32:../main.c     **** 	int i;
+  33:../main.c     **** 	for(i=0;i<10;i++)	TxBuffer[i] = 'A'+i;
+ 22696              		.loc 1 33 0
+ 22697 002e 4FF00003 		mov	r3, #0
+ 22698 0032 FB60     		str	r3, [r7, #12]
+ 22699 0034 0CE0     		b	.L7
+ 22700              	.L8:
+ 22701              		.loc 1 33 0 is_stmt 0 discriminator 2
+ 22702 0036 FB68     		ldr	r3, [r7, #12]
+ 22703 0038 DBB2     		uxtb	r3, r3
+ 22704 003a 03F14103 		add	r3, r3, #65
+ 22705 003e DAB2     		uxtb	r2, r3
+ 22706 0040 6A49     		ldr	r1, .L19+8
+ 22707 0042 FB68     		ldr	r3, [r7, #12]
+ 22708 0044 CB18     		adds	r3, r1, r3
+ 22709 0046 1A70     		strb	r2, [r3, #0]
+ 22710 0048 FB68     		ldr	r3, [r7, #12]
+ 22711 004a 03F10103 		add	r3, r3, #1
+ 22712 004e FB60     		str	r3, [r7, #12]
+ 22713              	.L7:
+ 22714              		.loc 1 33 0 discriminator 1
+ 22715 0050 FB68     		ldr	r3, [r7, #12]
+ 22716 0052 092B     		cmp	r3, #9
+ 22717 0054 EFDD     		ble	.L8
+  34:../main.c     **** 
+  35:../main.c     **** 
+  36:../main.c     **** 
+  37:../main.c     **** 
+  38:../main.c     **** 
+  39:../main.c     **** 	/* Enable USART */
+  40:../main.c     **** 		USART_Cmd(USART1, ENABLE);
+ 22718              		.loc 1 40 0 is_stmt 1
+ 22719 0056 6648     		ldr	r0, .L19+12
+ 22720 0058 4FF00101 		mov	r1, #1
+ 22721 005c FFF7FEFF 		bl	USART_Cmd
+  41:../main.c     **** 
+  42:../main.c     **** 	/* Enable USART1 DMA TX request */
+  43:../main.c     **** 	USART_DMACmd(USART1, USART_DMAReq_Tx, ENABLE);
+ 22722              		.loc 1 43 0
+ 22723 0060 6348     		ldr	r0, .L19+12
+ 22724 0062 4FF08001 		mov	r1, #128
+ 22725 0066 4FF00102 		mov	r2, #1
+ 22726 006a FFF7FEFF 		bl	USART_DMACmd
+  44:../main.c     **** 
+  45:../main.c     **** 	//DMA_Cmd(DMA1_Channel4, ENABLE);
+  46:../main.c     **** 
+  47:../main.c     **** 
+  48:../main.c     **** 
+  49:../main.c     **** 
+  50:../main.c     **** 
+  51:../main.c     **** 
+  52:../main.c     **** 
+  53:../main.c     **** 	/* Enable DMA interrupt */
+  54:../main.c     **** 	//DMA_ITConfig(DMA1_Channel4, DMA1_IT_TC4, ENABLE);
+  55:../main.c     **** 
+  56:../main.c     **** 	//TIM_ITConfig(TIM1, TIM_IT_CC1, ENABLE);
+  57:../main.c     **** 
+  58:../main.c     **** 	/* Enable USARTy DMA TX Channel */
+  59:../main.c     **** 	//DMA_Cmd(DMA1_Channel4, ENABLE);
+  60:../main.c     **** 
+  61:../main.c     **** 	//USART_ITConfig(USART1, USART_IT_TXE, ENABLE);
+  62:../main.c     **** 	//USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
+  63:../main.c     **** 
+  64:../main.c     **** 
+  65:../main.c     **** 	/// ADC !!!!
+  66:../main.c     **** 
+  67:../main.c     **** 
+  68:../main.c     ****     // Enable DMA1 channel1
+  69:../main.c     ****     DMA_Cmd(DMA1_Channel1, ENABLE);
+ 22727              		.loc 1 69 0
+ 22728 006e 6148     		ldr	r0, .L19+16
+ 22729 0070 4FF00101 		mov	r1, #1
+ 22730 0074 FFF7FEFF 		bl	DMA_Cmd
+  70:../main.c     **** 	/* Enable ADC1 DMA */
+  71:../main.c     **** 	ADC_DMACmd(ADC1, ENABLE);
+ 22731              		.loc 1 71 0
+ 22732 0078 5F48     		ldr	r0, .L19+20
+ 22733 007a 4FF00101 		mov	r1, #1
+ 22734 007e FFF7FEFF 		bl	ADC_DMACmd
+  72:../main.c     **** 
+  73:../main.c     **** 
+  74:../main.c     **** 	ADC_ExternalTrigConvCmd(ADC1, ENABLE);
+ 22735              		.loc 1 74 0
+ 22736 0082 5D48     		ldr	r0, .L19+20
+ 22737 0084 4FF00101 		mov	r1, #1
+ 22738 0088 FFF7FEFF 		bl	ADC_ExternalTrigConvCmd
+  75:../main.c     **** 
+  76:../main.c     **** 	/* Enable ADC1 */
+  77:../main.c     **** 	ADC_Cmd(ADC1, ENABLE);
+ 22739              		.loc 1 77 0
+ 22740 008c 5A48     		ldr	r0, .L19+20
+ 22741 008e 4FF00101 		mov	r1, #1
+ 22742 0092 FFF7FEFF 		bl	ADC_Cmd
+  78:../main.c     **** 
+  79:../main.c     **** 	/* Enable ADC1 reset calibration register */
+  80:../main.c     **** 	ADC_ResetCalibration(ADC1);
+ 22743              		.loc 1 80 0
+ 22744 0096 5848     		ldr	r0, .L19+20
+ 22745 0098 FFF7FEFF 		bl	ADC_ResetCalibration
+  81:../main.c     **** 	/* Check the end of ADC1 reset calibration register */
+  82:../main.c     **** 	while(ADC_GetResetCalibrationStatus(ADC1));
+ 22746              		.loc 1 82 0
+ 22747 009c 00BF     		nop
+ 22748              	.L9:
+ 22749              		.loc 1 82 0 is_stmt 0 discriminator 1
+ 22750 009e 5648     		ldr	r0, .L19+20
+ 22751 00a0 FFF7FEFF 		bl	ADC_GetResetCalibrationStatus
+ 22752 00a4 0346     		mov	r3, r0
+ 22753 00a6 002B     		cmp	r3, #0
+ 22754 00a8 F9D1     		bne	.L9
+  83:../main.c     **** 
+  84:../main.c     **** 	/* Start ADC1 calibration */
+  85:../main.c     **** 	ADC_StartCalibration(ADC1);
+ 22755              		.loc 1 85 0 is_stmt 1
+ 22756 00aa 5348     		ldr	r0, .L19+20
+ 22757 00ac FFF7FEFF 		bl	ADC_StartCalibration
+  86:../main.c     **** 	/* Check the end of ADC1 calibration */
+  87:../main.c     **** 	while(ADC_GetCalibrationStatus(ADC1));
+ 22758              		.loc 1 87 0
+ 22759 00b0 00BF     		nop
+ 22760              	.L10:
+ 22761              		.loc 1 87 0 is_stmt 0 discriminator 1
+ 22762 00b2 5148     		ldr	r0, .L19+20
+ 22763 00b4 FFF7FEFF 		bl	ADC_GetCalibrationStatus
+ 22764 00b8 0346     		mov	r3, r0
+ 22765 00ba 002B     		cmp	r3, #0
+ 22766 00bc F9D1     		bne	.L10
+  88:../main.c     **** 
+  89:../main.c     **** 	TIM_Cmd(TIM1, ENABLE);
+ 22767              		.loc 1 89 0 is_stmt 1
+ 22768 00be 4F48     		ldr	r0, .L19+24
+ 22769 00c0 4FF00101 		mov	r1, #1
+ 22770 00c4 FFF7FEFF 		bl	TIM_Cmd
+  90:../main.c     **** 
+  91:../main.c     **** 	/* TIM1 main Output Enable */
+  92:../main.c     **** 	TIM_CtrlPWMOutputs(TIM1, ENABLE);
+ 22771              		.loc 1 92 0
+ 22772 00c8 4C48     		ldr	r0, .L19+24
+ 22773 00ca 4FF00101 		mov	r1, #1
+ 22774 00ce FFF7FEFF 		bl	TIM_CtrlPWMOutputs
+ 22775 00d2 00E0     		b	.L16
+ 22776              	.L18:
+  93:../main.c     **** 
+  94:../main.c     **** 
+  95:../main.c     **** 	/*u16 CurrDataCount;
+  96:../main.c     **** 	while ( DMA_GetITStatus(DMA1_IT_TC4) == RESET )
+  97:../main.c     **** 	{
+  98:../main.c     **** 		x++;
+  99:../main.c     **** 
+ 100:../main.c     **** 		CurrDataCount = DMA_GetCurrDataCounter(DMA1_Channel4);
+ 101:../main.c     **** 		y = DMA_GetITStatus(DMA1_IT_TC4);
+ 102:../main.c     **** 	}*/
+ 103:../main.c     **** 
+ 104:../main.c     **** 	//USART_SendData(USART1,'s');
+ 105:../main.c     **** 	//USART_SendData(USART1,'t');
+ 106:../main.c     **** 	//USART_SendData(USART1,'a');
+ 107:../main.c     **** 	//USART_SendData(USART1,'r');
+ 108:../main.c     **** 	//USART_SendData(USART1,'t');
+ 109:../main.c     **** 
+ 110:../main.c     **** 	while (1)
+ 111:../main.c     **** 	{
+ 112:../main.c     **** 		// USART_SendData(USART1,rzez);
+ 113:../main.c     **** 		// while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET) asm("nop");
+ 114:../main.c     **** 
+ 115:../main.c     **** 		// rzez = USART_ReceiveData(USART1);
+ 116:../main.c     **** 		// while(USART_GetFlagStatus(USART1, USART_FLAG_RXNE) == RESET) asm("nop");
+ 117:../main.c     **** 		//x = DMA_GetITStatus(DMA1_IT_TC4);
+ 118:../main.c     **** 
+ 119:../main.c     **** 		//y = ADC_GetITStatus(ADC1,ADC_IT_JEOC);
+ 120:../main.c     **** 		//z = TIM_GetCounter(TIM1);
+ 121:../main.c     **** 		//for(i=0;i<100000;i++) asm("nop");
+ 122:../main.c     **** 		if(flaga)
+ 123:../main.c     **** 		{
+ 124:../main.c     **** 			val = Notching(val);
+ 125:../main.c     **** 			val = HighPass(val);
+ 126:../main.c     **** 
+ 127:../main.c     **** 			// Liczenie RMS
+ 128:../main.c     **** 			RMS = RMS + val*val;
+ 129:../main.c     **** 			LicznikProbek = LicznikProbek + 1;
+ 130:../main.c     **** 
+ 131:../main.c     **** 			if(LicznikProbek == 5000)
+ 132:../main.c     **** 			{
+ 133:../main.c     **** 				RMS = RMS / 5000;
+ 134:../main.c     **** 				RMS = sqrt(RMS);
+ 135:../main.c     **** 
+ 136:../main.c     **** 				// Przepisanie wartoœci do tymczasowej i wys³anie
+ 137:../main.c     **** 				uint32_t tymczasowa,i;
+ 138:../main.c     **** 				tymczasowa = (uint32_t) RMS;
+ 139:../main.c     **** 				//tymczasowa = 0x0F0E0D0C;
+ 140:../main.c     **** 
+ 141:../main.c     **** 				for(i=0;i<4;i++)
+ 142:../main.c     **** 				{
+ 143:../main.c     **** 					TxBuffer[i] = (tymczasowa>>(8*i)) & 0x000000FF;
+ 144:../main.c     **** 				}
+ 145:../main.c     **** 				DMA_Cmd(DMA1_Channel4, ENABLE);
+ 146:../main.c     **** 
+ 147:../main.c     **** 				LicznikProbek = 0;
+ 148:../main.c     **** 				RMS = 0;
+ 149:../main.c     **** 			}
+ 150:../main.c     **** 			flaga = 0;
+ 151:../main.c     **** 		}
+ 152:../main.c     **** 	}
+ 22777              		.loc 1 152 0
+ 22778 00d4 00BF     		nop
+ 22779              	.L16:
+ 122:../main.c     **** 		if(flaga)
+ 22780              		.loc 1 122 0
+ 22781 00d6 4A4B     		ldr	r3, .L19+28
+ 22782 00d8 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 22783 00da 002B     		cmp	r3, #0
+ 22784 00dc FAD0     		beq	.L18
+ 124:../main.c     **** 			val = Notching(val);
+ 22785              		.loc 1 124 0
+ 22786 00de 494B     		ldr	r3, .L19+32
+ 22787 00e0 1B68     		ldr	r3, [r3, #0]	@ float
+ 22788 00e2 1846     		mov	r0, r3
+ 22789 00e4 FFF7FEFF 		bl	Notching
+ 22790 00e8 0246     		mov	r2, r0
+ 22791 00ea 464B     		ldr	r3, .L19+32
+ 22792 00ec 1A60     		str	r2, [r3, #0]	@ float
+ 125:../main.c     **** 			val = HighPass(val);
+ 22793              		.loc 1 125 0
+ 22794 00ee 454B     		ldr	r3, .L19+32
+ 22795 00f0 1B68     		ldr	r3, [r3, #0]	@ float
+ 22796 00f2 1846     		mov	r0, r3
+ 22797 00f4 FFF7FEFF 		bl	HighPass
+ 22798 00f8 0246     		mov	r2, r0
+ 22799 00fa 424B     		ldr	r3, .L19+32
+ 22800 00fc 1A60     		str	r2, [r3, #0]	@ float
+ 128:../main.c     **** 			RMS = RMS + val*val;
+ 22801              		.loc 1 128 0
+ 22802 00fe 414B     		ldr	r3, .L19+32
+ 22803 0100 1A68     		ldr	r2, [r3, #0]	@ float
+ 22804 0102 404B     		ldr	r3, .L19+32
+ 22805 0104 1B68     		ldr	r3, [r3, #0]	@ float
+ 22806 0106 1046     		mov	r0, r2
+ 22807 0108 1946     		mov	r1, r3
+ 22808 010a FFF7FEFF 		bl	__aeabi_fmul
+ 22809 010e 0346     		mov	r3, r0
+ 22810 0110 1A46     		mov	r2, r3
+ 22811 0112 344B     		ldr	r3, .L19
+ 22812 0114 1B68     		ldr	r3, [r3, #0]	@ float
+ 22813 0116 1046     		mov	r0, r2
+ 22814 0118 1946     		mov	r1, r3
+ 22815 011a FFF7FEFF 		bl	__aeabi_fadd
+ 22816 011e 0346     		mov	r3, r0
+ 22817 0120 1A46     		mov	r2, r3
+ 22818 0122 304B     		ldr	r3, .L19
+ 22819 0124 1A60     		str	r2, [r3, #0]	@ float
+ 129:../main.c     **** 			LicznikProbek = LicznikProbek + 1;
+ 22820              		.loc 1 129 0
+ 22821 0126 304B     		ldr	r3, .L19+4
+ 22822 0128 1B68     		ldr	r3, [r3, #0]	@ float
+ 22823 012a 1846     		mov	r0, r3
+ 22824 012c 3849     		ldr	r1, .L19+44	@ float
+ 22825 012e FFF7FEFF 		bl	__aeabi_fadd
+ 22826 0132 0346     		mov	r3, r0
+ 22827 0134 1A46     		mov	r2, r3
+ 22828 0136 2C4B     		ldr	r3, .L19+4
+ 22829 0138 1A60     		str	r2, [r3, #0]	@ float
+ 131:../main.c     **** 			if(LicznikProbek == 5000)
+ 22830              		.loc 1 131 0
+ 22831 013a 2B4B     		ldr	r3, .L19+4
+ 22832 013c 1B68     		ldr	r3, [r3, #0]	@ float
+ 22833 013e 1846     		mov	r0, r3
+ 22834 0140 3449     		ldr	r1, .L19+48	@ float
+ 22835 0142 FFF7FEFF 		bl	__aeabi_fcmpeq
+ 22836 0146 0346     		mov	r3, r0
+ 22837 0148 002B     		cmp	r3, #0
+ 22838 014a 45D0     		beq	.L12
+ 22839              	.L17:
+ 22840              	.LBB2:
+ 133:../main.c     **** 				RMS = RMS / 5000;
+ 22841              		.loc 1 133 0
+ 22842 014c 254B     		ldr	r3, .L19
+ 22843 014e 1B68     		ldr	r3, [r3, #0]	@ float
+ 22844 0150 1846     		mov	r0, r3
+ 22845 0152 3049     		ldr	r1, .L19+48	@ float
+ 22846 0154 FFF7FEFF 		bl	__aeabi_fdiv
+ 22847 0158 0346     		mov	r3, r0
+ 22848 015a 1A46     		mov	r2, r3
+ 22849 015c 214B     		ldr	r3, .L19
+ 22850 015e 1A60     		str	r2, [r3, #0]	@ float
+ 134:../main.c     **** 				RMS = sqrt(RMS);
+ 22851              		.loc 1 134 0
+ 22852 0160 204B     		ldr	r3, .L19
+ 22853 0162 1B68     		ldr	r3, [r3, #0]	@ float
+ 22854 0164 1846     		mov	r0, r3
+ 22855 0166 FFF7FEFF 		bl	__aeabi_f2d
+ 22856 016a 0246     		mov	r2, r0
+ 22857 016c 0B46     		mov	r3, r1
+ 22858 016e 1046     		mov	r0, r2
+ 22859 0170 1946     		mov	r1, r3
+ 22860 0172 FFF7FEFF 		bl	sqrt
+ 22861 0176 0246     		mov	r2, r0
+ 22862 0178 0B46     		mov	r3, r1
+ 22863 017a 1046     		mov	r0, r2
+ 22864 017c 1946     		mov	r1, r3
+ 22865 017e FFF7FEFF 		bl	__aeabi_d2f
+ 22866 0182 0246     		mov	r2, r0
+ 22867 0184 174B     		ldr	r3, .L19
+ 22868 0186 1A60     		str	r2, [r3, #0]	@ float
+ 138:../main.c     **** 				tymczasowa = (uint32_t) RMS;
+ 22869              		.loc 1 138 0
+ 22870 0188 164B     		ldr	r3, .L19
+ 22871 018a 1B68     		ldr	r3, [r3, #0]	@ float
+ 22872 018c 1846     		mov	r0, r3
+ 22873 018e FFF7FEFF 		bl	__aeabi_f2uiz
+ 22874 0192 0346     		mov	r3, r0
+ 22875 0194 7B60     		str	r3, [r7, #4]
+ 141:../main.c     **** 				for(i=0;i<4;i++)
+ 22876              		.loc 1 141 0
+ 22877 0196 4FF00003 		mov	r3, #0
+ 22878 019a BB60     		str	r3, [r7, #8]
+ 22879 019c 0EE0     		b	.L14
+ 22880              	.L15:
+ 143:../main.c     **** 					TxBuffer[i] = (tymczasowa>>(8*i)) & 0x000000FF;
+ 22881              		.loc 1 143 0 discriminator 2
+ 22882 019e BB68     		ldr	r3, [r7, #8]
+ 22883 01a0 4FEAC303 		lsl	r3, r3, #3
+ 22884 01a4 7A68     		ldr	r2, [r7, #4]
+ 22885 01a6 22FA03F3 		lsr	r3, r2, r3
+ 22886 01aa DAB2     		uxtb	r2, r3
+ 22887 01ac 0F49     		ldr	r1, .L19+8
+ 22888 01ae BB68     		ldr	r3, [r7, #8]
+ 22889 01b0 CB18     		adds	r3, r1, r3
+ 22890 01b2 1A70     		strb	r2, [r3, #0]
+ 141:../main.c     **** 				for(i=0;i<4;i++)
+ 22891              		.loc 1 141 0 discriminator 2
+ 22892 01b4 BB68     		ldr	r3, [r7, #8]
+ 22893 01b6 03F10103 		add	r3, r3, #1
+ 22894 01ba BB60     		str	r3, [r7, #8]
+ 22895              	.L14:
+ 141:../main.c     **** 				for(i=0;i<4;i++)
+ 22896              		.loc 1 141 0 is_stmt 0 discriminator 1
+ 22897 01bc BB68     		ldr	r3, [r7, #8]
+ 22898 01be 032B     		cmp	r3, #3
+ 22899 01c0 EDD9     		bls	.L15
+ 145:../main.c     **** 				DMA_Cmd(DMA1_Channel4, ENABLE);
+ 22900              		.loc 1 145 0 is_stmt 1
+ 22901 01c2 1148     		ldr	r0, .L19+36
+ 22902 01c4 4FF00101 		mov	r1, #1
+ 22903 01c8 FFF7FEFF 		bl	DMA_Cmd
+ 147:../main.c     **** 				LicznikProbek = 0;
+ 22904              		.loc 1 147 0
+ 22905 01cc 064B     		ldr	r3, .L19+4
+ 22906 01ce 0F4A     		ldr	r2, .L19+40	@ float
+ 22907 01d0 1A60     		str	r2, [r3, #0]	@ float
+ 148:../main.c     **** 				RMS = 0;
+ 22908              		.loc 1 148 0
+ 22909 01d2 044B     		ldr	r3, .L19
+ 22910 01d4 0D4A     		ldr	r2, .L19+40	@ float
+ 22911 01d6 1A60     		str	r2, [r3, #0]	@ float
+ 22912              	.L12:
+ 22913              	.LBE2:
+ 150:../main.c     **** 			flaga = 0;
+ 22914              		.loc 1 150 0
+ 22915 01d8 094B     		ldr	r3, .L19+28
+ 22916 01da 4FF00002 		mov	r2, #0
+ 22917 01de 1A70     		strb	r2, [r3, #0]
+ 22918              		.loc 1 152 0
+ 22919 01e0 79E7     		b	.L16
+ 22920              	.L20:
+ 22921 01e2 00BF     		.align	2
+ 22922              	.L19:
+ 22923 01e4 00000000 		.word	RMS
+ 22924 01e8 00000000 		.word	LicznikProbek
+ 22925 01ec 00000000 		.word	TxBuffer
+ 22926 01f0 00380140 		.word	1073821696
+ 22927 01f4 08000240 		.word	1073872904
+ 22928 01f8 00240140 		.word	1073816576
+ 22929 01fc 002C0140 		.word	1073818624
+ 22930 0200 00000000 		.word	flaga
+ 22931 0204 00000000 		.word	val
+ 22932 0208 44000240 		.word	1073872964
+ 22933 020c 00000000 		.word	0
+ 22934 0210 0000803F 		.word	1065353216
+ 22935 0214 00409C45 		.word	1167867904
+ 22936              		.cfi_endproc
+ 22937              	.LFE31:
+ 22939              		.text
+ 22940              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\sMi\AppData\Local\Temp\ccGb4gdG.s:22507  .text.NVIC_Configuration:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccGb4gdG.s:22512  .text.NVIC_Configuration:00000000 NVIC_Configuration
+                            *COM*:00000004 TimeTick
+C:\Users\sMi\AppData\Local\Temp\ccGb4gdG.s:22570  .text.Delay:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccGb4gdG.s:22575  .text.Delay:00000000 Delay
+C:\Users\sMi\AppData\Local\Temp\ccGb4gdG.s:22616  .text.Delay:00000028 $d
+C:\Users\sMi\AppData\Local\Temp\ccGb4gdG.s:22625  .data.TxBufferSize:00000000 TxBufferSize
+C:\Users\sMi\AppData\Local\Temp\ccGb4gdG.s:22622  .data.TxBufferSize:00000000 $d
+                            *COM*:0000001e TxBuffer
+C:\Users\sMi\AppData\Local\Temp\ccGb4gdG.s:22633  .bss.ADC1ConvertedValue:00000000 ADC1ConvertedValue
+C:\Users\sMi\AppData\Local\Temp\ccGb4gdG.s:22630  .bss.ADC1ConvertedValue:00000000 $d
+                            *COM*:00000004 RMS
+                            *COM*:00000004 LicznikProbek
+                            *COM*:00000004 val
+C:\Users\sMi\AppData\Local\Temp\ccGb4gdG.s:22642  .bss.flaga:00000000 flaga
+C:\Users\sMi\AppData\Local\Temp\ccGb4gdG.s:22643  .bss.flaga:00000000 $d
+C:\Users\sMi\AppData\Local\Temp\ccGb4gdG.s:22652  .text.main:00000000 $t
+C:\Users\sMi\AppData\Local\Temp\ccGb4gdG.s:22657  .text.main:00000000 main
+C:\Users\sMi\AppData\Local\Temp\ccGb4gdG.s:22923  .text.main:000001e4 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+NVIC_Init
+__aeabi_fmul
+__aeabi_fadd
+__aeabi_fcmpeq
+__aeabi_fdiv
+__aeabi_f2d
+__aeabi_d2f
+__aeabi_f2uiz
+RCC_On
+GPIO_init
+ADC_init
+USART_init
+DMA_init
+Timer_init
+USART_Cmd
+USART_DMACmd
+DMA_Cmd
+ADC_DMACmd
+ADC_ExternalTrigConvCmd
+ADC_Cmd
+ADC_ResetCalibration
+ADC_GetResetCalibrationStatus
+ADC_StartCalibration
+ADC_GetCalibrationStatus
+TIM_Cmd
+TIM_CtrlPWMOutputs
+Notching
+HighPass
+sqrt
